@@ -59,6 +59,14 @@
   }
 }
 
+*::-webkit-scrollbar {
+  width: 0px;
+}
+
+*::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
 @layer base {
   * {
     @apply border-border;
@@ -71,8 +79,12 @@
 
     @apply select-none;
 
-    @apply font-mono antialiased;
+    @apply font-arial antialiased;
 
     @apply overflow-hidden;
   }
+}
+
+.name-list {
+  @apply text-[20px] grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 overflow-auto h-screen p-4;
 }

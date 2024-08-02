@@ -16,6 +16,11 @@ module.exports = {
         '2xl': '1400px'
       }
     },
+    fontFamily: {
+      // sans: ['Inter', 'sans-serif'],
+      // mono: ['JetBrains Mono', 'monospace'],
+      arial: ['Arial', 'sans-serif']
+    },
     extend: {
       colors: {
         sidebar: '#5382DE',

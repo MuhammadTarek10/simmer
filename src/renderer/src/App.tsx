@@ -1,9 +1,9 @@
-import Adding from '@/pages/Adding'
-import Companies, { companiesLoader } from '@/pages/Companies'
-import Customers, { customersLoader } from '@/pages/Customers'
-import Home from '@/pages/Home'
+import Adding from '@/pages/Adding/Adding'
+import Companies, { companiesLoader } from '@/pages/Companies/Companies'
+import Customers, { customersLoader } from '@/pages/Customers/Customers'
+import Home from '@/pages/Home/Home'
 import Layout from '@/pages/Layout'
-import List from '@/pages/List'
+import List from '@/pages/List/List'
 import { requireAuth } from '@shared/auth.actions'
 import { routes } from '@shared/constants'
 import {
@@ -13,7 +13,7 @@ import {
   RouterProvider
 } from 'react-router-dom'
 import './assets/globals.css'
-import Login from './pages/Login'
+import Login from './pages/Login/Login'
 
 function App() {
   const router = createBrowserRouter(
