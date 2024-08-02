@@ -13,6 +13,8 @@ import {
   RouterProvider
 } from 'react-router-dom'
 import './assets/globals.css'
+import CompanyDetails, { companyDetailsLoader } from './pages/Companies/CompanyDetails'
+import CustomerDetails, { customerDetailsLoader } from './pages/Customers/CustomerDetails'
 import Login from './pages/Login/Login'
 
 function App() {
@@ -24,8 +26,18 @@ function App() {
           <Route path={routes.home} element={<Home />} />
           <Route path={routes.list} element={<List />} />
           <Route path={routes.companies} element={<Companies />} loader={companiesLoader} />
+          <Route
+            path={routes.companyDetails}
+            element={<CompanyDetails />}
+            loader={companyDetailsLoader}
+          />
           <Route path={routes.adding} element={<Adding />} />
           <Route path={routes.customers} element={<Customers />} loader={customersLoader} />
+          <Route
+            path={routes.customerDetails}
+            element={<CustomerDetails />}
+            loader={customerDetailsLoader}
+          />
         </Route>
       </Route>
     )
