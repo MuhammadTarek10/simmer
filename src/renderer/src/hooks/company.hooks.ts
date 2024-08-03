@@ -1,4 +1,4 @@
-import { mockCompanies } from '../mocks/dummy'
+import { mockCompanies } from '../../../shared/mocks/dummy'
 
 export const useCompany = () => {
   return {

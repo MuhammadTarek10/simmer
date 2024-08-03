@@ -7,7 +7,7 @@ const Layout = () => {
       <aside>
         <Sidebar />
       </aside>
-      <main className="flex flex-col w-full">
+      <main className="flex flex-col w-full h-screen overflow-auto">
         <Outlet />
       </main>
     </div>

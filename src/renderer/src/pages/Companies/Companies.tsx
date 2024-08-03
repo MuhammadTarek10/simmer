@@ -2,7 +2,7 @@ import NameCard from '@/components/NameCard'
 import { requireAuth } from '@shared/auth.actions'
 import { Company } from '@shared/models'
 import { defer, Link, useLoaderData } from 'react-router-dom'
-import { mockCompanies } from '../../mocks/dummy'
+import { mockCompanies } from '../../../../shared/mocks/dummy'
 
 export async function companiesLoader() {
   await requireAuth()

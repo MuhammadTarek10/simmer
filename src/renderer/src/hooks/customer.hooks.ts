@@ -1,4 +1,4 @@
-import { mockCustomers } from '../mocks/dummy'
+import { mockCustomers } from '../../../shared/mocks/dummy'
 
 export const useCustomer = () => {
   return {

@@ -1,4 +1,5 @@
-import { Company, Customer } from '@shared/models'
+import { CardInfo, Company, Customer } from '@shared/models'
+import { CompanyInfo } from '../models'
 
 export const mockCompanies: Company[] = [
   {
@@ -217,3 +218,109 @@ export const mockCustomers: Customer[] = [
     name: 'Customer 26'
   }
 ]
+
+export const mockCards: CardInfo[] = [
+  {
+    id: '24124',
+    card_number: 'Card 1',
+    company_name: 'Company 1',
+    offer_name: 'Offer 1',
+    price: 100,
+    card_type: 'phone'
+  },
+  {
+    id: '24125',
+    card_number: 'Card 2',
+    company_name: 'Company 2',
+    offer_name: 'Offer 2',
+    price: 200,
+    card_type: 'phone'
+  },
+  {
+    id: '24126',
+    card_number: 'Card 3',
+    company_name: 'Company 3',
+    offer_name: 'Offer 3',
+    price: 300,
+    card_type: 'phone'
+  },
+  {
+    id: '24127',
+    card_number: 'Card 4',
+    company_name: 'Company 4',
+    offer_name: 'Offer 4',
+    price: 400,
+    card_type: 'phone'
+  },
+  {
+    id: '24128',
+    card_number: 'Card 5',
+    company_name: 'Company 5',
+    offer_name: 'Offer 5',
+    price: 500,
+    card_type: 'phone'
+  },
+  {
+    id: '24129',
+    card_number: 'Card 6',
+    company_name: 'Company 6',
+    offer_name: 'Offer 6',
+    price: 600,
+    card_type: 'phone'
+  },
+  {
+    id: '24130',
+    card_number: 'Card 7',
+    company_name: 'Company 7',
+    offer_name: 'Offer 7',
+    price: 700,
+    card_type: 'phone'
+  },
+  {
+    id: '24131',
+    card_number: 'Card 8',
+    company_name: 'Company 8',
+    offer_name: 'Offer 8',
+    price: 800,
+    card_type: 'phone'
+  },
+  {
+    id: '24132',
+    card_number: 'Card 9',
+    company_name: 'Company 9',
+    offer_name: 'Offer 9',
+    price: 900,
+    card_type: 'phone'
+  },
+  {
+    id: '24133',
+    card_number: 'Card 10',
+    company_name: 'Company 10',
+    offer_name: 'Offer 10',
+    price: 1000,
+    card_type: 'phone'
+  },
+  {
+    id: '24134',
+    card_number: 'Card 11',
+    company_name: 'Company 11',
+    offer_name: 'Offer 11',
+    price: 1100,
+    card_type: 'phone'
+  }
+]
+
+export const mockCompaniesDetails: CompanyInfo = {
+  id: '24124',
+  name: 'Company 1',
+  phone: '123456789',
+  invoice_date: '2021-01-01',
+  number_of_mobile_cards: 10,
+  total_mobile_before_vat: 1000,
+  total_mobile_after_vat: 1100,
+  number_of_local_cards: 20,
+  total_local_before_vat: 2000,
+  total_local_after_vat: 2200,
+  comment: 'Comment 1',
+  cards: mockCards
+}

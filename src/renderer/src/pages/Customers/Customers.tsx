@@ -1,7 +1,7 @@
 import NameCard from '@/components/NameCard'
 import { Customer } from '@shared/models'
 import { defer, Link, useLoaderData } from 'react-router-dom'
-import { mockCustomers } from '../../mocks/dummy'
+import { mockCustomers } from '../../../../shared/mocks/dummy'
 
 export async function customersLoader() {
   return defer({ customers: mockCustomers })

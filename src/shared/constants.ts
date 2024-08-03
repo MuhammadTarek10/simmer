@@ -3,8 +3,10 @@ export const routes = {
   list: 'list',
   companies: 'companies',
   companyDetails: 'companies/:id',
-  adding: 'adding',
+  cards: 'cards',
+  cardDetails: 'cards/:id',
   customers: 'customers',
   customerDetails: 'customers/:id',
+  adding: 'adding',
   login: 'login'
 }

@@ -13,6 +13,8 @@ import {
   RouterProvider
 } from 'react-router-dom'
 import './assets/globals.css'
+import CardDetails, { cardDetailsLoader } from './pages/Cards/CardDetails'
+import Cards, { cardsLoader } from './pages/Cards/Cards'
 import CompanyDetails, { companyDetailsLoader } from './pages/Companies/CompanyDetails'
 import CustomerDetails, { customerDetailsLoader } from './pages/Customers/CustomerDetails'
 import Login from './pages/Login/Login'
@@ -23,7 +25,7 @@ function App() {
       <Route>
         <Route path={routes.login} element={<Login />} />
         <Route path={routes.home} element={<Layout />} loader={async (_) => await requireAuth()}>
-          <Route path={routes.home} element={<Home />} />
+          <Route index path={routes.home} element={<Home />} />
           <Route path={routes.list} element={<List />} />
           <Route path={routes.companies} element={<Companies />} loader={companiesLoader} />
           <Route
@@ -38,6 +40,8 @@ function App() {
             element={<CustomerDetails />}
             loader={customerDetailsLoader}
           />
+          <Route path={routes.cards} element={<Cards />} loader={cardsLoader} />
+          <Route path={routes.cardDetails} element={<CardDetails />} loader={cardDetailsLoader} />
         </Route>
       </Route>
     )
