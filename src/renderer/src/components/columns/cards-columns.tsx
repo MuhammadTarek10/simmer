@@ -30,7 +30,7 @@ export const cardsColumns: ColumnDef<CardInfo>[] = [
     }
   },
   {
-    accessorKey: 'price',
+    accessorKey: 'price_after_vat',
     header: ({ column }) => <SortableButton title="السعر" column={column} />
   },
   {

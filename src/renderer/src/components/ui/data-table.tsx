@@ -23,12 +23,14 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
   format?: boolean
+  divClassname?: string
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
-  format = false
+  format = false,
+  divClassname
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([])
 
@@ -54,7 +56,7 @@ export function DataTable<TData, TValue>({
   }
   return (
     <div className="flex rounded-md border text-center">
-      <Table>
+      <Table className={divClassname}>
         <TableHeader className="top-0 sticky bg-gray-200 text-xl">
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>

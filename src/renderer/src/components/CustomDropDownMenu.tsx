@@ -6,10 +6,10 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
 import { cn } from '@/utils/utils'
-import { DropDownItemType } from '@shared/types'
+import { DropDownOption } from '@shared/types'
 import { BsThreeDotsVertical } from 'react-icons/bs'
 
-const CustomDropDownMenu = ({ options }: { options?: DropDownItemType[] }) => {
+const CustomDropDownMenu = ({ options }: { options?: DropDownOption[] }) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>

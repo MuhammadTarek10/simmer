@@ -1,7 +1,7 @@
 import CustomDropDownMenu from '@/components/CustomDropDownMenu'
 import { requireAuth } from '@shared/auth.actions'
 import { CustomerInfo } from '@shared/models'
-import { DropDownItemType } from '@shared/types'
+import { DropDownOption } from '@shared/types'
 import { FaRegEdit } from 'react-icons/fa'
 import { GrView } from 'react-icons/gr'
 import { IoMdAdd } from 'react-icons/io'
@@ -26,7 +26,7 @@ export async function customerDetailsLoader({ params }) {
   })
 }
 
-const options: DropDownItemType[] = [
+const options: DropDownOption[] = [
   { name: 'تعديل', icon: <FaRegEdit size={20} /> },
   { name: 'عرض الفواتير', icon: <GrView size={20} /> },
   { name: 'عمل فاتورة', icon: <IoMdAdd size={20} /> },

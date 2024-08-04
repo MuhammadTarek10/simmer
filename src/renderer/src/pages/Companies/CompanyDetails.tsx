@@ -5,14 +5,14 @@ import { extractCompanyDetails } from '@/utils/utils'
 import { requireAuth } from '@shared/auth.actions'
 import { mockCompaniesDetails } from '@shared/mocks/dummy'
 import { CompanyInfo } from '@shared/models'
-import { DropDownItemType } from '@shared/types'
+import { DropDownOption } from '@shared/types'
 import { BsTrash } from 'react-icons/bs'
 import { FaRegEdit } from 'react-icons/fa'
 import { defer, useLoaderData } from 'react-router-dom'
 import CardsStat from './components/CardsStat'
 import TotalStat from './components/TotalStat'
 
-const options: DropDownItemType[] = [
+const options: DropDownOption[] = [
   { name: 'تعديل', icon: <FaRegEdit size={20} /> },
   { name: 'حذف', className: 'text-red-500', icon: <BsTrash size={20} /> }
 ]

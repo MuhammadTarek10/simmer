@@ -1,3 +1,4 @@
+import CustomSelect from '@/components/CustomSelect'
 import SearchInput from '@/components/SearchInput'
 import { mockListData } from '@shared/mocks/dummy'
 import { ListData } from '@shared/models'
@@ -6,11 +7,11 @@ import { defer, useLoaderData } from 'react-router-dom'
 import MonthTable from './components/MonthTable'
 
 export async function listLoader() {
-  return defer({ data: mockListData })
+  return defer({ data: mockListData, years: ['2024', '2023', '2022'] })
 }
 
 const List = () => {
-  const { data } = useLoaderData() as { data: ListData[] }
+  const { data, years } = useLoaderData() as { data: ListData[]; years: string[] }
   const [search, setSearch] = useState('')
   const [filteredData, setFilteredData] = useState(data)
 
@@ -29,7 +30,14 @@ const List = () => {
 
   return (
     <div className="p-2">
-      <SearchInput value={search} onChange={(e) => setSearch(e.target.value)} />
+      <div className="flex">
+        <SearchInput value={search} onChange={(e) => setSearch(e.target.value)} />
+        <CustomSelect
+          placeholder="العام"
+          options={years.map((year) => ({ name: year }))}
+          onChange={() => {}}
+        />
+      </div>
       <div className="mt-4">
         {filteredData.map((monthData) => (
           <MonthTable key={monthData.month} data={monthData} />
