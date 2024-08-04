@@ -27,6 +27,7 @@ module.exports = {
         text: '#000000',
         action: '#385B9E',
         success: '#00D247',
+        failure: '#FF00007A',
         subtitle: '#4A4A4A',
         total: '#BA9DF975',
         border: 'hsl(var(--border))',

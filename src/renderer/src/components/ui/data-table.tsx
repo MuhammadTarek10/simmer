@@ -22,10 +22,14 @@ import * as React from 'react'
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
-  divClassname?: string
+  format?: boolean
 }
 
-export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
+export function DataTable<TData, TValue>({
+  columns,
+  data,
+  format = false
+}: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([])
 
   const table = useReactTable({
@@ -45,6 +49,9 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
     }
   })
 
+  const getRowColor = (row): string => {
+    return row.original.paid >= row.original.remaining ? 'bg-success' : 'bg-failure'
+  }
   return (
     <div className="flex rounded-md border text-center">
       <Table>
@@ -66,7 +73,11 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
         <TableBody>
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
-              <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
+              <TableRow
+                key={row.id}
+                data-state={row.getIsSelected() && 'selected'}
+                className={format ? getRowColor(row) : ''}
+              >
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}

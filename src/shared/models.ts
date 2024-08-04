@@ -37,3 +37,20 @@ export interface CardInfo {
   price_after_vat: number
   comment?: string
 }
+
+export interface ListInfo {
+  customer_id: string
+  name: string
+  card_number: string
+  company_name: string
+  offer_name?: string
+  invoice_date?: string
+  paid?: number
+  remaining?: number
+  comment?: string
+}
+
+export interface ListData {
+  month: string
+  info: ListInfo[]
+}

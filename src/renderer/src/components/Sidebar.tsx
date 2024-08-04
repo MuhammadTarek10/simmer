@@ -3,6 +3,7 @@ import companiesOn from '@/assets/icons/companies-on.svg'
 import customersOn from '@/assets/icons/customer-on.svg'
 import homeOn from '@/assets/icons/home-on.svg'
 import listOn from '@/assets/icons/list-on.svg'
+import money from '@/assets/icons/money.svg'
 import sim from '@/assets/icons/sim.svg'
 import { routes } from '@shared/constants'
 import CustomNavLink from './CustomNavLink'
@@ -32,6 +33,11 @@ const sidebarLinks = [
     href: routes.cards,
     icon: sim,
     alt: 'الخطوط'
+  },
+  {
+    href: routes.invoices,
+    icon: money,
+    alt: 'الفواتير'
   },
   {
     href: routes.adding,

@@ -1,4 +1,4 @@
-import { CardInfo, Company, Customer } from '@shared/models'
+import { CardInfo, Company, Customer, ListData } from '@shared/models'
 import { CompanyInfo } from '../models'
 
 export const mockCompanies: Company[] = [
@@ -225,7 +225,8 @@ export const mockCards: CardInfo[] = [
     card_number: 'Card 1',
     company_name: 'Company 1',
     offer_name: 'Offer 1',
-    price: 100,
+    price_before_vat: 200,
+    price_after_vat: 100,
     card_type: 'phone'
   },
   {
@@ -233,7 +234,8 @@ export const mockCards: CardInfo[] = [
     card_number: 'Card 2',
     company_name: 'Company 2',
     offer_name: 'Offer 2',
-    price: 200,
+    price_before_vat: 200,
+    price_after_vat: 200,
     card_type: 'phone'
   },
   {
@@ -241,7 +243,8 @@ export const mockCards: CardInfo[] = [
     card_number: 'Card 3',
     company_name: 'Company 3',
     offer_name: 'Offer 3',
-    price: 300,
+    price_before_vat: 200,
+    price_after_vat: 300,
     card_type: 'phone'
   },
   {
@@ -249,7 +252,8 @@ export const mockCards: CardInfo[] = [
     card_number: 'Card 4',
     company_name: 'Company 4',
     offer_name: 'Offer 4',
-    price: 400,
+    price_before_vat: 200,
+    price_after_vat: 400,
     card_type: 'phone'
   },
   {
@@ -257,7 +261,8 @@ export const mockCards: CardInfo[] = [
     card_number: 'Card 5',
     company_name: 'Company 5',
     offer_name: 'Offer 5',
-    price: 500,
+    price_before_vat: 200,
+    price_after_vat: 500,
     card_type: 'phone'
   },
   {
@@ -265,7 +270,8 @@ export const mockCards: CardInfo[] = [
     card_number: 'Card 6',
     company_name: 'Company 6',
     offer_name: 'Offer 6',
-    price: 600,
+    price_before_vat: 200,
+    price_after_vat: 600,
     card_type: 'phone'
   },
   {
@@ -273,7 +279,8 @@ export const mockCards: CardInfo[] = [
     card_number: 'Card 7',
     company_name: 'Company 7',
     offer_name: 'Offer 7',
-    price: 700,
+    price_before_vat: 200,
+    price_after_vat: 700,
     card_type: 'phone'
   },
   {
@@ -281,7 +288,8 @@ export const mockCards: CardInfo[] = [
     card_number: 'Card 8',
     company_name: 'Company 8',
     offer_name: 'Offer 8',
-    price: 800,
+    price_before_vat: 200,
+    price_after_vat: 800,
     card_type: 'phone'
   },
   {
@@ -289,7 +297,8 @@ export const mockCards: CardInfo[] = [
     card_number: 'Card 9',
     company_name: 'Company 9',
     offer_name: 'Offer 9',
-    price: 900,
+    price_before_vat: 200,
+    price_after_vat: 900,
     card_type: 'phone'
   },
   {
@@ -297,7 +306,8 @@ export const mockCards: CardInfo[] = [
     card_number: 'Card 10',
     company_name: 'Company 10',
     offer_name: 'Offer 10',
-    price: 1000,
+    price_before_vat: 200,
+    price_after_vat: 1000,
     card_type: 'phone'
   },
   {
@@ -305,7 +315,8 @@ export const mockCards: CardInfo[] = [
     card_number: 'Card 11',
     company_name: 'Company 11',
     offer_name: 'Offer 11',
-    price: 1100,
+    price_before_vat: 200,
+    price_after_vat: 1100,
     card_type: 'phone'
   }
 ]
@@ -315,12 +326,125 @@ export const mockCompaniesDetails: CompanyInfo = {
   name: 'Company 1',
   phone: '123456789',
   invoice_date: '2021-01-01',
-  number_of_mobile_cards: 10,
-  total_mobile_before_vat: 1000,
-  total_mobile_after_vat: 1100,
-  number_of_local_cards: 20,
-  total_local_before_vat: 2000,
-  total_local_after_vat: 2200,
   comment: 'Comment 1',
   cards: mockCards
 }
+
+export const mockListData: ListData[] = [
+  {
+    month: 'January',
+    info: [
+      {
+        customer_id: '24124',
+        name: 'Customer 1',
+        card_number: 'Card 1',
+        company_name: 'Company 1',
+        offer_name: 'Offer 1',
+        invoice_date: '2021-01-01',
+        paid: 100,
+        remaining: 200,
+        comment: 'Comment 1'
+      },
+      {
+        customer_id: '24125',
+        name: 'Customer 2',
+        card_number: 'Card 2',
+        company_name: 'Company 2',
+        offer_name: 'Offer 2',
+        invoice_date: '2021-01-01',
+        paid: 200,
+        remaining: 200,
+        comment: 'Comment 2'
+      },
+      {
+        customer_id: '24126',
+        name: 'Customer 3',
+        card_number: 'Card 3',
+        company_name: 'Company 3',
+        offer_name: 'Offer 3',
+        invoice_date: '2021-01-01',
+        paid: 300,
+        remaining: 300,
+        comment: 'Comment 3'
+      },
+      {
+        customer_id: '24127',
+        name: 'Customer 4',
+        card_number: 'Card 4',
+        company_name: 'Company 4',
+        offer_name: 'Offer 4',
+        invoice_date: '2021-01-01',
+        paid: 400,
+        remaining: 500,
+        comment: 'Comment 4'
+      },
+      {
+        customer_id: '24128',
+        name: 'Customer 5',
+        card_number: 'Card 5',
+        company_name: 'Company 5',
+        offer_name: 'Offer 5',
+        invoice_date: '2021-01-01',
+        paid: 500,
+        remaining: 500,
+        comment: 'Comment 5'
+      }
+    ]
+  },
+  {
+    month: 'February',
+    info: mockCards.map((card) => ({
+      customer_id: '24125',
+      name: 'Customer 2',
+      card_number: card.card_number,
+      company_name: card.company_name,
+      offer_name: card.offer_name,
+      invoice_date: '2021-02-01',
+      paid: 200,
+      remaining: 200,
+      comment: 'Comment 2'
+    }))
+  },
+  {
+    month: 'March',
+    info: mockCards.map((card) => ({
+      customer_id: '24126',
+      name: 'Customer 3',
+      card_number: card.card_number,
+      company_name: card.company_name,
+      offer_name: card.offer_name,
+      invoice_date: '2021-03-01',
+      paid: 300,
+      remaining: 200,
+      comment: 'Comment 3'
+    }))
+  },
+  {
+    month: 'April',
+    info: mockCards.map((card) => ({
+      customer_id: '24127',
+      name: 'Customer 4',
+      card_number: card.card_number,
+      company_name: card.company_name,
+      offer_name: card.offer_name,
+      invoice_date: '2021-04-01',
+      paid: 200,
+      remaining: 200,
+      comment: 'Comment 4'
+    }))
+  },
+  {
+    month: 'May',
+    info: mockCards.map((card) => ({
+      customer_id: '24128',
+      name: 'Customer 5',
+      card_number: card.card_number,
+      company_name: card.company_name,
+      offer_name: card.offer_name,
+      invoice_date: '2021-05-01',
+      paid: 500,
+      remaining: 500,
+      comment: 'Comment 5'
+    }))
+  }
+]
