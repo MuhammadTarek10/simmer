@@ -2,11 +2,11 @@ import NameCard from '@/components/NameCard'
 import { requireAuth } from '@shared/actions/auth.actions'
 import { Company } from '@shared/models'
 import { defer, Link, useLoaderData } from 'react-router-dom'
-import { mockCompanies } from '../../../../shared/mocks/dummy'
 
 export async function companiesLoader() {
   await requireAuth()
-  return defer({ companies: mockCompanies })
+  const companies = await window.context.getCompanies()
+  return defer({ companies: companies })
 }
 
 const Companies = () => {

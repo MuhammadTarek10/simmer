@@ -1,7 +1,12 @@
+import { AddCompany, DeleteCompany, GetCompanies, GetCompany, UpdateCompany } from '@shared/types'
 declare global {
   interface Window {
     context: {
-      // TODO: Add your APIs here
+      getCompanies: GetCompanies
+      getCompany: GetCompany
+      addCompany: AddCompany
+      updateCompany: UpdateCompany
+      deleteCompany: DeleteCompany
     }
   }
 }

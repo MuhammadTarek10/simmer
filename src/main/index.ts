@@ -1,7 +1,16 @@
 import { electronApp, is, optimizer } from '@electron-toolkit/utils'
+import { functionNames } from '@shared/constants'
+import { AddCompany, DeleteCompany, GetCompanies, GetCompany, UpdateCompany } from '@shared/types'
 import { app, BrowserWindow, ipcMain, shell } from 'electron'
 import { join } from 'path'
 import icon from '../../resources/icon.png?asset'
+import {
+  addCompany,
+  deleteCompany,
+  getCompanies,
+  getCompany,
+  updateCompany
+} from './lib/company.actions'
 
 function createWindow(): void {
   // Create the browser window.
@@ -55,8 +64,21 @@ app.whenReady().then(() => {
     optimizer.watchWindowShortcuts(window)
   })
 
-  // IPC test
-  ipcMain.on('ping', () => console.log('pong'))
+  ipcMain.handle(functionNames.getCompanies, async (_, ...args: Parameters<GetCompanies>) =>
+    getCompanies(...args)
+  )
+  ipcMain.handle(functionNames.getCompany, async (_, ...args: Parameters<GetCompany>) =>
+    getCompany(...args)
+  )
+  ipcMain.handle(functionNames.addCompany, async (_, ...args: Parameters<AddCompany>) =>
+    addCompany(...args)
+  )
+  ipcMain.handle(functionNames.updateCompany, async (_, ...args: Parameters<UpdateCompany>) =>
+    updateCompany(...args)
+  )
+  ipcMain.handle(functionNames.deleteCompany, async (_, ...args: Parameters<DeleteCompany>) =>
+    deleteCompany(...args)
+  )
 
   createWindow()
 

@@ -12,3 +12,11 @@ export const routes = {
   adding: 'adding',
   login: 'login'
 }
+
+export const functionNames = {
+  getCompanies: 'getCompanies',
+  getCompany: 'getCompany',
+  addCompany: 'addCompany',
+  updateCompany: 'updateCompany',
+  deleteCompany: 'deleteCompany'
+}
