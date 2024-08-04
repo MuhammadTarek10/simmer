@@ -1,5 +1,5 @@
 import NameCard from '@/components/NameCard'
-import { requireAuth } from '@shared/auth.actions'
+import { requireAuth } from '@shared/actions/auth.actions'
 import { Company } from '@shared/models'
 import { defer, Link, useLoaderData } from 'react-router-dom'
 import { mockCompanies } from '../../../../shared/mocks/dummy'

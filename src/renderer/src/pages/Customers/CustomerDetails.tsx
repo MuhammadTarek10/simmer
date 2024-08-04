@@ -1,5 +1,5 @@
 import CustomDropDownMenu from '@/components/CustomDropDownMenu'
-import { requireAuth } from '@shared/auth.actions'
+import { requireAuth } from '@shared/actions/auth.actions'
 import { CustomerInfo } from '@shared/models'
 import { DropDownOption } from '@shared/types'
 import { FaRegEdit } from 'react-icons/fa'
@@ -47,7 +47,7 @@ const CustomerDetails = () => {
       <div>
         <hr className="my-4 border-gray-300" />
         <div className="flex flex-col gap-4">
-          <h2 className="text-xl">الأسم الكامل: {customer.name}</h2>
+          <h2 className="text-xl">الاسم الكامل: {customer.name}</h2>
           <h2 className="text-xl">اسم الجد: {customer.grand_name}</h2>
           <h2 className="text-xl">العنوان: {customer.address}</h2>
         </div>

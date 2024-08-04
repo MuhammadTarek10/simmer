@@ -4,7 +4,7 @@ import Customers, { customersLoader } from '@/pages/Customers/Customers'
 import Home from '@/pages/Home/Home'
 import Layout from '@/pages/Layout'
 import List, { listLoader } from '@/pages/List/List'
-import { requireAuth } from '@shared/auth.actions'
+import { requireAuth } from '@shared/actions/auth.actions'
 import { routes } from '@shared/constants'
 import {
   createBrowserRouter,

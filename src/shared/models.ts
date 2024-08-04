@@ -23,6 +23,7 @@ export interface CustomerInfo {
   national_id: string
   grand_name: string
   address: string
+  cards?: CardInfo[]
   comment?: string
 }
 
@@ -53,4 +54,19 @@ export interface ListInfo {
 export interface ListData {
   month: string
   info: ListInfo[]
+}
+
+export interface OfferInfo {
+  id: string
+  name: string
+  period_in_month: number
+  percentage: number
+  comment?: string
+}
+
+export interface InvoiceInfo {
+  customer_name: string
+  invoice_date: string
+  amount: number
+  comment?: string
 }

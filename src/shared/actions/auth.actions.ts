@@ -1,4 +1,4 @@
-import { redirect } from './redirect'
+import { redirect } from '../redirect'
 
 export async function requireAuth() {
   return null

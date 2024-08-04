@@ -1,4 +1,4 @@
-import { CardInfo, Company, Customer, ListData } from '@shared/models'
+import { CardInfo, Company, Customer, ListData, OfferInfo } from '@shared/models'
 import { CompanyInfo } from '../models'
 
 export const mockCompanies: Company[] = [
@@ -446,5 +446,78 @@ export const mockListData: ListData[] = [
       remaining: 500,
       comment: 'Comment 5'
     }))
+  }
+]
+
+export const mockOffers: OfferInfo[] = [
+  {
+    id: '24124',
+    name: 'Offer 1',
+    percentage: 10,
+    period_in_month: 1,
+    comment: 'Comment 1'
+  },
+  {
+    id: '24125',
+    name: 'Offer 2',
+    percentage: 20,
+    period_in_month: 2,
+    comment: 'Comment 2'
+  },
+  {
+    id: '24126',
+    name: 'Offer 3',
+    percentage: 30,
+    period_in_month: 3,
+    comment: 'Comment 3'
+  },
+  {
+    id: '24127',
+    name: 'Offer 4',
+    percentage: 40,
+    period_in_month: 4,
+    comment: 'Comment 4'
+  },
+  {
+    id: '24128',
+    name: 'Offer 5',
+    percentage: 50,
+    period_in_month: 5,
+    comment: 'Comment 5'
+  },
+  {
+    id: '24129',
+    name: 'Offer 6',
+    percentage: 60,
+    period_in_month: 6,
+    comment: 'Comment 6'
+  },
+  {
+    id: '24130',
+    name: 'Offer 7',
+    percentage: 70,
+    period_in_month: 7,
+    comment: 'Comment 7'
+  },
+  {
+    id: '24131',
+    name: 'Offer 8',
+    percentage: 80,
+    period_in_month: 8,
+    comment: 'Comment 8'
+  },
+  {
+    id: '24132',
+    name: 'Offer 9',
+    percentage: 90,
+    period_in_month: 9,
+    comment: 'Comment 9'
+  },
+  {
+    id: '24133',
+    name: 'Offer 10',
+    percentage: 100,
+    period_in_month: 10,
+    comment: 'Comment 10'
   }
 ]

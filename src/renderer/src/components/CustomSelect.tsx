@@ -11,16 +11,18 @@ import { DropDownOption } from '@shared/types'
 const CustomSelect = ({
   placeholder,
   options,
-  onChange
+  onChange,
+  className
 }: {
   placeholder: string
   options?: DropDownOption[]
   onChange: (value: string) => void
+  className?: string
 }) => {
   return (
     <div className="flex p-2">
       <Select onValueChange={onChange}>
-        <SelectTrigger className="flex justify-center items-center">
+        <SelectTrigger className={className || 'flex justify-center items-center'}>
           <SelectValue placeholder={placeholder} />
         </SelectTrigger>
         <SelectContent>

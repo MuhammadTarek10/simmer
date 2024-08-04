@@ -30,6 +30,7 @@ module.exports = {
         failure: '#FF4545',
         subtitle: '#4A4A4A',
         total: '#BA9DF975',
+        save: '#567BFF',
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
