@@ -6,8 +6,8 @@ export interface Company {
 export interface CompanyInfo {
   id: string
   name: string
-  phone?: string
   invoice_date?: string
+  phone?: string
   comment?: string
   cards?: CardInfo[]
 }

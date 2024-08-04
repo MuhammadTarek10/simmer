@@ -1,13 +1,34 @@
-import { mockCompanies } from '@shared/mocks/dummy'
+import { toCompanyMain, toCompanyRenderer } from '@shared/mappers'
 import { CompanyInfo } from '@shared/models'
+import { prisma } from './database'
 
-export async function addCompany(company: CompanyInfo): Promise<void> {}
+export async function addCompany(company: CompanyInfo): Promise<void> {
+  await prisma.company.create({
+    data: toCompanyMain(company)
+  })
+}
 
 export async function getCompanies(): Promise<CompanyInfo[]> {
-  return mockCompanies
+  const companies = await prisma.company.findMany()
+  return companies.map((company) => toCompanyRenderer(company))
 }
-export async function getCompany(id: string): Promise<CompanyInfo> {}
+export async function getCompany(id: string): Promise<CompanyInfo> {
+  const company = await prisma.company.findUnique({ where: { id } })
+  return toCompanyRenderer(company)
+}
 
-export async function updateCompany(company: CompanyInfo): Promise<void> {}
+export async function updateCompany(company: CompanyInfo): Promise<void> {
+  await prisma.company.update({
+    where: { id: company.id },
+    data: {
+      name: company.name,
+      invoice_date: company.invoice_date,
+      phone: company.phone,
+      comment: company.comment
+    }
+  })
+}
 
-export async function deleteCompany(id: string): Promise<void> {}
+export async function deleteCompany(id: string): Promise<void> {
+  await prisma.company.delete({ where: { id } })
+}

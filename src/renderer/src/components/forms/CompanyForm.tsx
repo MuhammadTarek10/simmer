@@ -1,5 +1,5 @@
-import { convertStringToDate as convertTextToDate } from '@/utils/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { convertStringToDate } from '@shared/converters'
 import { CompanyInfo } from '@shared/models'
 import { CompanyValidationSchema } from '@shared/validation'
 import { useState } from 'react'
@@ -16,7 +16,7 @@ const CompanyForm = ({ company }: { company?: CompanyInfo }) => {
     resolver: zodResolver(CompanyValidationSchema),
     defaultValues: {
       ...company,
-      invoice_date: convertTextToDate(company?.invoice_date)
+      invoice_date: convertStringToDate(company?.invoice_date)
     }
   })
 
