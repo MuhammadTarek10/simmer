@@ -18,5 +18,19 @@ export const functionNames = {
   getCompany: 'getCompany',
   addCompany: 'addCompany',
   updateCompany: 'updateCompany',
-  deleteCompany: 'deleteCompany'
+  deleteCompany: 'deleteCompany',
+  getCustomers: 'getCustomers',
+  getCustomer: 'getCustomer',
+  addCustomer: 'addCustomer',
+  updateCustomer: 'updateCustomer',
+  deleteCustomer: 'deleteCustomer',
+  getCards: 'getCards',
+  addCard: 'addCard',
+  updateCard: 'updateCard',
+  deleteCard: 'deleteCard',
+  getList: 'getList',
+  getInvoices: 'getInvoices',
+  addInvoice: 'addInvoice',
+  updateInvoice: 'updateInvoice',
+  deleteInvoice: 'deleteInvoice'
 }

@@ -14,7 +14,7 @@ datasource db {
 model Company {
   id           String   @id @default(uuid())
   name         String
-  invoice_date DateTime
+  invoice_date String
   phone        String?
   created_at   DateTime @default(now())
   updated_at   DateTime @updatedAt
@@ -37,7 +37,7 @@ model Card {
   id          String    @id @default(uuid())
   company_id  String
   card_number String
-  start_date  DateTime
+  start_date  DateTime  @default(now())
   sell_date   DateTime?
   offer_id    String
   created_at  DateTime  @default(now())
@@ -48,6 +48,7 @@ model Card {
   offer     Offer          @relation(fields: [offer_id], references: [id])
   customers CustomerCard[]
 
+  @@index([card_number])
   @@index([company_id])
   @@index([offer_id])
 }
@@ -64,6 +65,8 @@ model Customer {
 
   cards    CustomerCard[]
   invoices Invoice[]
+
+  @@index([name, national_id])
 }
 
 model CustomerCard {

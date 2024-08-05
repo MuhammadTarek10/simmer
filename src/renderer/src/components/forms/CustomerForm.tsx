@@ -19,7 +19,16 @@ const CustomerForm = ({ customer }: { customer?: CustomerInfo }) => {
   })
 
   const onSubmit = async (data: z.infer<typeof CustomerValidationSchema>) => {
-    console.log(data)
+    setIsLoading(true)
+    try {
+      await window.context.addCustomer({
+        ...data
+      })
+    } catch (e) {
+      console.log(e)
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (

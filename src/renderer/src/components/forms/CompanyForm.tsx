@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { convertStringToDate } from '@shared/converters'
+import { convertDateToString, convertStringToDate } from '@shared/converters'
 import { CompanyInfo } from '@shared/models'
 import { CompanyValidationSchema } from '@shared/validation'
 import { useState } from 'react'
@@ -21,7 +21,17 @@ const CompanyForm = ({ company }: { company?: CompanyInfo }) => {
   })
 
   const onSubmit = async (data: z.infer<typeof CompanyValidationSchema>) => {
-    console.log(data)
+    setIsLoading(true)
+    try {
+      await window.context.addCompany({
+        ...data,
+        invoice_date: convertDateToString(data.invoice_date)
+      })
+    } catch (e) {
+      console.log(e)
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (

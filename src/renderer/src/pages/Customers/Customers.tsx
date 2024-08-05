@@ -1,14 +1,16 @@
 import NameCard from '@/components/NameCard'
-import { Customer } from '@shared/models'
+import { requireAuth } from '@shared/actions/auth.actions'
+import { CustomerInfo } from '@shared/models'
 import { defer, Link, useLoaderData } from 'react-router-dom'
-import { mockCustomers } from '../../../../shared/mocks/dummy'
 
 export async function customersLoader() {
-  return defer({ customers: mockCustomers })
+  await requireAuth()
+  const customers = await window.context.getCustomers()
+  return defer({ customers: customers })
 }
 
 const Customers = () => {
-  const { customers } = useLoaderData() as { customers: Customer[] }
+  const { customers } = useLoaderData() as { customers: CustomerInfo[] }
 
   return (
     <div className="gap-4">
@@ -19,7 +21,7 @@ const Customers = () => {
       <div>
         <div className="name-list">
           {customers.map((customer) => (
-            <Link key={customer.id} to={customer.id}>
+            <Link key={customer.id!} to={customer.id!}>
               <NameCard name={customer.name} />
             </Link>
           ))}

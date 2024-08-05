@@ -1,5 +1,6 @@
 import CustomSelect from '@/components/CustomSelect'
 import SearchInput from '@/components/SearchInput'
+import { requireAuth } from '@shared/actions/auth.actions'
 import { mockListData } from '@shared/mocks/dummy'
 import { ListData } from '@shared/models'
 import { useEffect, useState } from 'react'
@@ -7,6 +8,8 @@ import { defer, useLoaderData } from 'react-router-dom'
 import MonthTable from './components/MonthTable'
 
 export async function listLoader() {
+  await requireAuth()
+  const list = await window.context.getList(2024)
   return defer({ data: mockListData, years: ['2024', '2023', '2022'] })
 }
 

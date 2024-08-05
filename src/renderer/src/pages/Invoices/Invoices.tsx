@@ -1,10 +1,14 @@
-import { defer } from 'react-router-dom'
+import { requireAuth } from '@shared/actions/auth.actions'
+import { InvoiceInfo } from '@shared/models'
+import { defer, useLoaderData } from 'react-router-dom'
 
 export async function invoicesLoader() {
-  // TODO
-  return defer({})
+  await requireAuth()
+  const invoices = await window.context.getInvoices()
+  return defer({ invoices: invoices })
 }
 const Invoices = () => {
+  const { invoices } = useLoaderData() as { invoices: InvoiceInfo[] }
   return <div>Invoices</div>
 }
 export default Invoices

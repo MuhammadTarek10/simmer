@@ -1,24 +1,28 @@
 import { cardsColumns } from '@/components/columns/cards-columns'
 import SearchInput from '@/components/SearchInput'
 import { DataTable } from '@/components/ui/data-table'
-import { mockCards } from '@shared/mocks/dummy'
+import { requireAuth } from '@shared/actions/auth.actions'
+import { CardInfo } from '@shared/models'
 import { useEffect, useState } from 'react'
-import { defer } from 'react-router-dom'
+import { defer, useLoaderData } from 'react-router-dom'
 
 export async function cardsLoader() {
-  return defer({ cards: mockCards })
+  await requireAuth()
+  const cards = await window.context.getCards()
+  return defer({ cards: cards })
 }
 
 const Cards = () => {
+  const { cards } = useLoaderData() as { cards: CardInfo[] }
   const [search, setSearch] = useState('')
-  const [cards, setCards] = useState(mockCards)
+  const [filteredCards, setCards] = useState(cards)
   useEffect(() => {
     if (search) {
       setCards(
-        mockCards.filter((card) => card.card_number.toLowerCase().includes(search.toLowerCase()))
+        cards.filter((card) => card.card_number.toLowerCase().includes(search.toLowerCase()))
       )
     } else {
-      setCards(mockCards)
+      setCards(cards)
     }
   }, [search])
 
@@ -28,7 +32,7 @@ const Cards = () => {
         <h1 className="text-3xl font-bold ml-8">الخطوط</h1>
         <SearchInput value={search} onChange={(e) => setSearch(e.target.value)} />
       </div>
-      <DataTable data={cards} columns={cardsColumns} />
+      <DataTable data={filteredCards} columns={cardsColumns} />
     </div>
   )
 }

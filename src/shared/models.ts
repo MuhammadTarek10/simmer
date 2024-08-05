@@ -4,7 +4,7 @@ export interface Company {
 }
 
 export interface CompanyInfo {
-  id: string
+  id?: string
   name: string
   invoice_date?: string
   phone?: string
@@ -18,11 +18,11 @@ export interface Customer {
 }
 
 export interface CustomerInfo {
-  id: string
+  id?: string
   name: string
   national_id: string
   grand_name: string
-  address: string
+  address?: string
   cards?: CardInfo[]
   comment?: string
 }
@@ -31,8 +31,8 @@ export interface CardInfo {
   id: string
   card_number: string
   card_type: string
-  company_name: string
-  offer_name?: string
+  company: Company
+  offer?: OfferInfo
   offer_end_date?: string
   price_before_vat: number
   price_after_vat: number
@@ -65,7 +65,8 @@ export interface OfferInfo {
 }
 
 export interface InvoiceInfo {
-  customer_name: string
+  id: string
+  customer: CustomerInfo
   invoice_date: string
   amount: number
   comment?: string

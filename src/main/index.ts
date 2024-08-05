@@ -1,9 +1,30 @@
 import { electronApp, is, optimizer } from '@electron-toolkit/utils'
 import { functionNames } from '@shared/constants'
-import { AddCompany, DeleteCompany, GetCompanies, GetCompany, UpdateCompany } from '@shared/types'
+import {
+  AddCard,
+  AddCompany,
+  AddCustomer,
+  AddInvoice,
+  DeleteCard,
+  DeleteCompany,
+  DeleteCustomer,
+  DeleteInvoice,
+  GetCards,
+  GetCompanies,
+  GetCompany,
+  GetCustomer,
+  GetCustomers,
+  GetInvoices,
+  GetList,
+  UpdateCard,
+  UpdateCompany,
+  UpdateCustomer,
+  UpdateInvoice
+} from '@shared/types'
 import { app, BrowserWindow, ipcMain, shell } from 'electron'
 import { join } from 'path'
 import icon from '../../resources/icon.png?asset'
+import { addCard, deleteCard, getCards, updateCard } from './lib/card.actions'
 import {
   addCompany,
   deleteCompany,
@@ -11,6 +32,15 @@ import {
   getCompany,
   updateCompany
 } from './lib/company.actions'
+import {
+  addCustomer,
+  deleteCustomer,
+  getCustomer,
+  getCustomers,
+  updateCustomer
+} from './lib/customer.actions'
+import { addInvoice, deleteInvoice, getInvoices, updateInvoice } from './lib/invoices.actions'
+import { getLists } from './lib/list.actions'
 
 function createWindow(): void {
   // Create the browser window.
@@ -64,6 +94,7 @@ app.whenReady().then(() => {
     optimizer.watchWindowShortcuts(window)
   })
 
+  // * Company
   ipcMain.handle(functionNames.getCompanies, async (_, ...args: Parameters<GetCompanies>) =>
     getCompanies(...args)
   )
@@ -78,6 +109,54 @@ app.whenReady().then(() => {
   )
   ipcMain.handle(functionNames.deleteCompany, async (_, ...args: Parameters<DeleteCompany>) =>
     deleteCompany(...args)
+  )
+
+  // * Customer
+  ipcMain.handle(functionNames.getCustomers, async (_, ...args: Parameters<GetCustomers>) =>
+    getCustomers(...args)
+  )
+  ipcMain.handle(functionNames.getCustomer, async (_, ...args: Parameters<GetCustomer>) =>
+    getCustomer(...args)
+  )
+  ipcMain.handle(functionNames.addCustomer, async (_, ...args: Parameters<AddCustomer>) =>
+    addCustomer(...args)
+  )
+  ipcMain.handle(functionNames.updateCustomer, async (_, ...args: Parameters<UpdateCustomer>) =>
+    updateCustomer(...args)
+  )
+  ipcMain.handle(functionNames.deleteCustomer, async (_, ...args: Parameters<DeleteCustomer>) =>
+    deleteCustomer(...args)
+  )
+
+  // * Cards
+  ipcMain.handle(functionNames.getCards, async (_, ...args: Parameters<GetCards>) =>
+    getCards(...args)
+  )
+  ipcMain.handle(functionNames.addCard, async (_, ...args: Parameters<AddCard>) => addCard(...args))
+  ipcMain.handle(functionNames.updateCard, async (_, ...args: Parameters<UpdateCard>) =>
+    updateCard(...args)
+  )
+  ipcMain.handle(functionNames.deleteCard, async (_, ...args: Parameters<DeleteCard>) =>
+    deleteCard(...args)
+  )
+
+  // * List
+  ipcMain.handle(functionNames.getList, async (_, ...args: Parameters<GetList>) =>
+    getLists(...args)
+  )
+
+  // * Invoices
+  ipcMain.handle(functionNames.getInvoices, async (_, ...args: Parameters<GetInvoices>) =>
+    getInvoices(...args)
+  )
+  ipcMain.handle(functionNames.addInvoice, async (_, ...args: Parameters<AddInvoice>) =>
+    addInvoice(...args)
+  )
+  ipcMain.handle(functionNames.updateInvoice, async (_, ...args: Parameters<UpdateInvoice>) =>
+    updateInvoice(...args)
+  )
+  ipcMain.handle(functionNames.deleteInvoice, async (_, ...args: Parameters<DeleteInvoice>) =>
+    deleteInvoice(...args)
   )
 
   createWindow()

@@ -3,7 +3,6 @@ import CustomDropDownMenu from '@/components/CustomDropDownMenu'
 import { DataTable } from '@/components/ui/data-table'
 import { extractCompanyDetails } from '@/utils/utils'
 import { requireAuth } from '@shared/actions/auth.actions'
-import { mockCompaniesDetails } from '@shared/mocks/dummy'
 import { CompanyInfo } from '@shared/models'
 import { DropDownOption } from '@shared/types'
 import { BsTrash } from 'react-icons/bs'
@@ -18,9 +17,9 @@ const options: DropDownOption[] = [
 ]
 
 export async function companyDetailsLoader({ params }) {
-  console.log(params)
   await requireAuth()
-  return defer({ company: mockCompaniesDetails })
+  const company = await window.context.getCompany(params.id)
+  return defer({ company: company })
 }
 
 const CompanyDetails = () => {

@@ -4,6 +4,7 @@ export function convertStringToDate(text?: string): Date {
   return new Date(year, month - 1, day)
 }
 
-export function convertDateToString(date: Date): string {
-  return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
+export function convertDateToString(date?: Date): string {
+  const data = date ?? new Date()
+  return `${data.getFullYear()}-${data.getMonth() + 1}-${data.getDate()}`
 }

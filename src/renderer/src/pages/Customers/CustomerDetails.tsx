@@ -13,16 +13,10 @@ import { defer, useLoaderData } from 'react-router-dom'
 import { mockCards } from '../../../../shared/mocks/dummy'
 
 export async function customerDetailsLoader({ params }) {
-  console.log(params)
   await requireAuth()
+  const customer = await window.context.getCustomer(params.id)
   return defer({
-    customer: {
-      id: '2024',
-      name: 'أحمد مسعد جمال',
-      national_id: '29423242925',
-      grand_name: 'Khaled',
-      address: 'Dok'
-    }
+    customer: customer
   })
 }
 
@@ -54,7 +48,7 @@ const CustomerDetails = () => {
       </div>
       <div className="mt-2">
         <hr className="my-4 border-gray-300" />
-        <DataTable data={mockCards} columns={cardsColumns} />
+        <DataTable data={customer.cards || []} columns={cardsColumns} />
       </div>
     </div>
   )
