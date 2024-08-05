@@ -19,7 +19,14 @@ const OfferForm = ({ offer }: { offer?: OfferInfo }) => {
   })
 
   const onSubmit = async (data: z.infer<typeof OfferValidationSchema>) => {
-    console.log(data)
+    setIsLoading(true)
+    try {
+      await window.context.addOffer(data)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (

@@ -25,6 +25,8 @@ export const functionNames = {
   updateCustomer: 'updateCustomer',
   deleteCustomer: 'deleteCustomer',
   getCards: 'getCards',
+  getUnOccupiedCards: 'getUnOccupiedCards',
+  getCard: 'getCard',
   addCard: 'addCard',
   updateCard: 'updateCard',
   deleteCard: 'deleteCard',

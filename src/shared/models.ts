@@ -48,10 +48,10 @@ export interface ListData {
 }
 
 export interface OfferInfo {
-  id: string
+  id?: string
   name: string
-  period_in_month: number
-  percentage: number
+  period_in_month: string
+  percentage: string
   comment?: string
 }
 

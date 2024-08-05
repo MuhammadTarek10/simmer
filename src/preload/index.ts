@@ -4,10 +4,12 @@ import {
   AddCompany,
   AddCustomer,
   AddInvoice,
+  AddOffer,
   DeleteCard,
   DeleteCompany,
   DeleteCustomer,
   DeleteInvoice,
+  GetCard,
   GetCards,
   GetCompanies,
   GetCompany,
@@ -16,6 +18,7 @@ import {
   GetInvoices,
   GetList,
   GetOffers,
+  GetUnOccupiedCards,
   UpdateCard,
   UpdateCompany,
   UpdateCustomer,
@@ -50,6 +53,10 @@ try {
 
     // * Cards
     getCards: (...args: Parameters<GetCards>) => ipcRenderer.invoke('getCards', ...args),
+    getCard: (...args: Parameters<GetCard>) => ipcRenderer.invoke('getCard', ...args),
+    getUnOccupiedCards: (...args: Parameters<GetUnOccupiedCards>) =>
+      ipcRenderer.invoke('getUnOccupiedCards', ...args),
+
     addCard: (...args: Parameters<AddCard>) => ipcRenderer.invoke('addCard', ...args),
     updateCard: (...args: Parameters<UpdateCard>) => ipcRenderer.invoke('updateCard', ...args),
     deleteCard: (...args: Parameters<DeleteCard>) => ipcRenderer.invoke('deleteCard', ...args),
@@ -66,7 +73,8 @@ try {
       ipcRenderer.invoke('deleteInvoice', ...args),
 
     // * Offers
-    getOffers: (...args: Parameters<GetOffers>) => ipcRenderer.invoke('getOffers', ...args)
+    getOffers: (...args: Parameters<GetOffers>) => ipcRenderer.invoke('getOffers', ...args),
+    addOffer: (...args: Parameters<AddOffer>) => ipcRenderer.invoke('addOffer', ...args)
   })
 } catch (e) {
   console.error(e)

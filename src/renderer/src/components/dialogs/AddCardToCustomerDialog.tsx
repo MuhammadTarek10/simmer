@@ -7,8 +7,10 @@ import {
 } from '@/components/ui/dialog'
 import { convertCardsToSelectOptions } from '@/utils/utils'
 import { CardInfo, CustomerInfo } from '@shared/models'
+import { useState } from 'react'
 import { IoMdAdd } from 'react-icons/io'
 import CustomSelect from '../CustomSelect'
+import { Button } from '../ui/button'
 import { Label } from '../ui/label'
 
 const AddCardToCustomerDialog = ({
@@ -20,12 +22,21 @@ const AddCardToCustomerDialog = ({
   customer: CustomerInfo
   cards: CardInfo[]
 }) => {
+  const [open, setOpen] = useState(false)
+  const [selectedCard, setSelectedCard] = useState<CardInfo | null>(null)
+
   const onChange = (id: string) => {
-    console.log(id)
+    setSelectedCard(cards.find((card) => card.id === id)!)
+  }
+
+  const onSubmit = async () => {
+    if (selectedCard) {
+      // TODO: Add card to customer
+    }
   }
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger className="flex p-2 w-full justify-between hover:bg-action/20 rounded-lg">
         <IoMdAdd size={20} />
         {title}
@@ -36,7 +47,7 @@ const AddCardToCustomerDialog = ({
             إضافة خط لـ <span className="text-success">{customer.name}</span>
           </DialogTitle>
         </DialogHeader>
-        <div className="p-4">
+        <div className="flex flex-col p-4 gap-4">
           <div className="flex gap-4 items-center w-full">
             <Label className="text-2xl">الخط</Label>
             <CustomSelect
@@ -45,6 +56,14 @@ const AddCardToCustomerDialog = ({
               onChange={onChange}
               className="flex w-[350px]"
             />
+          </div>
+          <div className="flex gap-2">
+            <Button className="w-full text-xl font-bold bg-action" onClick={onSubmit}>
+              إضافة
+            </Button>
+            <Button className="w-full text-xl font-bold bg-failure" onClick={() => setOpen(false)}>
+              إلغاء
+            </Button>
           </div>
         </div>
       </DialogContent>

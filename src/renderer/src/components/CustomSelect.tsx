@@ -31,7 +31,7 @@ const CustomSelect = ({
               <SelectItem
                 key={option.name}
                 className={cn('cursor-pointer', option.className)}
-                value={option.name}
+                value={option.value!}
               >
                 {option.name}
               </SelectItem>

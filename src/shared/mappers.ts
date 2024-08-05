@@ -108,8 +108,8 @@ export const toOfferRenderer = (offer: any) => {
 export const toOfferMain = (offer: any) => {
   return {
     name: offer.name,
-    period_on_month: offer.period_on_month,
-    percentage: offer.percentage,
+    period_in_month: Number(offer.period_in_month),
+    percentage: Number(offer.percentage),
     comment: offer.comment
   }
 }

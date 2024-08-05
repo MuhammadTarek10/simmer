@@ -19,6 +19,7 @@ import {
   GetInvoices,
   GetLists,
   GetOffers,
+  GetUnOccupiedCards,
   UpdateCard,
   UpdateCompany,
   UpdateCustomer,
@@ -45,6 +46,7 @@ declare global {
 
       // * Cards
       getCards: GetCards
+      getUnOccupiedCards: GetUnOccupiedCards
       getCard: GetCard
       addCard: AddCard
       updateCard: UpdateCard

@@ -23,13 +23,13 @@ export const OfferValidationSchema = z.object({
     })
     .max(255),
   percentage: z
-    .number({
+    .string({
       message: 'مطلوب'
     })
     .min(0)
     .max(100),
   period_in_month: z
-    .number({
+    .string({
       message: 'مطلوب'
     })
     .min(1),

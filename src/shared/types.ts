@@ -5,6 +5,7 @@ export interface DropDownOption {
   className?: string
   icon?: React.ReactNode
   render?: React.ReactNode
+  value?: string
 }
 
 // * Company
@@ -24,6 +25,7 @@ export type DeleteCustomer = (id: string) => Promise<void>
 // * Cards
 export type GetCards = () => Promise<CardInfo[]>
 export type GetCard = (id: string) => Promise<CardInfo>
+export type GetUnOccupiedCards = () => Promise<CardInfo[]>
 export type AddCard = (card: CardInfo) => Promise<void>
 export type UpdateCard = (card: CardInfo) => Promise<void>
 export type DeleteCard = (id: string) => Promise<void>

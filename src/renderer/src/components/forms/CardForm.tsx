@@ -61,7 +61,14 @@ const CardForm = ({ card }: { card?: CardInfo }) => {
     setIsLoading(true)
     try {
       if (card) {
-        // TODO
+        await window.context.updateCard({
+          ...card,
+          ...data,
+          start_date: convertDateToString(data.start_date),
+          company: companies.find((company) => company.name === data.company_name)!,
+          offer: offers.find((offer) => offer.name === data.offer_name),
+          card_type: data.card_number.startsWith('01') ? 'phone' : 'local'
+        })
       } else {
         await window.context.addCard({
           ...data,

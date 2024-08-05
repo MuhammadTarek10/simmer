@@ -17,7 +17,17 @@ export async function getCards(): Promise<CardInfo[]> {
     }
   })
 
-  console.log(cards)
+  return cards.map((card) => toCardRenderer(card))
+}
+
+export async function getUnOccupiedCards(): Promise<CardInfo[]> {
+  const cards = await prisma.card.findMany({
+    where: {
+      customers: {
+        none: {}
+      }
+    }
+  })
 
   return cards.map((card) => toCardRenderer(card))
 }

@@ -5,10 +5,12 @@ import {
   AddCompany,
   AddCustomer,
   AddInvoice,
+  AddOffer,
   DeleteCard,
   DeleteCompany,
   DeleteCustomer,
   DeleteInvoice,
+  GetCard,
   GetCards,
   GetCompanies,
   GetCompany,
@@ -17,6 +19,7 @@ import {
   GetInvoices,
   GetList,
   GetOffers,
+  GetUnOccupiedCards,
   UpdateCard,
   UpdateCompany,
   UpdateCustomer,
@@ -25,7 +28,14 @@ import {
 import { app, BrowserWindow, ipcMain, shell } from 'electron'
 import { join } from 'path'
 import icon from '../../resources/icon.png?asset'
-import { addCard, deleteCard, getCards, updateCard } from './lib/card.actions'
+import {
+  addCard,
+  deleteCard,
+  getCard,
+  getCards,
+  getUnOccupiedCards,
+  updateCard
+} from './lib/card.actions'
 import {
   addCompany,
   deleteCompany,
@@ -42,7 +52,7 @@ import {
 } from './lib/customer.actions'
 import { addInvoice, deleteInvoice, getInvoices, updateInvoice } from './lib/invoices.actions'
 import { getLists } from './lib/list.actions'
-import { getOffers } from './lib/offers.actions'
+import { addOffer, getOffers } from './lib/offers.actions'
 
 function createWindow(): void {
   // Create the browser window.
@@ -134,6 +144,11 @@ app.whenReady().then(() => {
   ipcMain.handle(functionNames.getCards, async (_, ...args: Parameters<GetCards>) =>
     getCards(...args)
   )
+  ipcMain.handle(
+    functionNames.getUnOccupiedCards,
+    async (_, ...args: Parameters<GetUnOccupiedCards>) => getUnOccupiedCards(...args)
+  )
+  ipcMain.handle(functionNames.getCard, async (_, ...args: Parameters<GetCard>) => getCard(...args))
   ipcMain.handle(functionNames.addCard, async (_, ...args: Parameters<AddCard>) => addCard(...args))
   ipcMain.handle(functionNames.updateCard, async (_, ...args: Parameters<UpdateCard>) =>
     updateCard(...args)
@@ -164,6 +179,9 @@ app.whenReady().then(() => {
   // * Offers
   ipcMain.handle(functionNames.getOffers, async (_, ...args: Parameters<GetOffers>) =>
     getOffers(...args)
+  )
+  ipcMain.handle(functionNames.addOffer, async (_, ...args: Parameters<AddOffer>) =>
+    addOffer(...args)
   )
 
   createWindow()

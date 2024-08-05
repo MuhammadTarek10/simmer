@@ -1,6 +1,6 @@
 import CustomDropDownMenu from '@/components/CustomDropDownMenu'
 import { requireAuth } from '@shared/actions/auth.actions'
-import { CustomerInfo } from '@shared/models'
+import { CardInfo, CustomerInfo } from '@shared/models'
 import { DropDownOption } from '@shared/types'
 import { FaRegEdit } from 'react-icons/fa'
 import { GrView } from 'react-icons/gr'
@@ -15,17 +15,19 @@ import { defer, useLoaderData } from 'react-router-dom'
 export async function customerDetailsLoader({ params }) {
   await requireAuth()
   const customer = await window.context.getCustomer(params.id)
+  const cards = await window.context.getUnOccupiedCards()
   return defer({
-    customer: customer
+    customer: customer,
+    cards: cards
   })
 }
 
 const CustomerDetails = () => {
-  const { customer } = useLoaderData() as { customer: CustomerInfo }
+  const { customer, cards } = useLoaderData() as { customer: CustomerInfo; cards: CardInfo[] }
   const options: DropDownOption[] = [
     {
       name: 'اضافة خط',
-      render: <AddCardToCustomerDialog customer={customer} title="اضافة خط" cards={[]} />
+      render: <AddCardToCustomerDialog customer={customer} title="اضافة خط" cards={cards} />
     },
     { name: 'تعديل', icon: <FaRegEdit size={20} /> },
     { name: 'عرض الفواتير', icon: <GrView size={20} /> },

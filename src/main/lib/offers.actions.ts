@@ -1,10 +1,10 @@
-import { toInvoiceMain, toOfferRenderer } from '@shared/mappers'
-import { InvoiceInfo, OfferInfo } from '@shared/models'
+import { toOfferMain, toOfferRenderer } from '@shared/mappers'
+import { OfferInfo } from '@shared/models'
 import { prisma } from './database'
 
-export async function addInvoice(invoice: InvoiceInfo): Promise<void> {
-  await prisma.invoice.create({
-    data: toInvoiceMain(invoice)
+export async function addOffer(offer: OfferInfo): Promise<void> {
+  await prisma.offer.create({
+    data: toOfferMain(offer)
   })
 }
 
