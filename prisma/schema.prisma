@@ -41,6 +41,7 @@ model Card {
   price_after_vat  Int      @default(0)
   sell_date        String?
   company_id       String
+  card_type        String
   offer_id         String?
   created_at       DateTime @default(now())
   updated_at       DateTime @updatedAt

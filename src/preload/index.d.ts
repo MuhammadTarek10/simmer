@@ -11,6 +11,7 @@ import {
   DeleteOffer,
   GetCard,
   GetCards,
+  GetCardsFromCompanyId,
   GetCompanies,
   GetCompany,
   GetCustomer,
@@ -48,6 +49,7 @@ declare global {
       getCards: GetCards
       getUnOccupiedCards: GetUnOccupiedCards
       getCard: GetCard
+      getCardsFromCompanyId: GetCardsFromCompanyId
       addCard: AddCard
       updateCard: UpdateCard
       deleteCard: DeleteCard

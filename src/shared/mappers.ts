@@ -5,8 +5,9 @@ export const toCompanyRenderer = (company: any) => {
     id: company.id,
     name: company.name,
     invoice_date: company.invoice_date,
-    phone: company.phone || '',
-    comment: company.comment || ''
+    phone: company.phone,
+    cards: company.cards,
+    comment: company.comment
   }
 }
 
@@ -62,6 +63,7 @@ export const toCardMain = (card: any) => {
     start_date: card.start_date,
     price_before_vat: Number(card.price_before_vat),
     price_after_vat: Number(card.price_after_vat),
+    card_type: card.card_type,
     sell_date: card.sell_date,
     company_id: card.company.id,
     offer_id: card.offer?.id,

@@ -6,6 +6,7 @@ import {
   DialogTrigger
 } from '@/components/ui/dialog'
 import { convertCardsToSelectOptions } from '@/utils/utils'
+import { DialogDescription } from '@radix-ui/react-dialog'
 import { CardInfo, CustomerInfo } from '@shared/models'
 import { useState } from 'react'
 import { IoMdAdd } from 'react-icons/io'
@@ -43,9 +44,12 @@ const AddCardToCustomerDialog = ({
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>
+          <DialogTitle className="flex justify-center">
             إضافة خط لـ <span className="text-success">{customer.name}</span>
           </DialogTitle>
+          <DialogDescription className="flex justify-center">
+            يمكنك اختيار الخط الذي تريد إضافته للعميل
+          </DialogDescription>
         </DialogHeader>
         <div className="flex flex-col p-4 gap-4">
           <div className="flex gap-4 items-center w-full">

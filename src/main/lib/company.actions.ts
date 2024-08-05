@@ -10,10 +10,13 @@ export async function addCompany(company: CompanyInfo): Promise<void> {
 
 export async function getCompanies(): Promise<CompanyInfo[]> {
   const companies = await prisma.company.findMany()
+
   return companies.map((company) => toCompanyRenderer(company))
 }
 export async function getCompany(id: string): Promise<CompanyInfo> {
-  const company = await prisma.company.findUnique({ where: { id } })
+  const company = await prisma.company.findUnique({
+    where: { id }
+  })
   return toCompanyRenderer(company)
 }
 

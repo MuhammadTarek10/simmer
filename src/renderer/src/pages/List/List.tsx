@@ -38,7 +38,7 @@ const List = () => {
         <SearchInput value={search} onChange={(e) => setSearch(e.target.value)} />
         <CustomSelect
           placeholder="العام"
-          options={years.map((year) => ({ name: year }))}
+          options={years.map((year) => ({ name: year, value: year }))}
           onChange={() => {}}
         />
       </div>

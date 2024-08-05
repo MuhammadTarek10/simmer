@@ -12,6 +12,7 @@ import {
   DeleteInvoice,
   GetCard,
   GetCards,
+  GetCardsFromCompanyId,
   GetCompanies,
   GetCompany,
   GetCustomer,
@@ -33,6 +34,7 @@ import {
   deleteCard,
   getCard,
   getCards,
+  getCardsFromCompanyId,
   getUnOccupiedCards,
   updateCard
 } from './lib/card.actions'
@@ -149,6 +151,11 @@ app.whenReady().then(() => {
     async (_, ...args: Parameters<GetUnOccupiedCards>) => getUnOccupiedCards(...args)
   )
   ipcMain.handle(functionNames.getCard, async (_, ...args: Parameters<GetCard>) => getCard(...args))
+  ipcMain.handle(
+    functionNames.getCardsFromCompanyId,
+    async (_, ...args: Parameters<GetCardsFromCompanyId>) => getCardsFromCompanyId(...args)
+  )
+
   ipcMain.handle(functionNames.addCard, async (_, ...args: Parameters<AddCard>) => addCard(...args))
   ipcMain.handle(functionNames.updateCard, async (_, ...args: Parameters<UpdateCard>) =>
     updateCard(...args)

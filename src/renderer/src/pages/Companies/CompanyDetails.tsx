@@ -3,7 +3,7 @@ import CustomDropDownMenu from '@/components/CustomDropDownMenu'
 import { DataTable } from '@/components/ui/data-table'
 import { extractCompanyDetails } from '@/utils/utils'
 import { requireAuth } from '@shared/actions/auth.actions'
-import { CompanyInfo } from '@shared/models'
+import { CardInfo, CompanyInfo } from '@shared/models'
 import { DropDownOption } from '@shared/types'
 import { BsTrash } from 'react-icons/bs'
 import { FaRegEdit } from 'react-icons/fa'
@@ -19,11 +19,13 @@ const options: DropDownOption[] = [
 export async function companyDetailsLoader({ params }) {
   await requireAuth()
   const company = await window.context.getCompany(params.id)
-  return defer({ company: company })
+  const cards = await window.context.getCardsFromCompanyId(params.id)
+  return defer({ company: company, cards: cards })
 }
 
 const CompanyDetails = () => {
-  const { company } = useLoaderData() as { company: CompanyInfo }
+  const { company, cards } = useLoaderData() as { company: CompanyInfo; cards: CardInfo[] }
+
   const {
     phoneTotal,
     phoneTotalBeforeVat,
@@ -33,7 +35,7 @@ const CompanyDetails = () => {
     localTotalAfterVat,
     cardsTotal,
     moneyTotal
-  } = extractCompanyDetails(company)
+  } = extractCompanyDetails(cards)
   return (
     <div className="px-4 py-6 h-full gap-4">
       <div className="flex justify-between">
@@ -67,7 +69,7 @@ const CompanyDetails = () => {
       </div>
       <div className="mt-2">
         <hr className="my-4 border-gray-300" />
-        <DataTable data={company.cards || []} columns={cardsColumns} />
+        <DataTable data={cards} columns={cardsColumns} />
       </div>
     </div>
   )

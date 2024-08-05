@@ -27,6 +27,7 @@ export const functionNames = {
   getCards: 'getCards',
   getUnOccupiedCards: 'getUnOccupiedCards',
   getCard: 'getCard',
+  getCardsFromCompanyId: 'getCardsFromCompanyId',
   addCard: 'addCard',
   updateCard: 'updateCard',
   deleteCard: 'deleteCard',

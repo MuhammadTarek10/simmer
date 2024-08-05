@@ -8,16 +8,20 @@ import { useState } from 'react'
 
 const options: DropDownOption[] = [
   {
-    name: 'اضافة شركة'
+    name: 'اضافة شركة',
+    value: 'اضافة شركة'
   },
   {
-    name: 'اضافة عميل'
+    name: 'اضافة عميل',
+    value: 'اضافة عميل'
   },
   {
-    name: 'اضافة خط'
+    name: 'اضافة خط',
+    value: 'اضافة خط'
   },
   {
-    name: 'اضافة عرض'
+    name: 'اضافة عرض',
+    value: 'اضافة عرض'
   }
 ]
 

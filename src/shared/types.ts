@@ -26,6 +26,7 @@ export type DeleteCustomer = (id: string) => Promise<void>
 export type GetCards = () => Promise<CardInfo[]>
 export type GetCard = (id: string) => Promise<CardInfo>
 export type GetUnOccupiedCards = () => Promise<CardInfo[]>
+export type GetCardsFromCompanyId = (id: string) => Promise<CardInfo[]>
 export type AddCard = (card: CardInfo) => Promise<void>
 export type UpdateCard = (card: CardInfo) => Promise<void>
 export type DeleteCard = (id: string) => Promise<void>

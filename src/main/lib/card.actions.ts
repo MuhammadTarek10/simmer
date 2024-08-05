@@ -37,6 +37,19 @@ export async function getCard(id: string): Promise<CardInfo> {
   return toCardRenderer(card)
 }
 
+export async function getCardsFromCompanyId(id: string): Promise<CardInfo[]> {
+  const cards = await prisma.card.findMany({
+    where: {
+      company_id: id
+    },
+    include: {
+      company: true
+    }
+  })
+
+  return cards.map((card) => toCardRenderer(card))
+}
+
 export async function updateCard(card: CardInfo): Promise<void> {
   await prisma.card.update({
     where: { id: card.id },

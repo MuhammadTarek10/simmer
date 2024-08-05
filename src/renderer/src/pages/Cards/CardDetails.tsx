@@ -1,10 +1,9 @@
-import { mockCards } from '@shared/mocks/dummy'
 import { CardInfo } from '@shared/models'
 import { defer, useLoaderData } from 'react-router-dom'
 
 export async function cardDetailsLoader({ params }) {
   const { id } = params
-  const card = mockCards.find((card) => card.id === id)
+  const card = await window.context.getCard(id)
 
   return defer({ card: card })
 }
