@@ -34,18 +34,20 @@ model Offer {
 }
 
 model Card {
-  id          String    @id @default(uuid())
-  company_id  String
-  card_number String
-  start_date  DateTime  @default(now())
-  sell_date   DateTime?
-  offer_id    String
-  created_at  DateTime  @default(now())
-  updated_at  DateTime  @updatedAt
-  comment     String?
+  id               String   @id @default(uuid())
+  card_number      String
+  start_date       String
+  price_before_vat Int      @default(0)
+  price_after_vat  Int      @default(0)
+  sell_date        String?
+  company_id       String
+  offer_id         String?
+  created_at       DateTime @default(now())
+  updated_at       DateTime @updatedAt
+  comment          String?
 
   company   Company        @relation(fields: [company_id], references: [id])
-  offer     Offer          @relation(fields: [offer_id], references: [id])
+  offer     Offer?         @relation(fields: [offer_id], references: [id])
   customers CustomerCard[]
 
   @@index([card_number])
@@ -71,13 +73,13 @@ model Customer {
 
 model CustomerCard {
   id          String   @id @default(uuid())
-  customer_id String
-  card_id     String
+  customer_id String?
+  card_id     String?
   created_at  DateTime @default(now())
   updated_at  DateTime @updatedAt
 
-  customer Customer @relation(fields: [customer_id], references: [id])
-  card     Card     @relation(fields: [card_id], references: [id])
+  customer Customer? @relation(fields: [customer_id], references: [id])
+  card     Card?     @relation(fields: [card_id], references: [id])
 
   @@index([customer_id])
   @@index([card_id])
@@ -85,13 +87,13 @@ model CustomerCard {
 
 model Invoice {
   id          String   @id @default(uuid())
-  customer_id String
+  customer_id String?
   amount      Float
   created_at  DateTime @default(now())
   updated_at  DateTime @updatedAt
   comment     String?
 
-  customer Customer @relation(fields: [customer_id], references: [id])
+  customer Customer? @relation(fields: [customer_id], references: [id])
 
   @@index([customer_id])
 }

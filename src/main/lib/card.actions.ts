@@ -3,20 +3,22 @@ import { CardInfo } from '@shared/models'
 import { prisma } from './database'
 
 export async function addCard(card: CardInfo): Promise<void> {
-  const data = {
-    ...card,
-    start_date: new Date(),
-    offer_id: card.offer?.id,
-    company_id: card.company.id
-  }
-
   await prisma.card.create({
-    data: toCardMain(data)
+    data: toCardMain(card)
   })
 }
 
 export async function getCards(): Promise<CardInfo[]> {
-  const cards = await prisma.card.findMany()
+  const cards = await prisma.card.findMany({
+    include: {
+      company: true,
+      offer: true,
+      customers: true
+    }
+  })
+
+  console.log(cards)
+
   return cards.map((card) => toCardRenderer(card))
 }
 

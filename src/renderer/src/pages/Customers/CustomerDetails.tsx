@@ -7,10 +7,10 @@ import { GrView } from 'react-icons/gr'
 import { IoMdAdd } from 'react-icons/io'
 
 import { cardsColumns } from '@/components/columns/cards-columns'
+import AddCardToCustomerDialog from '@/components/dialogs/AddCardToCustomerDialog'
 import { DataTable } from '@/components/ui/data-table'
 import { BsTrash } from 'react-icons/bs'
 import { defer, useLoaderData } from 'react-router-dom'
-import { mockCards } from '../../../../shared/mocks/dummy'
 
 export async function customerDetailsLoader({ params }) {
   await requireAuth()
@@ -20,15 +20,18 @@ export async function customerDetailsLoader({ params }) {
   })
 }
 
-const options: DropDownOption[] = [
-  { name: 'تعديل', icon: <FaRegEdit size={20} /> },
-  { name: 'عرض الفواتير', icon: <GrView size={20} /> },
-  { name: 'عمل فاتورة', icon: <IoMdAdd size={20} /> },
-  { name: 'حذف', className: 'text-red-500', icon: <BsTrash size={20} /> }
-]
-
 const CustomerDetails = () => {
   const { customer } = useLoaderData() as { customer: CustomerInfo }
+  const options: DropDownOption[] = [
+    {
+      name: 'اضافة خط',
+      render: <AddCardToCustomerDialog customer={customer} title="اضافة خط" cards={[]} />
+    },
+    { name: 'تعديل', icon: <FaRegEdit size={20} /> },
+    { name: 'عرض الفواتير', icon: <GrView size={20} /> },
+    { name: 'عمل فاتورة', icon: <IoMdAdd size={20} /> },
+    { name: 'حذف', className: 'text-red-500', icon: <BsTrash size={20} /> }
+  ]
   return (
     <div className="px-4 py-6 h-full gap-4">
       <div className="flex justify-between">

@@ -10,12 +10,13 @@ export const cardsColumns: ColumnDef<CardInfo>[] = [
     header: 'الخط'
   },
   {
-    accessorKey: 'company_name',
+    accessorKey: 'company.name',
     header: 'الشركة'
   },
   {
-    accessorKey: 'offer_name',
-    header: 'العرض'
+    accessorKey: 'offer.name',
+    header: 'العرض',
+    cell: ({ row }) => <div>{row.original.offer?.name || 'لا يوجد عرض'}</div>
   },
   {
     accessorKey: 'offer_end_date',

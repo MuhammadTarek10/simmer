@@ -84,16 +84,12 @@ export const CardValidationSchema = z.object({
   start_date: z.date({
     message: 'مطلوب'
   }),
-  price_before_vat: z
-    .number({
-      message: 'مطلوب'
-    })
-    .min(0),
-  price_after_vat: z
-    .number({
-      message: 'مطلوب'
-    })
-    .min(0),
+  price_before_vat: z.string({
+    message: 'مطلوب'
+  }),
+  price_after_vat: z.string({
+    message: 'مطلوب'
+  }),
   offer_name: z.string().optional(),
   comment: z.string().optional()
 })

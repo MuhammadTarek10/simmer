@@ -1,9 +1,10 @@
-import { CardInfo, CompanyInfo, CustomerInfo, InvoiceInfo, ListData } from './models'
+import { CardInfo, CompanyInfo, CustomerInfo, InvoiceInfo, ListData, OfferInfo } from './models'
 
 export interface DropDownOption {
   name: string
   className?: string
   icon?: React.ReactNode
+  render?: React.ReactNode
 }
 
 // * Company
@@ -36,3 +37,10 @@ export type GetInvoice = (id: string) => Promise<InvoiceInfo>
 export type AddInvoice = (invoice: InvoiceInfo) => Promise<void>
 export type UpdateInvoice = (invoice: InvoiceInfo) => Promise<void>
 export type DeleteInvoice = (id: string) => Promise<void>
+
+// * Offers
+export type GetOffers = () => Promise<OfferInfo[]>
+export type GetOffer = (id: string) => Promise<OfferInfo>
+export type AddOffer = (offer: OfferInfo) => Promise<void>
+export type UpdateOffer = (offer: OfferInfo) => Promise<void>
+export type DeleteOffer = (id: string) => Promise<void>

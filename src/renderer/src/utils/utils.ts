@@ -1,4 +1,5 @@
-import { CompanyInfo } from '@shared/models'
+import { CardInfo, CompanyInfo } from '@shared/models'
+import { DropDownOption } from '@shared/types'
 import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 
@@ -70,4 +71,11 @@ export function convertMonthToArabic(month: string) {
     default:
       return ''
   }
+}
+
+export const convertCardsToSelectOptions = (cards: CardInfo[]): DropDownOption[] => {
+  return cards.map((card) => ({
+    name: card.card_number,
+    value: card.id
+  }))
 }

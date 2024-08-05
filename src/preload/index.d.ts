@@ -3,10 +3,12 @@ import {
   AddCompany,
   AddCustomer,
   AddInvoice,
+  AddOffer,
   DeleteCard,
   DeleteCompany,
   DeleteCustomer,
   DeleteInvoice,
+  DeleteOffer,
   GetCard,
   GetCards,
   GetCompanies,
@@ -16,11 +18,14 @@ import {
   GetInvoice,
   GetInvoices,
   GetLists,
+  GetOffers,
   UpdateCard,
   UpdateCompany,
   UpdateCustomer,
-  UpdateInvoice
+  UpdateInvoice,
+  UpdateOffer
 } from '@shared/types'
+import { GetOffer } from '../shared/types'
 declare global {
   interface Window {
     context: {
@@ -54,6 +59,13 @@ declare global {
       addInvoice: AddInvoice
       updateInvoice: UpdateInvoice
       deleteInvoice: DeleteInvoice
+
+      // * Offers
+      getOffers: GetOffers
+      getOffer: GetOffer
+      addOffer: AddOffer
+      updateOffer: UpdateOffer
+      deleteOffer: DeleteOffer
     }
   }
 }

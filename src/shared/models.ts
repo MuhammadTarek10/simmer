@@ -1,8 +1,3 @@
-export interface Company {
-  id: string
-  name: string
-}
-
 export interface CompanyInfo {
   id?: string
   name: string
@@ -10,11 +5,6 @@ export interface CompanyInfo {
   phone?: string
   comment?: string
   cards?: CardInfo[]
-}
-
-export interface Customer {
-  id: string
-  name: string
 }
 
 export interface CustomerInfo {
@@ -28,14 +18,15 @@ export interface CustomerInfo {
 }
 
 export interface CardInfo {
-  id: string
+  id?: string
   card_number: string
   card_type: string
-  company: Company
+  start_date: string
+  company: CompanyInfo
   offer?: OfferInfo
   offer_end_date?: string
-  price_before_vat: number
-  price_after_vat: number
+  price_before_vat: string
+  price_after_vat: string
   comment?: string
 }
 

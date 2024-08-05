@@ -15,6 +15,7 @@ import {
   GetCustomers,
   GetInvoices,
   GetList,
+  GetOffers,
   UpdateCard,
   UpdateCompany,
   UpdateCustomer,
@@ -62,7 +63,10 @@ try {
     updateInvoice: (...args: Parameters<UpdateInvoice>) =>
       ipcRenderer.invoke('updateInvoice', ...args),
     deleteInvoice: (...args: Parameters<DeleteInvoice>) =>
-      ipcRenderer.invoke('deleteInvoice', ...args)
+      ipcRenderer.invoke('deleteInvoice', ...args),
+
+    // * Offers
+    getOffers: (...args: Parameters<GetOffers>) => ipcRenderer.invoke('getOffers', ...args)
   })
 } catch (e) {
   console.error(e)

@@ -32,5 +32,10 @@ export const functionNames = {
   getInvoices: 'getInvoices',
   addInvoice: 'addInvoice',
   updateInvoice: 'updateInvoice',
-  deleteInvoice: 'deleteInvoice'
+  deleteInvoice: 'deleteInvoice',
+  getOffers: 'getOffers',
+  getOffer: 'getOffer',
+  addOffer: 'addOffer',
+  updateOffer: 'updateOffer',
+  deleteOffer: 'deleteOffer'
 }

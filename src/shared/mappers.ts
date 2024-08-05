@@ -46,6 +46,7 @@ export const toCardRenderer = (card: any) => {
     id: card.id,
     card_number: card.card_number,
     card_type: card.card_type,
+    start_date: card.start_date,
     company: card.company,
     offer: card.offer,
     offer_end_date: card.offer_end_date,
@@ -59,9 +60,11 @@ export const toCardMain = (card: any) => {
   return {
     card_number: card.card_number,
     start_date: card.start_date,
+    price_before_vat: Number(card.price_before_vat),
+    price_after_vat: Number(card.price_after_vat),
     sell_date: card.sell_date,
-    offer_id: card.offer_id,
-    company_id: card.company_id,
+    company_id: card.company.id,
+    offer_id: card.offer?.id,
     comment: card.comment
   }
 }
@@ -89,5 +92,24 @@ export const toInvoiceMain = (invoice: InvoiceInfo) => {
     customer_id: invoice.customer.id,
     amount: invoice.amount,
     comment: invoice.comment
+  }
+}
+
+export const toOfferRenderer = (offer: any) => {
+  return {
+    id: offer.id,
+    name: offer.name,
+    period_in_month: offer.period_on_month,
+    percentage: offer.percentage,
+    comment: offer.comment
+  }
+}
+
+export const toOfferMain = (offer: any) => {
+  return {
+    name: offer.name,
+    period_on_month: offer.period_on_month,
+    percentage: offer.percentage,
+    comment: offer.comment
   }
 }

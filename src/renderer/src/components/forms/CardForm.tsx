@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { mockCompanies, mockOffers } from '@shared/mocks/dummy'
-import { CardInfo } from '@shared/models'
+import { convertDateToString, convertStringToDate } from '@shared/converters'
+import { CardInfo, CompanyInfo, OfferInfo } from '@shared/models'
 import { CardValidationSchema } from '@shared/validation'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -12,12 +12,15 @@ import { Form } from '../ui/form'
 import CustomFormField, { FormFieldType } from './CustomFormField'
 
 const CardForm = ({ card }: { card?: CardInfo }) => {
+  const [companies, setCompanies] = useState<CompanyInfo[]>([])
+  const [offers, setOffers] = useState<OfferInfo[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [profit, setProfit] = useState(0)
   const form = useForm<z.infer<typeof CardValidationSchema>>({
     resolver: zodResolver(CardValidationSchema),
     defaultValues: {
-      ...card
+      ...card,
+      start_date: convertStringToDate(card?.start_date)
     }
   })
 
@@ -25,15 +28,54 @@ const CardForm = ({ card }: { card?: CardInfo }) => {
     const calculateProfit = () => {
       const priceBeforeVat = form.watch('price_before_vat')
       const priceAfterVat = form.watch('price_after_vat')
-      const calculatedProfit = priceBeforeVat - priceAfterVat
+      const calculatedProfit = Number(priceAfterVat) - Number(priceBeforeVat)
       setProfit(calculatedProfit)
     }
 
     calculateProfit()
   }, [form.watch('price_before_vat'), form.watch('price_after_vat')])
 
+  useEffect(() => {
+    const getCompanies = async () => {
+      try {
+        const companies = await window.context.getCompanies()
+        setCompanies(companies)
+      } catch (e) {
+        console.log(e)
+      }
+    }
+    const getOffers = async () => {
+      try {
+        const offers = await window.context.getOffers()
+        setOffers(offers)
+      } catch (e) {
+        console.log(e)
+      }
+    }
+
+    getCompanies()
+    getOffers()
+  }, [])
+
   const onSubmit = async (data: z.infer<typeof CardValidationSchema>) => {
-    console.log(data)
+    setIsLoading(true)
+    try {
+      if (card) {
+        // TODO
+      } else {
+        await window.context.addCard({
+          ...data,
+          start_date: convertDateToString(data.start_date),
+          company: companies.find((company) => company.name === data.company_name)!,
+          offer: offers.find((offer) => offer.name === data.offer_name),
+          card_type: data.card_number.startsWith('01') ? 'phone' : 'local'
+        })
+      }
+    } catch (e) {
+      console.log(e)
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -80,7 +122,7 @@ const CardForm = ({ card }: { card?: CardInfo }) => {
                 name="company_name"
                 label="اسم الشركة"
                 fieldType={FormFieldType.SELECT}
-                options={mockCompanies}
+                options={companies}
                 className="flex-1"
               />
 
@@ -89,7 +131,7 @@ const CardForm = ({ card }: { card?: CardInfo }) => {
                 name="offer_name"
                 label="اسم العرض"
                 fieldType={FormFieldType.SELECT}
-                options={mockOffers}
+                options={offers}
                 className="flex-2"
               />
             </div>

@@ -16,6 +16,7 @@ import {
   GetCustomers,
   GetInvoices,
   GetList,
+  GetOffers,
   UpdateCard,
   UpdateCompany,
   UpdateCustomer,
@@ -41,6 +42,7 @@ import {
 } from './lib/customer.actions'
 import { addInvoice, deleteInvoice, getInvoices, updateInvoice } from './lib/invoices.actions'
 import { getLists } from './lib/list.actions'
+import { getOffers } from './lib/offers.actions'
 
 function createWindow(): void {
   // Create the browser window.
@@ -157,6 +159,11 @@ app.whenReady().then(() => {
   )
   ipcMain.handle(functionNames.deleteInvoice, async (_, ...args: Parameters<DeleteInvoice>) =>
     deleteInvoice(...args)
+  )
+
+  // * Offers
+  ipcMain.handle(functionNames.getOffers, async (_, ...args: Parameters<GetOffers>) =>
+    getOffers(...args)
   )
 
   createWindow()

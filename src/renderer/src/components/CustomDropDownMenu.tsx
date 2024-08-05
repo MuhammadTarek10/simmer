@@ -17,14 +17,20 @@ const CustomDropDownMenu = ({ options }: { options?: DropDownOption[] }) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="p-2 m-2">
         {options &&
-          options.map((option) => (
-            <DropdownMenuItem key={option.name} className={cn('cursor-pointer', option.className)}>
-              <DropdownMenuLabel className="flex gap-2 w-full justify-between">
-                {option.icon && option.icon}
-                {option.name}
-              </DropdownMenuLabel>
-            </DropdownMenuItem>
-          ))}
+          options.map(
+            (option) =>
+              option.render || (
+                <DropdownMenuItem
+                  key={option.name}
+                  className={cn('cursor-pointer', option.className)}
+                >
+                  <DropdownMenuLabel className="flex gap-2 w-full justify-between">
+                    {option.icon && option.icon}
+                    {option.name}
+                  </DropdownMenuLabel>
+                </DropdownMenuItem>
+              )
+          )}
       </DropdownMenuContent>
     </DropdownMenu>
   )
