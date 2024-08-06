@@ -8,9 +8,11 @@ import { z } from 'zod'
 import AddingHeader from '../AddingHeader'
 import SubmitButton from '../SubmitButton'
 import { Form } from '../ui/form'
+import { useToast } from '../ui/use-toast'
 import CustomFormField, { FormFieldType } from './CustomFormField'
 
 const CompanyForm = ({ company }: { company?: CompanyInfo }) => {
+  const { toast } = useToast()
   const [isLoading, setIsLoading] = useState(false)
   const form = useForm<z.infer<typeof CompanyValidationSchema>>({
     resolver: zodResolver(CompanyValidationSchema),
@@ -27,8 +29,17 @@ const CompanyForm = ({ company }: { company?: CompanyInfo }) => {
         ...data,
         invoice_date: convertDateToString(data.invoice_date)
       })
+      toast({
+        title: 'تمت الاضافة بنجاح',
+        description: 'تمت اضافة الشركة بنجاح'
+      })
     } catch (e) {
       console.log(e)
+      toast({
+        title: 'حدث خطأ',
+        description: 'حدث خطأ اثناء اضافة الشركة',
+        variant: 'destructive'
+      })
     } finally {
       setIsLoading(false)
     }

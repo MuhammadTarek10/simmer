@@ -14,7 +14,7 @@ export async function getCustomers(): Promise<CustomerInfo[]> {
 }
 
 export async function getCustomer(id: string): Promise<CustomerInfo> {
-  const customer = await prisma.customer.findUnique({ where: { id } })
+  const customer = await prisma.customer.findUnique({ where: { id }, include: { cards: true } })
   if (!customer) throw new Error('Customer not found')
   return toCustomerRenderer(customer)
 }

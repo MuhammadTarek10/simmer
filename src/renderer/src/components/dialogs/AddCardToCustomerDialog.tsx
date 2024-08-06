@@ -13,16 +13,20 @@ import { IoMdAdd } from 'react-icons/io'
 import CustomSelect from '../CustomSelect'
 import { Button } from '../ui/button'
 import { Label } from '../ui/label'
+import { useToast } from '../ui/use-toast'
 
 const AddCardToCustomerDialog = ({
   title,
   customer,
-  cards
+  cards,
+  updatePage
 }: {
   title: string
   customer: CustomerInfo
   cards: CardInfo[]
+  updatePage: () => void
 }) => {
+  const { toast } = useToast()
   const [open, setOpen] = useState(false)
   const [selectedCard, setSelectedCard] = useState<CardInfo | null>(null)
 
@@ -32,7 +36,24 @@ const AddCardToCustomerDialog = ({
 
   const onSubmit = async () => {
     if (selectedCard) {
-      // TODO: Add card to customer
+      try {
+        selectedCard.customer = customer
+        await window.context.updateCard(selectedCard)
+        toast({
+          title: 'تمت الاضافة بنجاح',
+          description: 'تمت اضافة الخط بنجاح'
+        })
+        updatePage()
+      } catch (e) {
+        console.log(e)
+        toast({
+          title: 'حدث خطأ',
+          description: 'حدث خطأ اثناء اضافة الخط',
+          variant: 'destructive'
+        })
+      } finally {
+        setOpen(false)
+      }
     }
   }
 

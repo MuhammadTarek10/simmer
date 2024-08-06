@@ -12,7 +12,7 @@ export interface CustomerInfo {
   name: string
   national_id: string
   grand_name: string
-  address?: string
+  address: string
   cards?: CardInfo[]
   comment?: string
 }
@@ -24,6 +24,7 @@ export interface CardInfo {
   start_date: string
   company: CompanyInfo
   offer?: OfferInfo
+  customer?: CustomerInfo
   offer_end_date?: string
   price_before_vat: string
   price_after_vat: string

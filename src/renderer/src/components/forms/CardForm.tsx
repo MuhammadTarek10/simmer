@@ -9,9 +9,11 @@ import AddingHeader from '../AddingHeader'
 import DisabledInput from '../DisabledInput'
 import SubmitButton from '../SubmitButton'
 import { Form } from '../ui/form'
+import { useToast } from '../ui/use-toast'
 import CustomFormField, { FormFieldType } from './CustomFormField'
 
 const CardForm = ({ card }: { card?: CardInfo }) => {
+  const { toast } = useToast()
   const [companies, setCompanies] = useState<CompanyInfo[]>([])
   const [offers, setOffers] = useState<OfferInfo[]>([])
   const [isLoading, setIsLoading] = useState(false)
@@ -78,8 +80,17 @@ const CardForm = ({ card }: { card?: CardInfo }) => {
           card_type: data.card_number.startsWith('01') ? 'phone' : 'local'
         })
       }
+      toast({
+        title: 'تمت الاضافة بنجاح',
+        description: 'تمت اضافة الخط بنجاح'
+      })
     } catch (e) {
       console.log(e)
+      toast({
+        title: 'حدث خطأ',
+        description: 'حدث خطأ اثناء اضافة الخط',
+        variant: 'destructive'
+      })
     } finally {
       setIsLoading(false)
     }

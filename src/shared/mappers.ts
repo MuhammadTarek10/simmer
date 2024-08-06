@@ -66,6 +66,7 @@ export const toCardMain = (card: any) => {
     card_type: card.card_type,
     sell_date: card.sell_date,
     company_id: card.company.id,
+    customer_id: card.customer?.id,
     offer_id: card.offer?.id,
     comment: card.comment
   }

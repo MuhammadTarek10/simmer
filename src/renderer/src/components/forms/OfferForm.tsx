@@ -7,9 +7,11 @@ import { z } from 'zod'
 import AddingHeader from '../AddingHeader'
 import SubmitButton from '../SubmitButton'
 import { Form } from '../ui/form'
+import { useToast } from '../ui/use-toast'
 import CustomFormField, { FormFieldType } from './CustomFormField'
 
 const OfferForm = ({ offer }: { offer?: OfferInfo }) => {
+  const { toast } = useToast()
   const [isLoading, setIsLoading] = useState(false)
   const form = useForm<z.infer<typeof OfferValidationSchema>>({
     resolver: zodResolver(OfferValidationSchema),
@@ -22,8 +24,17 @@ const OfferForm = ({ offer }: { offer?: OfferInfo }) => {
     setIsLoading(true)
     try {
       await window.context.addOffer(data)
+      toast({
+        title: 'تمت الاضافة بنجاح',
+        description: 'تمت اضافة العرض بنجاح'
+      })
     } catch (e) {
       console.log(e)
+      toast({
+        title: 'حدث خطأ',
+        description: 'حدث خطأ اثناء اضافة العرض',
+        variant: 'destructive'
+      })
     } finally {
       setIsLoading(false)
     }

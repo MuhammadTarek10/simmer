@@ -15,19 +15,37 @@ import { defer, useLoaderData } from 'react-router-dom'
 export async function customerDetailsLoader({ params }) {
   await requireAuth()
   const customer = await window.context.getCustomer(params.id)
-  const cards = await window.context.getUnOccupiedCards()
+  const cards = await window.context.getCardsFromCustomerId(params.id)
+  const unOccupiedCards = await window.context.getUnOccupiedCards()
   return defer({
     customer: customer,
-    cards: cards
+    cards: cards,
+    unOccupiedCards: unOccupiedCards
   })
 }
 
 const CustomerDetails = () => {
-  const { customer, cards } = useLoaderData() as { customer: CustomerInfo; cards: CardInfo[] }
+  const { customer, cards, unOccupiedCards } = useLoaderData() as {
+    customer: CustomerInfo
+    cards: CardInfo[]
+    unOccupiedCards: CardInfo[]
+  }
+
+  const updatePage = () => {
+    window.location.reload()
+  }
+
   const options: DropDownOption[] = [
     {
       name: 'اضافة خط',
-      render: <AddCardToCustomerDialog customer={customer} title="اضافة خط" cards={cards} />
+      render: (
+        <AddCardToCustomerDialog
+          customer={customer}
+          title="اضافة خط"
+          cards={unOccupiedCards}
+          updatePage={updatePage}
+        />
+      )
     },
     { name: 'تعديل', icon: <FaRegEdit size={20} /> },
     { name: 'عرض الفواتير', icon: <GrView size={20} /> },
@@ -53,7 +71,7 @@ const CustomerDetails = () => {
       </div>
       <div className="mt-2">
         <hr className="my-4 border-gray-300" />
-        <DataTable data={customer.cards || []} columns={cardsColumns} />
+        <DataTable data={cards} columns={cardsColumns} />
       </div>
     </div>
   )

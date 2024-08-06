@@ -7,9 +7,11 @@ import { z } from 'zod'
 import AddingHeader from '../AddingHeader'
 import SubmitButton from '../SubmitButton'
 import { Form } from '../ui/form'
+import { useToast } from '../ui/use-toast'
 import CustomFormField, { FormFieldType } from './CustomFormField'
 
 const CustomerForm = ({ customer }: { customer?: CustomerInfo }) => {
+  const { toast } = useToast()
   const [isLoading, setIsLoading] = useState(false)
   const form = useForm<z.infer<typeof CustomerValidationSchema>>({
     resolver: zodResolver(CustomerValidationSchema),
@@ -24,8 +26,17 @@ const CustomerForm = ({ customer }: { customer?: CustomerInfo }) => {
       await window.context.addCustomer({
         ...data
       })
+      toast({
+        title: 'تمت الاضافة بنجاح',
+        description: 'تمت اضافة العميل بنجاح'
+      })
     } catch (e) {
       console.log(e)
+      toast({
+        title: 'حدث خطأ',
+        description: 'حدث خطأ اثناء اضافة العميل',
+        variant: 'destructive'
+      })
     } finally {
       setIsLoading(false)
     }

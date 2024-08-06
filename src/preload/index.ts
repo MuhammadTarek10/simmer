@@ -12,6 +12,7 @@ import {
   GetCard,
   GetCards,
   GetCardsFromCompanyId,
+  GetCardsFromCustomerId,
   GetCompanies,
   GetCompany,
   GetCustomer,
@@ -59,6 +60,8 @@ try {
     getCard: (...args: Parameters<GetCard>) => ipcRenderer.invoke('getCard', ...args),
     getCardsFromCompanyId: (...args: Parameters<GetCardsFromCompanyId>) =>
       ipcRenderer.invoke('getCardsFromCompanyId', ...args),
+    getCardsFromCustomerId: (...args: Parameters<GetCardsFromCustomerId>) =>
+      ipcRenderer.invoke('getCardsFromCustomerId', ...args),
 
     addCard: (...args: Parameters<AddCard>) => ipcRenderer.invoke('addCard', ...args),
     updateCard: (...args: Parameters<UpdateCard>) => ipcRenderer.invoke('updateCard', ...args),
