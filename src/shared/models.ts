@@ -26,8 +26,8 @@ export interface CardInfo {
   offer?: OfferInfo
   customer?: CustomerInfo
   offer_end_date?: string
-  price_before_vat: string
-  price_after_vat: string
+  price_before_vat: number
+  price_after_vat: number
   comment?: string
 }
 
@@ -51,13 +51,13 @@ export interface ListData {
 export interface OfferInfo {
   id?: string
   name: string
-  period_in_month: string
-  percentage: string
+  period_in_month: number
+  percentage: number
   comment?: string
 }
 
 export interface InvoiceInfo {
-  id: string
+  id?: string
   customer: CustomerInfo
   invoice_date: string
   amount: number

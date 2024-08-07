@@ -1,4 +1,5 @@
 import SortableButton from '@/components/SortableButton'
+import { routes } from '@shared/constants'
 import { CardInfo } from '@shared/models'
 import { ColumnDef } from '@tanstack/react-table'
 import TableActionButton from '../TableActionButton'
@@ -54,7 +55,7 @@ export const cardsColumns: ColumnDef<CardInfo>[] = [
         <div className="flex w-fit">
           <TableActionButton
             title="عرض"
-            href={`/edit/${card.id}/card`}
+            href={`/${routes.cards}/${card.id}`}
             className="hover:bg-action/25 p-2 rounded-lg"
           />
           <TableActionButton

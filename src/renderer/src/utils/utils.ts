@@ -11,25 +11,23 @@ export function extractCompanyDetails(cards: CardInfo[]) {
   const phoneTotal = cards?.filter((card) => card.card_type === 'phone').length
   const phoneTotalBeforeVat = cards
     ?.filter((card) => card.card_type === 'phone')
-    .map((card) => Number(card.price_before_vat))
+    .map((card) => card.price_before_vat)
     .reduce((acc, curr) => acc + curr, 0)
   const phoneTotalAfterVat = cards
     ?.filter((card) => card.card_type === 'phone')
-    .map((card) => Number(card.price_after_vat))
+    .map((card) => card.price_after_vat)
     .reduce((acc, curr) => acc + curr, 0)
   const localTotal = cards?.filter((card) => card.card_type === 'local').length
   const localTotalBeforeVat = cards
     ?.filter((card) => card.card_type === 'local')
-    .map((card) => Number(card.price_before_vat))
+    .map((card) => card.price_before_vat)
     .reduce((acc, curr) => acc + curr, 0)
   const localTotalAfterVat = cards
     ?.filter((card) => card.card_type === 'local')
-    .map((card) => Number(card.price_after_vat))
+    .map((card) => card.price_after_vat)
     .reduce((acc, curr) => acc + curr, 0)
   const cardsTotal = cards?.length
-  const moneyTotal = cards
-    ?.map((card) => Number(card.price_after_vat))
-    .reduce((acc, curr) => acc + curr, 0)
+  const moneyTotal = cards?.map((card) => card.price_after_vat).reduce((acc, curr) => acc + curr, 0)
   return {
     phoneTotal,
     phoneTotalBeforeVat,

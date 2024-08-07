@@ -35,7 +35,7 @@ model Offer {
 
 model Card {
   id               String   @id @default(uuid())
-  card_number      String
+  card_number      String @unique
   start_date       String
   price_before_vat Int      @default(0)
   price_after_vat  Int      @default(0)
@@ -80,6 +80,7 @@ model Invoice {
   id          String   @id @default(uuid())
   customer_id String?
   amount      Float
+  invoice_date String?
   created_at  DateTime @default(now())
   updated_at  DateTime @updatedAt
   comment     String?

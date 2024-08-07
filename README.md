@@ -5,8 +5,6 @@
 - Home Page
 - List Page
 - Invoices Page (UI)
-- Cards Page (UI)
-- Companies Page (UI)
 - Nested Pages
   - Card Page
   - Invoice Page
@@ -18,3 +16,4 @@
   - Customer
   - Invoice
 - Add Invoice to Customer
+- Loading

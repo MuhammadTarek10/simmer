@@ -26,7 +26,7 @@ const CardForm = ({ card }: { card?: CardInfo }) => {
     const calculateProfit = () => {
       const priceBeforeVat = form.watch('price_before_vat')
       const priceAfterVat = form.watch('price_after_vat')
-      const calculatedProfit = Number(priceAfterVat) - Number(priceBeforeVat)
+      const calculatedProfit = priceAfterVat - priceBeforeVat
       setProfit(calculatedProfit)
     }
 
@@ -147,7 +147,7 @@ const CardForm = ({ card }: { card?: CardInfo }) => {
                 label="السعر بعد الضريبة"
                 fieldType={FormFieldType.INPUT}
               />
-              <DisabledInput label="المكسب" value={profit} />
+              <DisabledInput label="المكسب" value={profit.toString()} />
             </div>
 
             <div className="form-row">

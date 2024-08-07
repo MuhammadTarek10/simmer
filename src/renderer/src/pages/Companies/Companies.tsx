@@ -1,6 +1,7 @@
+import icon from '@/assets/icons/list-company.svg'
 import NameCard from '@/components/NameCard'
 import { requireAuth } from '@shared/actions/auth.actions'
-import { Company } from '@shared/models'
+import { CompanyInfo } from '@shared/models'
 import { defer, Link, useLoaderData } from 'react-router-dom'
 
 export async function companiesLoader() {
@@ -10,7 +11,7 @@ export async function companiesLoader() {
 }
 
 const Companies = () => {
-  const { companies } = useLoaderData() as { companies: Company[] }
+  const { companies } = useLoaderData() as { companies: CompanyInfo[] }
   return (
     <div className="gap-4">
       <div className="flex items-center p-2">
@@ -20,8 +21,8 @@ const Companies = () => {
       <div>
         <div className="name-list">
           {companies.map((company) => (
-            <Link to={company.id} key={company.id}>
-              <NameCard name={company.name} />
+            <Link to={company.id!} key={company.id}>
+              <NameCard name={company.name} icon={icon} />
             </Link>
           ))}
         </div>

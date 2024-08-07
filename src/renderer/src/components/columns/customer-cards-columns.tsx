@@ -3,6 +3,7 @@ import { CardInfo } from '@shared/models'
 import { ColumnDef } from '@tanstack/react-table'
 import RemoveCardFromCustomerDialog from '../dialogs/RemoveCardFromCustomerDialog'
 import TableActionButton from '../TableActionButton'
+import { routes } from '@shared/constants'
 
 export const customerCardColumns: ColumnDef<CardInfo>[] = [
   {
@@ -55,7 +56,7 @@ export const customerCardColumns: ColumnDef<CardInfo>[] = [
         <div className="flex w-fit">
           <TableActionButton
             title="عرض"
-            href={`/edit/${card.id}/card`}
+            href={`/${routes.cards}/${card.id}`}
             className="hover:bg-action/25 p-2 rounded-lg"
           />
           <TableActionButton

@@ -1,6 +1,6 @@
 import { Label } from './ui/label'
 
-const DisabledInput = ({ label, value }: { label: string; value: number }) => {
+const DisabledInput = ({ label, value }: { label: string; value: string }) => {
   return (
     <div className="flex flex-col w-full">
       <Label className="text-2xl">{label}</Label>

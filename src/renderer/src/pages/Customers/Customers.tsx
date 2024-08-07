@@ -1,3 +1,4 @@
+import icon from '@/assets/icons/customer-on.svg'
 import NameCard from '@/components/NameCard'
 import { requireAuth } from '@shared/actions/auth.actions'
 import { CustomerInfo } from '@shared/models'
@@ -22,7 +23,7 @@ const Customers = () => {
         <div className="name-list">
           {customers.map((customer) => (
             <Link key={customer.id!} to={customer.id!}>
-              <NameCard name={customer.name} />
+              <NameCard name={customer.name} icon={icon} />
             </Link>
           ))}
         </div>

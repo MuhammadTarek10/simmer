@@ -60,8 +60,15 @@ const CustomerDetails = () => {
       icon: <FaRegEdit size={20} />,
       onClick: () => navigate(`/edit/${customer.id}/customer`)
     },
-    { name: 'عرض الفواتير', icon: <GrView size={20} /> },
-    { name: 'عمل فاتورة', icon: <IoMdAdd size={20} /> },
+    {
+      name: 'عرض الفواتير',
+      icon: <GrView size={20} />
+    },
+    {
+      name: 'عمل فاتورة',
+      icon: <IoMdAdd size={20} />,
+      onClick: () => navigate(`/customer/${customer.id}/invoice`)
+    },
     {
       name: 'حذف',
       className: 'text-red-500',

@@ -62,8 +62,8 @@ export const toCardMain = (card: any) => {
   return {
     card_number: card.card_number,
     start_date: card.start_date,
-    price_before_vat: Number(card.price_before_vat),
-    price_after_vat: Number(card.price_after_vat),
+    price_before_vat: card.price_before_vat,
+    price_after_vat: card.price_after_vat,
     card_type: card.card_type,
     sell_date: card.sell_date,
     company_id: card.company.id,
@@ -94,6 +94,7 @@ export const toInvoiceRenderer = (invoice: any) => {
 export const toInvoiceMain = (invoice: InvoiceInfo) => {
   return {
     customer_id: invoice.customer.id,
+    invoice_date: invoice.invoice_date,
     amount: invoice.amount,
     comment: invoice.comment
   }
@@ -112,8 +113,8 @@ export const toOfferRenderer = (offer: any) => {
 export const toOfferMain = (offer: any) => {
   return {
     name: offer.name,
-    period_in_month: Number(offer.period_in_month),
-    percentage: Number(offer.percentage),
+    period_in_month: offer.period_in_month,
+    percentage: offer.percentage,
     comment: offer.comment
   }
 }

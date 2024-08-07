@@ -22,14 +22,14 @@ export const OfferValidationSchema = z.object({
       message: 'يجب أن يكون اسم العرض أكبر من 2 أحرف'
     })
     .max(255),
-  percentage: z
-    .string({
+  percentage: z.coerce
+    .number({
       message: 'مطلوب'
     })
     .min(0)
     .max(100),
-  period_in_month: z
-    .string({
+  period_in_month: z.coerce
+    .number({
       message: 'مطلوب'
     })
     .min(1),
@@ -83,10 +83,10 @@ export const CardValidationSchema = z.object({
   start_date: z.date({
     message: 'مطلوب'
   }),
-  price_before_vat: z.string({
+  price_before_vat: z.coerce.number({
     message: 'مطلوب'
   }),
-  price_after_vat: z.string({
+  price_after_vat: z.coerce.number({
     message: 'مطلوب'
   }),
   offer_name: z.string().optional(),
@@ -100,6 +100,10 @@ export const InvoiceValidationSchema = z.object({
   invoice_date: z.date({
     message: 'مطلوب'
   }),
-  amount: z.number().min(0),
+  amount: z.coerce
+    .number({
+      message: 'مطلوب'
+    })
+    .min(0),
   comment: z.string().optional()
 })

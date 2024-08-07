@@ -7,14 +7,9 @@ import { CardInfo, CompanyInfo } from '@shared/models'
 import { DropDownOption } from '@shared/types'
 import { BsTrash } from 'react-icons/bs'
 import { FaRegEdit } from 'react-icons/fa'
-import { defer, useLoaderData } from 'react-router-dom'
+import { defer, useLoaderData, useNavigate } from 'react-router-dom'
 import CardsStat from './components/CardsStat'
 import TotalStat from './components/TotalStat'
-
-const options: DropDownOption[] = [
-  { name: 'تعديل', icon: <FaRegEdit size={20} /> },
-  { name: 'حذف', className: 'text-red-500', icon: <BsTrash size={20} /> }
-]
 
 export async function companyDetailsLoader({ params }) {
   await requireAuth()
@@ -24,8 +19,16 @@ export async function companyDetailsLoader({ params }) {
 }
 
 const CompanyDetails = () => {
+  const navigate = useNavigate()
   const { company, cards } = useLoaderData() as { company: CompanyInfo; cards: CardInfo[] }
-
+  const options: DropDownOption[] = [
+    {
+      name: 'تعديل',
+      icon: <FaRegEdit size={20} />,
+      onClick: () => navigate(`/edit/${company.id}/company`)
+    },
+    { name: 'حذف', className: 'text-red-500', icon: <BsTrash size={20} /> }
+  ]
   const {
     phoneTotal,
     phoneTotalBeforeVat,

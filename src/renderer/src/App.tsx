@@ -18,6 +18,7 @@ import Cards, { cardsLoader } from './pages/Cards/Cards'
 import CompanyDetails, { companyDetailsLoader } from './pages/Companies/CompanyDetails'
 import CustomerDetails, { customerDetailsLoader } from './pages/Customers/CustomerDetails'
 import Editing, { editingLoader } from './pages/Editing/Editing'
+import AddCustomerInvoice, { addCustomerInvoiceLoader } from './pages/Invoices/AddCustomerInvoice'
 import Invoices, { invoicesLoader } from './pages/Invoices/Invoices'
 import InvoicesDetails, { invoicesDetailsLoader } from './pages/Invoices/InvoicesDetails'
 import Login from './pages/Login/Login'
@@ -51,6 +52,11 @@ function App() {
             path={routes.invoiceDetails}
             element={<InvoicesDetails />}
             loader={invoicesDetailsLoader}
+          />
+          <Route
+            path={routes.addCustomerInvoice}
+            element={<AddCustomerInvoice />}
+            loader={addCustomerInvoiceLoader}
           />
         </Route>
       </Route>
