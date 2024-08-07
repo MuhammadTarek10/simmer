@@ -5,7 +5,27 @@ export interface DropDownOption {
   className?: string
   icon?: React.ReactNode
   render?: React.ReactNode
+  onClick?: () => void
   value?: string
+}
+
+export interface TableActionButtonProps {
+  title: string
+  children: React.ReactNode[]
+}
+
+export interface CustomDialogProps {
+  placeholder?: string
+  placeholderClassName?: string
+  title: string
+  titleClassName?: string
+  description: string
+  confirmText: string
+  confirmClassName?: string
+  cancelText: string
+  cancelClassName?: string
+  icon?: React.ReactNode
+  onConfirm: () => void
 }
 
 // * Company

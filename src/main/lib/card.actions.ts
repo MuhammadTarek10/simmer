@@ -27,7 +27,8 @@ export async function getUnOccupiedCards(): Promise<CardInfo[]> {
     },
     include: {
       company: true,
-      offer: true
+      offer: true,
+      customer: true
     }
   })
 
@@ -35,7 +36,14 @@ export async function getUnOccupiedCards(): Promise<CardInfo[]> {
 }
 
 export async function getCard(id: string): Promise<CardInfo> {
-  const card = await prisma.card.findUnique({ where: { id } })
+  const card = await prisma.card.findUnique({
+    where: { id },
+    include: {
+      company: true,
+      offer: true,
+      customer: true
+    }
+  })
   return toCardRenderer(card)
 }
 
@@ -45,7 +53,9 @@ export async function getCardsFromCompanyId(id: string): Promise<CardInfo[]> {
       company_id: id
     },
     include: {
-      company: true
+      company: true,
+      offer: true,
+      customer: true
     }
   })
 
@@ -58,7 +68,9 @@ export async function getCardsFromCustomerId(id: string): Promise<CardInfo[]> {
       customer_id: id
     },
     include: {
-      company: true
+      company: true,
+      offer: true,
+      customer: true
     }
   })
 

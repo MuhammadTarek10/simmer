@@ -28,6 +28,7 @@ const OfferForm = ({ offer }: { offer?: OfferInfo }) => {
         title: 'تمت الاضافة بنجاح',
         description: 'تمت اضافة العرض بنجاح'
       })
+      form.reset()
     } catch (e) {
       console.log(e)
       toast({

@@ -2,15 +2,19 @@
 
 ## TODO
 
-- Home Page (Separate By Year? UI)
+- Home Page
 - List Page
 - Invoices Page (UI)
+- Cards Page (UI)
+- Companies Page (UI)
 - Nested Pages
   - Card Page
   - Invoice Page
 - Edit and Delete
-  - Card
   - Invoice
-  - Customer
+- Delete
+  - Card
   - Company
+  - Customer
+  - Invoice
 - Add Invoice to Customer

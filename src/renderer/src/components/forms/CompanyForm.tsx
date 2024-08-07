@@ -2,7 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { convertDateToString, convertStringToDate } from '@shared/converters'
 import { CompanyInfo } from '@shared/models'
 import { CompanyValidationSchema } from '@shared/validation'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import AddingHeader from '../AddingHeader'
@@ -15,24 +15,41 @@ const CompanyForm = ({ company }: { company?: CompanyInfo }) => {
   const { toast } = useToast()
   const [isLoading, setIsLoading] = useState(false)
   const form = useForm<z.infer<typeof CompanyValidationSchema>>({
-    resolver: zodResolver(CompanyValidationSchema),
-    defaultValues: {
-      ...company,
-      invoice_date: convertStringToDate(company?.invoice_date)
-    }
+    resolver: zodResolver(CompanyValidationSchema)
   })
+
+  useEffect(() => {
+    if (company) {
+      form.setValue('name', company.name)
+      form.setValue('invoice_date', convertStringToDate(company.invoice_date))
+      form.setValue('comment', company.comment)
+    }
+  }, [])
 
   const onSubmit = async (data: z.infer<typeof CompanyValidationSchema>) => {
     setIsLoading(true)
     try {
-      await window.context.addCompany({
-        ...data,
-        invoice_date: convertDateToString(data.invoice_date)
-      })
-      toast({
-        title: 'تمت الاضافة بنجاح',
-        description: 'تمت اضافة الشركة بنجاح'
-      })
+      if (company) {
+        await window.context.updateCompany({
+          ...data,
+          invoice_date: convertDateToString(data.invoice_date),
+          id: company.id
+        })
+        toast({
+          title: 'تم التعديل بنجاح',
+          description: 'تم تعديل الشركة بنجاح'
+        })
+      } else {
+        await window.context.addCompany({
+          ...data,
+          invoice_date: convertDateToString(data.invoice_date)
+        })
+        toast({
+          title: 'تمت الاضافة بنجاح',
+          description: 'تمت اضافة الشركة بنجاح'
+        })
+      }
+      form.reset()
     } catch (e) {
       console.log(e)
       toast({
@@ -47,7 +64,7 @@ const CompanyForm = ({ company }: { company?: CompanyInfo }) => {
 
   return (
     <div className="h-full">
-      <AddingHeader title="اضافة شركة" />
+      <AddingHeader title={company ? 'تعديل شركة' : 'اضافة شركة'} />
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex-1 space-y-12">
           <div className="w-[50vh] space-y-2">

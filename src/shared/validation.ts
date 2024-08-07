@@ -65,8 +65,7 @@ export const CustomerValidationSchema = z.object({
     })
     .min(3, {
       message: 'يجب أن يكون العنوان أكبر من 3 أحرف'
-    })
-    .optional(),
+    }),
   comment: z.string().optional()
 })
 

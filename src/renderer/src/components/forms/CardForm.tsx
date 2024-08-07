@@ -19,11 +19,7 @@ const CardForm = ({ card }: { card?: CardInfo }) => {
   const [isLoading, setIsLoading] = useState(false)
   const [profit, setProfit] = useState(0)
   const form = useForm<z.infer<typeof CardValidationSchema>>({
-    resolver: zodResolver(CardValidationSchema),
-    defaultValues: {
-      ...card,
-      start_date: convertStringToDate(card?.start_date)
-    }
+    resolver: zodResolver(CardValidationSchema)
   })
 
   useEffect(() => {
@@ -36,6 +32,18 @@ const CardForm = ({ card }: { card?: CardInfo }) => {
 
     calculateProfit()
   }, [form.watch('price_before_vat'), form.watch('price_after_vat')])
+
+  useEffect(() => {
+    if (card) {
+      form.setValue('card_number', card.card_number)
+      form.setValue('start_date', convertStringToDate(card.start_date))
+      form.setValue('price_before_vat', card.price_before_vat)
+      form.setValue('price_after_vat', card.price_after_vat)
+      form.setValue('company_name', card.company.name)
+      form.setValue('offer_name', card.offer?.name)
+      form.setValue('comment', card.comment)
+    }
+  }, [])
 
   useEffect(() => {
     const getCompanies = async () => {
@@ -61,6 +69,7 @@ const CardForm = ({ card }: { card?: CardInfo }) => {
 
   const onSubmit = async (data: z.infer<typeof CardValidationSchema>) => {
     setIsLoading(true)
+
     try {
       if (card) {
         await window.context.updateCard({
@@ -71,6 +80,11 @@ const CardForm = ({ card }: { card?: CardInfo }) => {
           offer: offers.find((offer) => offer.name === data.offer_name),
           card_type: data.card_number.startsWith('01') ? 'phone' : 'local'
         })
+
+        toast({
+          title: 'تم التعديل بنجاح',
+          description: 'تم تعديل الخط بنجاح'
+        })
       } else {
         await window.context.addCard({
           ...data,
@@ -79,11 +93,13 @@ const CardForm = ({ card }: { card?: CardInfo }) => {
           offer: offers.find((offer) => offer.name === data.offer_name),
           card_type: data.card_number.startsWith('01') ? 'phone' : 'local'
         })
+
+        toast({
+          title: 'تمت الاضافة بنجاح',
+          description: 'تمت اضافة الخط بنجاح'
+        })
       }
-      toast({
-        title: 'تمت الاضافة بنجاح',
-        description: 'تمت اضافة الخط بنجاح'
-      })
+      form.reset()
     } catch (e) {
       console.log(e)
       toast({
@@ -98,7 +114,7 @@ const CardForm = ({ card }: { card?: CardInfo }) => {
 
   return (
     <div className="h-full">
-      <AddingHeader title="اضافة خط" />
+      <AddingHeader title={card ? 'تعديل خط' : 'إضافة خط'} />
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex-1 space-y-12">
           <div className="w-[90vh] space-y-2">

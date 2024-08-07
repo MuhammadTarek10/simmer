@@ -23,6 +23,7 @@ const CustomDropDownMenu = ({ options }: { options?: DropDownOption[] }) => {
                 <DropdownMenuItem
                   key={option.name}
                   className={cn('cursor-pointer', option.className)}
+                  onClick={option.onClick}
                 >
                   <DropdownMenuLabel className="flex gap-2 w-full justify-between">
                     {option.icon && option.icon}

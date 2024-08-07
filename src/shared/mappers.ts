@@ -50,6 +50,7 @@ export const toCardRenderer = (card: any) => {
     start_date: card.start_date,
     company: card.company,
     offer: card.offer,
+    customer: card.customer,
     offer_end_date: card.offer_end_date,
     price_before_vat: card.price_before_vat,
     price_after_vat: card.price_after_vat,

@@ -8,20 +8,16 @@ import { useState } from 'react'
 
 const options: DropDownOption[] = [
   {
-    name: 'اضافة شركة',
-    value: 'اضافة شركة'
+    name: 'اضافة شركة'
   },
   {
-    name: 'اضافة عميل',
-    value: 'اضافة عميل'
+    name: 'اضافة عميل'
   },
   {
-    name: 'اضافة خط',
-    value: 'اضافة خط'
+    name: 'اضافة خط'
   },
   {
-    name: 'اضافة عرض',
-    value: 'اضافة عرض'
+    name: 'اضافة عرض'
   }
 ]
 
@@ -45,7 +41,9 @@ const Adding = () => {
         <h1 className="text-5xl">الاضافة</h1>
         <CustomSelect options={options} placeholder={form} onChange={onChange} />
       </div>
-      {forms[form]}
+      <div className="transition-opacity" key={form}>
+        {forms[form]}
+      </div>
     </div>
   )
 }

@@ -10,6 +10,7 @@ export const routes = {
   invoices: 'invoices',
   invoiceDetails: 'invoices/:id',
   adding: 'adding',
+  editing: 'edit/:id/:type',
   login: 'login'
 }
 

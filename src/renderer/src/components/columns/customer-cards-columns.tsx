@@ -1,9 +1,10 @@
 import SortableButton from '@/components/SortableButton'
 import { CardInfo } from '@shared/models'
 import { ColumnDef } from '@tanstack/react-table'
+import RemoveCardFromCustomerDialog from '../dialogs/RemoveCardFromCustomerDialog'
 import TableActionButton from '../TableActionButton'
 
-export const cardsColumns: ColumnDef<CardInfo>[] = [
+export const customerCardColumns: ColumnDef<CardInfo>[] = [
   {
     accessorKey: 'card_number',
     header: 'الخط'
@@ -61,6 +62,9 @@ export const cardsColumns: ColumnDef<CardInfo>[] = [
             title="تعديل"
             href={`/edit/${card.id}/card`}
             className="hover:bg-action/25 p-2 rounded-lg"
+          />
+          <RemoveCardFromCustomerDialog
+            onClick={() => console.log(`Removing: ${row.original.customer?.id}`)}
           />
         </div>
       )
