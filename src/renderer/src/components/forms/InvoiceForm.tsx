@@ -33,7 +33,8 @@ const InvoiceForm = ({
     onClick({
       customer: customer,
       invoice_date: convertDateToString(data.invoice_date),
-      amount: data.amount
+      amount: data.amount,
+      comment: data.comment
     })
   }
 

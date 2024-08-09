@@ -14,6 +14,7 @@ export interface CustomerInfo {
   grand_name: string
   address: string
   cards?: CardInfo[]
+  invoices?: InvoiceInfo[]
   comment?: string
 }
 
@@ -34,10 +35,8 @@ export interface CardInfo {
 export interface ListInfo {
   customer_id: string
   name: string
-  card_number: string
-  company_name: string
-  offer_name?: string
-  invoice_date?: string
+  number_of_cards: number
+  total: number
   paid?: number
   remaining?: number
   comment?: string

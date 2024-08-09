@@ -52,7 +52,9 @@ export function DataTable<TData, TValue>({
   })
 
   const getRowColor = (row): string => {
-    return row.original.paid >= row.original.remaining ? 'bg-success' : 'bg-failure'
+    console.log(row)
+
+    return row.original.paid >= row.original.total ? 'bg-success' : 'bg-failure'
   }
   return (
     <div className="flex rounded-md border text-center">

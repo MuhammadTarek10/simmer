@@ -40,40 +40,40 @@ export function extractCompanyDetails(cards: CardInfo[]) {
   }
 }
 
-export function convertMonthToArabic(month: string) {
-  switch (month) {
-    case 'January':
-      return 'يناير'
-    case 'February':
-      return 'فبراير'
-    case 'March':
-      return 'مارس'
-    case 'April':
-      return 'أبريل'
-    case 'May':
-      return 'مايو'
-    case 'June':
-      return 'يونيو'
-    case 'July':
-      return 'يوليو'
-    case 'August':
-      return 'أغسطس'
-    case 'September':
-      return 'سبتمبر'
-    case 'October':
-      return 'أكتوبر'
-    case 'November':
-      return 'نوفمبر'
-    case 'December':
-      return 'ديسمبر'
-    default:
-      return ''
-  }
-}
-
 export const convertCardsToSelectOptions = (cards: CardInfo[]): DropDownOption[] => {
   return cards.map((card) => ({
     name: card.card_number,
     value: card.id
   }))
+}
+
+export const convertMonthToArabic = (month: string) => {
+  switch (month) {
+    case '1':
+      return 'يناير'
+    case '2':
+      return 'فبراير'
+    case '3':
+      return 'مارس'
+    case '4':
+      return 'ابريل'
+    case '5':
+      return 'مايو'
+    case '6':
+      return 'يونيو'
+    case '7':
+      return 'يوليو'
+    case '8':
+      return 'اغسطس'
+    case '9':
+      return 'سبتمبر'
+    case '10':
+      return 'اكتوبر'
+    case '11':
+      return 'نوفمبر'
+    case '12':
+      return 'ديسمبر'
+    default:
+      return ''
+  }
 }

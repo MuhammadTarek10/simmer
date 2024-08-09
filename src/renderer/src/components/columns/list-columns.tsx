@@ -1,6 +1,7 @@
+import { routes } from '@shared/constants'
 import { ListInfo } from '@shared/models'
 import { ColumnDef } from '@tanstack/react-table'
-import { Link } from 'react-router-dom'
+import TableActionButton from '../TableActionButton'
 
 export const listColumns: ColumnDef<ListInfo>[] = [
   {
@@ -8,20 +9,12 @@ export const listColumns: ColumnDef<ListInfo>[] = [
     header: 'الاسم'
   },
   {
-    accessorKey: 'card_number',
-    header: 'الخط'
+    accessorKey: 'number_of_cards',
+    header: 'عدد الخطوط'
   },
   {
-    accessorKey: 'company_name',
-    header: 'الشركة'
-  },
-  {
-    accessorKey: 'offer_name',
-    header: 'العرض'
-  },
-  {
-    accessorKey: 'invoice_date',
-    header: 'تاريخ آخر دفع'
+    accessorKey: 'total',
+    header: 'المجموع'
   },
   {
     accessorKey: 'paid',
@@ -33,10 +26,20 @@ export const listColumns: ColumnDef<ListInfo>[] = [
   },
   {
     accessorKey: 'comment',
-    header: 'ملاحظات'
+    header: 'ملاحظات',
+    cell: ({ row }) => {
+      const comment = row.original.comment
+      return comment ? (
+        <span>{comment}</span>
+      ) : (
+        <span className="text-gray-400">لا توجد ملاحظات</span>
+      )
+    }
   },
   {
     id: 'actions',
-    cell: ({ row }) => <Link to={`/customers/${row.original.customer_id}`}>عرض</Link>
+    cell: ({ row }) => (
+      <TableActionButton title="عرض" href={`/${routes.customers}/${row.original.customer_id}`} />
+    )
   }
 ]

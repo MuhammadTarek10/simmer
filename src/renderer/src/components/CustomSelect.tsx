@@ -12,12 +12,14 @@ const CustomSelect = ({
   placeholder,
   options,
   onChange,
-  className
+  className,
+  addPlaceholder
 }: {
   placeholder: string
   options?: DropDownOption[]
   onChange: (value: string) => void
   className?: string
+  addPlaceholder?: boolean
 }) => {
   return (
     <div className="flex p-2">
@@ -26,6 +28,11 @@ const CustomSelect = ({
           <SelectValue placeholder={placeholder} />
         </SelectTrigger>
         <SelectContent>
+          {addPlaceholder && (
+            <SelectItem key="placeholder" className={cn('cursor-pointer')} value={placeholder}>
+              {placeholder}
+            </SelectItem>
+          )}
           {options &&
             options.map((option) => (
               <SelectItem

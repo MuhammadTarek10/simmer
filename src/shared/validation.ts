@@ -100,10 +100,9 @@ export const InvoiceValidationSchema = z.object({
   invoice_date: z.date({
     message: 'مطلوب'
   }),
-  amount: z.coerce
-    .number({
-      message: 'مطلوب'
-    })
-    .min(0),
+  amount: z.coerce.number({
+    message: 'مطلوب'
+  }),
+
   comment: z.string().optional()
 })

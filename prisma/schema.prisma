@@ -35,7 +35,7 @@ model Offer {
 
 model Card {
   id               String   @id @default(uuid())
-  card_number      String @unique
+  card_number      String   @unique
   start_date       String
   price_before_vat Int      @default(0)
   price_after_vat  Int      @default(0)
@@ -48,10 +48,9 @@ model Card {
   updated_at       DateTime @updatedAt
   comment          String?
 
-  company   Company        @relation(fields: [company_id], references: [id], onDelete: Cascade)
-  offer     Offer?         @relation(fields: [offer_id], references: [id])
-  customer  Customer?      @relation(fields: [customer_id], references: [id])
-
+  company  Company   @relation(fields: [company_id], references: [id], onDelete: Cascade)
+  offer    Offer?    @relation(fields: [offer_id], references: [id])
+  customer Customer? @relation(fields: [customer_id], references: [id])
 
   @@index([card_number])
   @@index([company_id])
@@ -73,19 +72,19 @@ model Customer {
   invoices Invoice[]
 
   @@index([name, national_id])
-
 }
 
 model Invoice {
-  id          String   @id @default(uuid())
-  customer_id String?
-  amount      Float
-  invoice_date String?
-  created_at  DateTime @default(now())
-  updated_at  DateTime @updatedAt
-  comment     String?
+  id           String   @id @default(uuid())
+  customer_id  String?
+  amount       Float
+  invoice_date DateTime?
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
+  comment      String?
 
   customer Customer? @relation(fields: [customer_id], references: [id])
 
+  @@unique([customer_id, amount, invoice_date])
   @@index([customer_id])
 }
