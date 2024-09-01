@@ -56,6 +56,7 @@ export type DeleteCard = (id: string) => Promise<void>
 export type GetList = (year?: number) => Promise<ListData[]>
 
 // * Invoices
+export type UpdatePaymentInvoices = () => Promise<void>
 export type GetInvoices = () => Promise<InvoiceInfo[]>
 export type GetInvoice = (id: string) => Promise<InvoiceInfo>
 export type AddInvoice = (invoice: InvoiceInfo) => Promise<void>

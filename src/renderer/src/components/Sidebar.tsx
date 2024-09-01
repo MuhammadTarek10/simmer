@@ -2,7 +2,6 @@ import addingOn from '@/assets/icons/add-on.svg'
 import companiesOn from '@/assets/icons/companies-on.svg'
 import customersOn from '@/assets/icons/customer-on.svg'
 import homeOn from '@/assets/icons/home-on.svg'
-import listOn from '@/assets/icons/list-on.svg'
 import money from '@/assets/icons/money.svg'
 import sim from '@/assets/icons/sim.svg'
 import { routes } from '@shared/constants'
@@ -13,11 +12,6 @@ const sidebarLinks = [
     href: routes.home,
     icon: homeOn,
     alt: 'الرئيسية'
-  },
-  {
-    href: routes.list,
-    icon: listOn,
-    alt: 'القائمة'
   },
   {
     href: routes.companies,

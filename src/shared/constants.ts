@@ -35,6 +35,7 @@ export const functionNames = {
   updateCard: 'updateCard',
   deleteCard: 'deleteCard',
   getList: 'getList',
+  updatePaymentInvoices: 'updatePaymentInvoices',
   getInvoices: 'getInvoices',
   addInvoice: 'addInvoice',
   updateInvoice: 'updateInvoice',

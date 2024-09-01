@@ -26,7 +26,8 @@ import {
   UpdateCompany,
   UpdateCustomer,
   UpdateInvoice,
-  UpdateOffer
+  UpdateOffer,
+  UpdatePaymentInvoices
 } from '@shared/types'
 import { GetOffer } from '../shared/types'
 declare global {
@@ -60,6 +61,7 @@ declare global {
       getList: GetLists
 
       // * Invoices
+      updatePaymentInvoices: UpdatePaymentInvoices
       getInvoices: GetInvoices
       getInvoice: GetInvoice
       addInvoice: AddInvoice

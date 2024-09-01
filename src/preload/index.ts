@@ -24,7 +24,8 @@ import {
   UpdateCard,
   UpdateCompany,
   UpdateCustomer,
-  UpdateInvoice
+  UpdateInvoice,
+  UpdatePaymentInvoices
 } from '../shared/types'
 
 if (!process.contextIsolated) {
@@ -71,6 +72,8 @@ try {
     getList: (...args: Parameters<GetList>) => ipcRenderer.invoke('getList', ...args),
 
     // * Invoices
+    updatePaymentInvoices: (...args: Parameters<UpdatePaymentInvoices>) =>
+      ipcRenderer.invoke('updatePaymentInvoices', ...args),
     getInvoices: (...args: Parameters<GetInvoices>) => ipcRenderer.invoke('getInvoices', ...args),
     addInvoice: (...args: Parameters<AddInvoice>) => ipcRenderer.invoke('addInvoice', ...args),
     updateInvoice: (...args: Parameters<UpdateInvoice>) =>

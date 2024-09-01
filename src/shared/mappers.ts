@@ -76,7 +76,10 @@ export const toCardMain = (card: any) => {
 
 export const groupByMonth = (invoices: any[]): ListData[] => {
   const grouped = invoices.reduce((acc: any, invoice: any) => {
-    const month = new Date(invoice.invoice_date).getMonth() + 1
+    const monthOnly = new Date(invoice.invoice_date).getMonth() + 1
+    const year = new Date(invoice.invoice_date).getFullYear()
+
+    const month = `${year}-${monthOnly}`
 
     if (!acc[month]) {
       acc[month] = []

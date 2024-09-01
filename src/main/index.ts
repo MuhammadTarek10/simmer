@@ -25,7 +25,8 @@ import {
   UpdateCard,
   UpdateCompany,
   UpdateCustomer,
-  UpdateInvoice
+  UpdateInvoice,
+  UpdatePaymentInvoices
 } from '@shared/types'
 import { app, BrowserWindow, ipcMain, shell } from 'electron'
 import { join } from 'path'
@@ -54,7 +55,13 @@ import {
   getCustomers,
   updateCustomer
 } from './lib/customer.actions'
-import { addInvoice, deleteInvoice, getInvoices, updateInvoice } from './lib/invoices.actions'
+import {
+  addInvoice,
+  deleteInvoice,
+  getInvoices,
+  updateInvoice,
+  updatePaymentInvoices
+} from './lib/invoices.actions'
 import { getLists } from './lib/list.actions'
 import { addOffer, getOffers } from './lib/offers.actions'
 
@@ -176,6 +183,10 @@ app.whenReady().then(() => {
   )
 
   // * Invoices
+  ipcMain.handle(
+    functionNames.updatePaymentInvoices,
+    async (_, ...args: Parameters<UpdatePaymentInvoices>) => updatePaymentInvoices(...args)
+  )
   ipcMain.handle(functionNames.getInvoices, async (_, ...args: Parameters<GetInvoices>) =>
     getInvoices(...args)
   )

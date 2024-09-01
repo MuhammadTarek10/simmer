@@ -32,7 +32,7 @@ const Cards = () => {
         <h1 className="text-3xl font-bold ml-8">الخطوط</h1>
         <SearchInput value={search} onChange={(e) => setSearch(e.target.value)} />
       </div>
-      <DataTable data={filteredCards} columns={cardsColumns} />
+      <DataTable columns={cardsColumns} data={filteredCards} />
     </div>
   )
 }

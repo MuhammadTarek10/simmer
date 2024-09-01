@@ -2,9 +2,6 @@
 
 ## TODO
 
-- Home Page
-- List Page
-- Invoices Page (UI)
 - Nested Pages
   - Card Page
   - Invoice Page
@@ -13,7 +10,5 @@
 - Delete
   - Card
   - Company
-  - Customer
   - Invoice
-- Add Invoice to Customer
-- Loading
+- Remove Card from Customer
