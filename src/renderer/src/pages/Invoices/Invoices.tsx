@@ -28,7 +28,7 @@ const Invoices = () => {
         <h1 className="flex text-3xl font-bold ml-8">الفواتير</h1>
         <SearchInput value={search} onChange={(e) => setSearch(e.target.value)} />
       </div>
-      <div className="grid grid-cols-2 gap-2">
+      <div className="grid grid-cols-5 gap-2">
         {filteredData.map((invoice) => (
           <div key={invoice.id} className="p-2">
             <InvoiceCard invoice={invoice} />

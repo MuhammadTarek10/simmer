@@ -12,25 +12,41 @@ import { Form } from '../ui/form'
 import { useToast } from '../ui/use-toast'
 import CustomFormField, { FormFieldType } from './CustomFormField'
 
-const InvoiceForm = ({
-  customer,
-  onClick
-}: {
-  customer: CustomerInfo
-  onClick: (invoice: InvoiceInfo) => void
-}) => {
-  const { toast } = useToast()
+const InvoiceForm = ({ invoice, customer }: { invoice?: InvoiceInfo; customer: CustomerInfo }) => {
   const [isLoading, setIsLoading] = useState(false)
+  const { toast } = useToast()
   const form = useForm<z.infer<typeof InvoiceValidationSchema>>({
     resolver: zodResolver(InvoiceValidationSchema)
   })
 
   useEffect(() => {
     form.setValue('customer_name', customer.name)
+
+    if (invoice) {
+      form.setValue('invoice_date', new Date(invoice.invoice_date))
+      form.setValue('amount', invoice.amount)
+      form.setValue('comment', invoice.comment)
+    }
   }, [])
 
+  const addInvoice = async (invoice: InvoiceInfo) => {
+    try {
+      await window.context.addInvoice(invoice)
+      toast({
+        title: 'تمت اضافة الفاتورة بنجاح',
+        description: 'تمت اضافة الفاتورة بنجاح'
+      })
+    } catch (e) {
+      console.log(e)
+      toast({
+        title: 'حدث خطأ',
+        description: 'حدث خطأ اثناء اضافة الفاتورة'
+      })
+    }
+  }
+
   const onSubmit = async (data: z.infer<typeof InvoiceValidationSchema>) => {
-    onClick({
+    addInvoice({
       customer: customer,
       invoice_date: convertDateToString(data.invoice_date),
       amount: data.amount,

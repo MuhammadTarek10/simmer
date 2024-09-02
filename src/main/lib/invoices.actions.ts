@@ -44,11 +44,6 @@ export async function addInvoice(invoice: InvoiceInfo): Promise<void> {
 
 export async function getInvoices(): Promise<InvoiceInfo[]> {
   const invoices = await prisma.invoice.findMany({
-    where: {
-      amount: {
-        gt: 0
-      }
-    },
     include: {
       customer: true
     }

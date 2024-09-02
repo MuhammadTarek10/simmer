@@ -1,6 +1,7 @@
 import CardForm from '@/components/forms/CardForm'
 import CompanyForm from '@/components/forms/CompanyForm'
 import CustomerForm from '@/components/forms/CustomerForm'
+import InvoiceForm from '@/components/forms/InvoiceForm'
 import { requireAuth } from '@shared/actions/auth.actions'
 import React from 'react'
 import { defer, useLoaderData } from 'react-router-dom'
@@ -18,6 +19,10 @@ export async function editingLoader({ params }) {
   } else if (type === 'customer') {
     const customer = await window.context.getCustomer(id)
     component = <CustomerForm customer={customer} />
+  } else if (type === 'invoice') {
+    const customer = await window.context.getCustomerFromInvoiceId(id)
+    const invoice = await window.context.getInvoice(id)
+    component = <InvoiceForm customer={customer} invoice={invoice} />
   }
 
   return defer({ component: component })

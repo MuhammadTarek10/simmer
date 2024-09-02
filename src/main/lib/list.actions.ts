@@ -19,6 +19,9 @@ export async function getLists(year?: number): Promise<ListData[]> {
             cards: true
           }
         }
+      },
+      orderBy: {
+        invoice_date: 'asc'
       }
     })
   } else {
@@ -29,6 +32,9 @@ export async function getLists(year?: number): Promise<ListData[]> {
             cards: true
           }
         }
+      },
+      orderBy: {
+        invoice_date: 'asc'
       }
     })
   }

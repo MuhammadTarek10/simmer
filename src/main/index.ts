@@ -17,11 +17,14 @@ import {
   GetCompanies,
   GetCompany,
   GetCustomer,
+  GetCustomerFromInvoiceId,
   GetCustomers,
+  GetInvoice,
   GetInvoices,
   GetList,
   GetOffers,
   GetUnOccupiedCards,
+  RemoveCardFromCustomer,
   UpdateCard,
   UpdateCompany,
   UpdateCustomer,
@@ -52,12 +55,15 @@ import {
   addCustomer,
   deleteCustomer,
   getCustomer,
+  getCustomerFromInvoiceId,
   getCustomers,
+  removeCardFromCustomer,
   updateCustomer
 } from './lib/customer.actions'
 import {
   addInvoice,
   deleteInvoice,
+  getInvoice,
   getInvoices,
   updateInvoice,
   updatePaymentInvoices
@@ -141,6 +147,10 @@ app.whenReady().then(() => {
   ipcMain.handle(functionNames.getCustomer, async (_, ...args: Parameters<GetCustomer>) =>
     getCustomer(...args)
   )
+  ipcMain.handle(
+    functionNames.getCustomerFromInvoiceId,
+    async (_, ...args: Parameters<GetCustomerFromInvoiceId>) => getCustomerFromInvoiceId(...args)
+  )
   ipcMain.handle(functionNames.addCustomer, async (_, ...args: Parameters<AddCustomer>) =>
     addCustomer(...args)
   )
@@ -149,6 +159,10 @@ app.whenReady().then(() => {
   )
   ipcMain.handle(functionNames.deleteCustomer, async (_, ...args: Parameters<DeleteCustomer>) =>
     deleteCustomer(...args)
+  )
+  ipcMain.handle(
+    functionNames.removeCardFromCustomer,
+    async (_, ...args: Parameters<RemoveCardFromCustomer>) => removeCardFromCustomer(...args)
   )
 
   // * Cards
@@ -189,6 +203,9 @@ app.whenReady().then(() => {
   )
   ipcMain.handle(functionNames.getInvoices, async (_, ...args: Parameters<GetInvoices>) =>
     getInvoices(...args)
+  )
+  ipcMain.handle(functionNames.getInvoice, async (_, ...args: Parameters<GetInvoice>) =>
+    getInvoice(...args)
   )
   ipcMain.handle(functionNames.addInvoice, async (_, ...args: Parameters<AddInvoice>) =>
     addInvoice(...args)

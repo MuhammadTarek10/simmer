@@ -16,11 +16,14 @@ import {
   GetCompanies,
   GetCompany,
   GetCustomer,
+  GetCustomerFromInvoiceId,
   GetCustomers,
+  GetInvoice,
   GetInvoices,
   GetList,
   GetOffers,
   GetUnOccupiedCards,
+  RemoveCardFromCustomer,
   UpdateCard,
   UpdateCompany,
   UpdateCustomer,
@@ -48,11 +51,15 @@ try {
     getCustomers: (...args: Parameters<GetCustomers>) =>
       ipcRenderer.invoke('getCustomers', ...args),
     getCustomer: (...args: Parameters<GetCustomer>) => ipcRenderer.invoke('getCustomer', ...args),
+    getCustomerFromInvoiceId: (...args: Parameters<GetCustomerFromInvoiceId>) =>
+      ipcRenderer.invoke('getCustomerFromInvoiceId', ...args),
     addCustomer: (...args: Parameters<AddCustomer>) => ipcRenderer.invoke('addCustomer', ...args),
     updateCustomer: (...args: Parameters<UpdateCustomer>) =>
       ipcRenderer.invoke('updateCustomer', ...args),
     deleteCustomer: (...args: Parameters<DeleteCustomer>) =>
       ipcRenderer.invoke('deleteCustomer', ...args),
+    removeCardFromCustomer: (...args: Parameters<RemoveCardFromCustomer>) =>
+      ipcRenderer.invoke('removeCardFromCustomer', ...args),
 
     // * Cards
     getCards: (...args: Parameters<GetCards>) => ipcRenderer.invoke('getCards', ...args),
@@ -75,6 +82,7 @@ try {
     updatePaymentInvoices: (...args: Parameters<UpdatePaymentInvoices>) =>
       ipcRenderer.invoke('updatePaymentInvoices', ...args),
     getInvoices: (...args: Parameters<GetInvoices>) => ipcRenderer.invoke('getInvoices', ...args),
+    getInvoice: (...args: Parameters<GetInvoice>) => ipcRenderer.invoke('getInvoice', ...args),
     addInvoice: (...args: Parameters<AddInvoice>) => ipcRenderer.invoke('addInvoice', ...args),
     updateInvoice: (...args: Parameters<UpdateInvoice>) =>
       ipcRenderer.invoke('updateInvoice', ...args),

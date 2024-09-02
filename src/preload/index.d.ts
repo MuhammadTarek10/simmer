@@ -16,12 +16,14 @@ import {
   GetCompanies,
   GetCompany,
   GetCustomer,
+  GetCustomerFromInvoiceId,
   GetCustomers,
   GetInvoice,
   GetInvoices,
   GetLists,
   GetOffers,
   GetUnOccupiedCards,
+  RemoveCardFromCustomer,
   UpdateCard,
   UpdateCompany,
   UpdateCustomer,
@@ -43,9 +45,11 @@ declare global {
       // * Customer
       getCustomers: GetCustomers
       getCustomer: GetCustomer
+      getCustomerFromInvoiceId: GetCustomerFromInvoiceId
       addCustomer: AddCustomer
       updateCustomer: UpdateCustomer
       deleteCustomer: DeleteCustomer
+      removeCardFromCustomer: RemoveCardFromCustomer
 
       // * Cards
       getCards: GetCards
