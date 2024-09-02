@@ -1,6 +1,6 @@
 import { cn } from '@/utils/utils'
 import { useState } from 'react'
-import { DialogProps } from '../../../../shared/types'
+import { CustomDialogProps } from '../../../../shared/types'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -25,7 +25,7 @@ const BasicDialog = ({
   cancelClassName,
   icon,
   onConfirm
-}: DialogProps) => {
+}: CustomDialogProps) => {
   const [open, setOpen] = useState(false)
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>

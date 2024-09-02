@@ -5,12 +5,14 @@ const DeleteDialog = ({
   placeholder,
   title,
   description,
-  onConfirm
+  onConfirm,
+  showIcon = true
 }: {
   placeholder: string
   title: string
   description: string
   onConfirm: () => void
+  showIcon?: boolean
 }) => {
   return (
     <BasicDialog
@@ -19,7 +21,7 @@ const DeleteDialog = ({
       confirmText="حذف"
       cancelText="إلغاء"
       description={description}
-      icon={<BsTrash size={20} />}
+      icon={showIcon && <BsTrash size={20} />}
       onConfirm={onConfirm}
     />
   )

@@ -11,7 +11,7 @@ const InvoiceCard = ({ invoice }: { invoice: InvoiceInfo }) => {
 
   const deleteInvoice = async () => {
     await window.context.deleteInvoice(invoice.id!)
-    navigate('/invoices')
+    window.location.reload()
   }
 
   return (

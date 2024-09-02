@@ -1,8 +1,8 @@
 import SortableButton from '@/components/SortableButton'
-import { routes } from '@shared/constants'
 import { CardInfo } from '@shared/models'
 import { ColumnDef } from '@tanstack/react-table'
 import TableActionButton from '../TableActionButton'
+import DeleteDialog from '../dialogs/DeleteDialog'
 
 export const cardsColumns: ColumnDef<CardInfo>[] = [
   {
@@ -53,10 +53,20 @@ export const cardsColumns: ColumnDef<CardInfo>[] = [
 
       return (
         <div className="flex w-fit">
-          <TableActionButton
+          {/* <TableActionButton
             title="عرض"
             href={`/${routes.cards}/${card.id}`}
             className="hover:bg-action/25 p-2 rounded-lg"
+          /> */}
+          <DeleteDialog
+            placeholder="حذف"
+            title="حذف الخط"
+            description="هل انت متأكد من حذف الخط؟"
+            onConfirm={async () => {
+              await window.context.deleteCard(row.original.id!)
+              window.location.reload()
+            }}
+            showIcon={false}
           />
           <TableActionButton
             title="تعديل"

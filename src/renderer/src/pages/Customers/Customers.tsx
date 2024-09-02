@@ -1,7 +1,9 @@
 import icon from '@/assets/icons/customer-on.svg'
 import NameCard from '@/components/NameCard'
+import SearchInput from '@/components/SearchInput'
 import { requireAuth } from '@shared/actions/auth.actions'
 import { CustomerInfo } from '@shared/models'
+import { useEffect, useState } from 'react'
 import { defer, Link, useLoaderData } from 'react-router-dom'
 
 export async function customersLoader() {
@@ -12,12 +14,22 @@ export async function customersLoader() {
 
 const Customers = () => {
   const { customers } = useLoaderData() as { customers: CustomerInfo[] }
+  const [search, setSearch] = useState('')
+  const [filteredData, setFilteredData] = useState(customers)
+
+  useEffect(() => {
+    const filtered = customers.filter((customer) =>
+      customer.name.toLowerCase().includes(search.toLowerCase())
+    )
+    setFilteredData(filtered)
+  }, [search, customers])
 
   return (
     <div className="gap-4">
-      <div className="flex items-center p-2">
+      <div className="flex items-center p-2 gap-4">
         {/* <BsThreeDotsVertical className="cursor-pointer" /> */}
-        <h1 className="text-3xl font-bold">المشتركين</h1>
+        <h1 className="text-3xl font-bold ml-8">المشتركين</h1>
+        <SearchInput value={search} onChange={(e) => setSearch(e.target.value)} />
       </div>
       <div>
         <div className="name-list">
