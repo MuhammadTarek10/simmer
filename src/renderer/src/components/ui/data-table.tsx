@@ -1,5 +1,3 @@
-'use client'
-
 import {
   Table,
   TableBody,
@@ -52,8 +50,6 @@ export function DataTable<TData, TValue>({
   })
 
   const getRowColor = (row): string => {
-    console.log(row)
-
     return row.original.paid >= row.original.total ? 'bg-success' : 'bg-failure'
   }
   return (

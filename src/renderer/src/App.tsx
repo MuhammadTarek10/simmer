@@ -4,12 +4,7 @@ import Layout from '@/pages/Layout'
 import { requireAuth } from '@shared/actions/auth.actions'
 import { routes } from '@shared/constants'
 import { useEffect } from 'react'
-import {
-  createBrowserRouter,
-  createRoutesFromElements,
-  Route,
-  RouterProvider
-} from 'react-router-dom'
+import { createHashRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom'
 import './assets/globals.css'
 import Adding from './pages/Adding/Adding'
 import CardDetails, { cardDetailsLoader } from './pages/Cards/CardDetails'
@@ -29,7 +24,7 @@ function App() {
     update()
   }, [])
 
-  const router = createBrowserRouter(
+  const router = createHashRouter(
     createRoutesFromElements(
       <Route>
         <Route path={routes.login} element={<Login />} />

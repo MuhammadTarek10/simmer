@@ -1,5 +1,5 @@
 {
-  "name": "simmer",
+  "name": "Simmer",
   "version": "1.0.0",
   "description": "An Electron application with React and TypeScript",
   "main": "./out/main/index.js",
@@ -73,5 +73,21 @@
     "tailwindcss": "^3.4.7",
     "typescript": "^5.5.2",
     "vite": "^5.3.1"
+  },
+  "build": {
+    "appId": "com.tarek.simmer",
+    "mac": {
+      "category": "public.app-category.productivity",
+      "target": "dmg"
+    },
+    "win": {
+      "target": "zip",
+      "publisherName": "Muhammad Tarek"
+    },
+    "extraResources": [
+      "prisma/**/*",
+      "node_modules/.prisma/**/*",
+      "node_modules/@prisma/client/**/*"
+    ]
   }
 }

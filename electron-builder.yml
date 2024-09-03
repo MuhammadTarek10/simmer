@@ -1,4 +1,4 @@
-appId: com.electron.app
+appId: com.tarek.simmer
 productName: simmer
 directories:
   buildResources: build
