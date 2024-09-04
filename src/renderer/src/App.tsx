@@ -3,7 +3,6 @@ import Customers, { customersLoader } from '@/pages/Customers/Customers'
 import Layout from '@/pages/Layout'
 import { requireAuth } from '@shared/actions/auth.actions'
 import { routes } from '@shared/constants'
-import { useEffect } from 'react'
 import { createHashRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom'
 import './assets/globals.css'
 import Adding from './pages/Adding/Adding'
@@ -19,17 +18,12 @@ import InvoicesDetails, { invoicesDetailsLoader } from './pages/Invoices/Invoice
 import Login from './pages/Login/Login'
 
 function App() {
-  useEffect(() => {
-    const update = async () => window.context.updatePaymentInvoices()
-    update()
-  }, [])
-
   const router = createHashRouter(
     createRoutesFromElements(
       <Route>
         <Route path={routes.login} element={<Login />} />
         <Route path={routes.home} element={<Layout />} loader={async (_) => await requireAuth()}>
-          <Route index path={routes.home} element={<Home />} loader={homeLoader} />
+          <Route index element={<Home />} loader={homeLoader} />
           <Route path={routes.companies} element={<Companies />} loader={companiesLoader} />
           <Route
             path={routes.companyDetails}

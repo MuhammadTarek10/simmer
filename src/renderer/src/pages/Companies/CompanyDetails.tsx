@@ -2,7 +2,6 @@ import { cardsColumns } from '@/components/columns/cards-columns'
 import CustomDropDownMenu from '@/components/CustomDropDownMenu'
 import { DataTable } from '@/components/ui/data-table'
 import { extractCompanyDetails } from '@/utils/utils'
-import { requireAuth } from '@shared/actions/auth.actions'
 import { CardInfo, CompanyInfo } from '@shared/models'
 import { DropDownOption } from '@shared/types'
 import { BsTrash } from 'react-icons/bs'
@@ -12,7 +11,6 @@ import CardsStat from './components/CardsStat'
 import TotalStat from './components/TotalStat'
 
 export async function companyDetailsLoader({ params }) {
-  await requireAuth()
   const company = await window.context.getCompany(params.id)
   const cards = await window.context.getCardsFromCompanyId(params.id)
   return defer({ company: company, cards: cards })

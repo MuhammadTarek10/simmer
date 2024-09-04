@@ -1,13 +1,11 @@
 import icon from '@/assets/icons/customer-on.svg'
 import NameCard from '@/components/NameCard'
 import SearchInput from '@/components/SearchInput'
-import { requireAuth } from '@shared/actions/auth.actions'
 import { CustomerInfo } from '@shared/models'
 import { useEffect, useState } from 'react'
 import { defer, Link, useLoaderData } from 'react-router-dom'
 
 export async function customersLoader() {
-  await requireAuth()
   const customers = await window.context.getCustomers()
   return defer({ customers: customers })
 }
@@ -33,7 +31,7 @@ const Customers = () => {
       </div>
       <div>
         <div className="name-list">
-          {customers.map((customer) => (
+          {filteredData.map((customer) => (
             <Link key={customer.id!} to={customer.id!}>
               <NameCard name={customer.name} icon={icon} />
             </Link>

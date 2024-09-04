@@ -8,13 +8,13 @@ import { useState } from 'react'
 
 const options: DropDownOption[] = [
   {
-    name: 'اضافة شركة'
-  },
-  {
     name: 'اضافة عميل'
   },
   {
     name: 'اضافة خط'
+  },
+  {
+    name: 'اضافة شركة'
   },
   {
     name: 'اضافة عرض'
@@ -29,7 +29,7 @@ const forms = {
 }
 
 const Adding = () => {
-  const [form, setPage] = useState('اضافة شركة')
+  const [form, setPage] = useState('اضافة عميل')
 
   const onChange = (value: string) => {
     setPage(value)

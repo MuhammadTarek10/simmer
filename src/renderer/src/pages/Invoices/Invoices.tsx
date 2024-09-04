@@ -1,12 +1,10 @@
 import SearchInput from '@/components/SearchInput'
-import { requireAuth } from '@shared/actions/auth.actions'
 import { InvoiceInfo } from '@shared/models'
 import { useEffect, useState } from 'react'
 import { defer, useLoaderData } from 'react-router-dom'
 import InvoiceCard from './components/InvoiceCard'
 
 export async function invoicesLoader() {
-  await requireAuth()
   const invoices = await window.context.getInvoices()
   return defer({ invoices: invoices })
 }

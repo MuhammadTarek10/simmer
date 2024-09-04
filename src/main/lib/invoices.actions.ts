@@ -11,6 +11,8 @@ export async function updatePaymentInvoices() {
     }
   })
 
+  console.log('HERE')
+
   for (const card of cards) {
     const date = new Date(card.start_date)
     const currentDate = new Date()
@@ -18,10 +20,12 @@ export async function updatePaymentInvoices() {
       // Check if invoice already exists
       const invoice = await prisma.invoice.findFirst({
         where: {
-          customer_id: card.customer_id,
-          invoice_date: date
+          amount: -card.price_after_vat,
+          invoice_date: date,
+          customer_id: card.customer_id
         }
       })
+
       if (!invoice) {
         await prisma.invoice.create({
           data: {

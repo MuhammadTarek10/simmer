@@ -4,7 +4,13 @@
   "description": "CRM app that manipulates sim cards and customers",
   "main": "./out/main/index.js",
   "author": "Muhammad Tarek",
-  "homepage": "https://electron-vite.org",
+  "homepage": "https://github.com/MuhammadTarek10/simmer",
+  "repository": "https://github.com/MuhammadTarek10/simmer",
+  "keyword": [
+    "Sim Card",
+    "CRM"
+  ],
+  "license": "",
   "scripts": {
     "format": "prettier --write .",
     "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
@@ -14,6 +20,7 @@
     "start": "electron-vite preview",
     "dev": "electron-vite dev",
     "build": "npm run typecheck && electron-vite build && electron-builder -mwl --x64",
+    "release": "electron-builder -w -p 'onTagOrDraft'",
     "postinstall": "electron-builder install-app-deps",
     "build:unpack": "npm run build && electron-builder --dir",
     "build:win": "electron-vite build && electron-builder --win --x64",
@@ -76,13 +83,19 @@
   },
   "build": {
     "appId": "com.tarek.simmer",
+    "publish": {
+      "provider": "github"
+    },
     "mac": {
       "category": "public.app-category.productivity",
       "target": "dmg"
     },
     "win": {
       "target": "zip",
-      "publisherName": "Muhammad Tarek"
+      "publisherName": "Muhammad Tarek",
+      "certificateFile": "private/MuhammadTarek.p12",
+      "certificatePassword": "",
+      "verifyUpdateCodeSignature": false
     },
     "extraResources": [
       "prisma/**/*",

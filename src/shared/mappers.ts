@@ -74,7 +74,7 @@ export const toCardMain = (card: any) => {
   }
 }
 
-export const groupByMonth = (invoices: any[]): ListData[] => {
+export const groupByMonth = (invoices: any[], all: boolean): ListData[] => {
   const grouped = invoices.reduce((acc: any, invoice: any) => {
     const monthOnly = new Date(invoice.invoice_date).getMonth() + 1
     const year = new Date(invoice.invoice_date).getFullYear()
@@ -90,12 +90,12 @@ export const groupByMonth = (invoices: any[]): ListData[] => {
   return Object.entries(grouped).map(([month, invoices]) => {
     return {
       month: month,
-      info: toListInfoRenderer(invoices as any)
+      info: toListInfoRenderer(invoices as any, all)
     }
   })
 }
 
-export const toListInfoRenderer = (invoices: any[]): ListInfo[] => {
+export const toListInfoRenderer = (invoices: any[], all: boolean): ListInfo[] => {
   const groupedByCustomerId = {}
 
   invoices.forEach((invoice) => {
@@ -116,7 +116,7 @@ export const toListInfoRenderer = (invoices: any[]): ListInfo[] => {
 
   const grouped = Object.values(groupedByCustomerId)
 
-  return grouped.map((group: any) => {
+  const result = grouped.map((group: any) => {
     const total = group.reduce((acc, info) => acc + (info.paid < 0 ? info.paid : 0), 0) * -1
     const totalPaid = group.reduce((acc, info) => acc + (info.paid > 0 ? info.paid : 0)!, 0)
     return {
@@ -132,6 +132,9 @@ export const toListInfoRenderer = (invoices: any[]): ListInfo[] => {
         .join(' - ')
     }
   })
+
+  if (all) return result
+  return result.filter((info) => info.remaining > 0)
 }
 
 export const toInvoiceRenderer = (invoice: any) => {

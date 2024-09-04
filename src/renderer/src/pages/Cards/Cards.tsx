@@ -1,13 +1,11 @@
 import { cardsColumns } from '@/components/columns/cards-columns'
 import SearchInput from '@/components/SearchInput'
 import { DataTable } from '@/components/ui/data-table'
-import { requireAuth } from '@shared/actions/auth.actions'
 import { CardInfo } from '@shared/models'
 import { useEffect, useState } from 'react'
 import { defer, useLoaderData } from 'react-router-dom'
 
 export async function cardsLoader() {
-  await requireAuth()
   const cards = await window.context.getCards()
   return defer({ cards: cards })
 }

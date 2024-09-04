@@ -41,7 +41,7 @@ const CardForm = ({ card }: { card?: CardInfo }) => {
       form.setValue('price_after_vat', card.price_after_vat)
       form.setValue('company_name', card.company.name)
       form.setValue('offer_name', card.offer?.name)
-      form.setValue('comment', card.comment)
+      form.setValue('comment', card.comment || '')
     }
   }, [])
 

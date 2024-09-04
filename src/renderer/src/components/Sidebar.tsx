@@ -14,11 +14,6 @@ const sidebarLinks = [
     alt: 'الرئيسية'
   },
   {
-    href: routes.companies,
-    icon: companiesOn,
-    alt: 'الشركات'
-  },
-  {
     href: routes.customers,
     icon: customersOn,
     alt: 'المشتركين'
@@ -27,6 +22,11 @@ const sidebarLinks = [
     href: routes.cards,
     icon: sim,
     alt: 'الخطوط'
+  },
+  {
+    href: routes.companies,
+    icon: companiesOn,
+    alt: 'الشركات'
   },
   {
     href: routes.invoices,

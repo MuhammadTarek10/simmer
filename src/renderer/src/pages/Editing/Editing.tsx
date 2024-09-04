@@ -2,12 +2,10 @@ import CardForm from '@/components/forms/CardForm'
 import CompanyForm from '@/components/forms/CompanyForm'
 import CustomerForm from '@/components/forms/CustomerForm'
 import InvoiceForm from '@/components/forms/InvoiceForm'
-import { requireAuth } from '@shared/actions/auth.actions'
 import React from 'react'
 import { defer, useLoaderData } from 'react-router-dom'
 
 export async function editingLoader({ params }) {
-  await requireAuth()
   const { id, type } = params
   let component
   if (type === 'company') {

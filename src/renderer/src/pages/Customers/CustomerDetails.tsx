@@ -1,5 +1,4 @@
 import CustomDropDownMenu from '@/components/CustomDropDownMenu'
-import { requireAuth } from '@shared/actions/auth.actions'
 import { CardInfo, CustomerInfo } from '@shared/models'
 import { DropDownOption } from '@shared/types'
 import { FaRegEdit } from 'react-icons/fa'
@@ -14,7 +13,6 @@ import { routes } from '@shared/constants'
 import { defer, useLoaderData, useNavigate } from 'react-router-dom'
 
 export async function customerDetailsLoader({ params }) {
-  await requireAuth()
   const customer = await window.context.getCustomer(params.id)
   const cards = await window.context.getCardsFromCustomerId(params.id)
 
