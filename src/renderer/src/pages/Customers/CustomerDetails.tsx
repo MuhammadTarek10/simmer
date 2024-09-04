@@ -33,11 +33,15 @@ const CustomerDetails = () => {
     customer: CustomerInfo
     cards: CardInfo[]
     unOccupiedCards: CardInfo[]
-    invoices: InvoiceData
+    invoices: InvoiceData[]
   }
 
   const updatePage = () => {
     window.location.reload()
+  }
+
+  const getTotal = () => {
+    return customer.cards?.map((card) => card.price_after_vat).reduce((a, b) => a + b)
   }
 
   const deleteCustomer = async () => {
@@ -101,7 +105,9 @@ const CustomerDetails = () => {
             <h2 className="text-xl">اسم الجد: {customer.grand_name}</h2>
             <h2 className="text-xl">العنوان: {customer.address}</h2>
           </div>
-          <CustomerInvoice key={invoices.name} invoices={invoices[0]} />
+          {invoices.length > 0 ? (
+            <CustomerInvoice key={invoices[0].name} invoices={invoices[0]} total={getTotal()} />
+          ) : null}
         </div>
       </div>
       <div className="mt-2">

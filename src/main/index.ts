@@ -93,13 +93,16 @@ function createWindow(): void {
   mainWindow.on('ready-to-show', () => {
     checkServer().then((res) => {
       if (!res) {
-        dialog.showMessageBox({
-          type: 'error',
-          title: 'Error',
-          message: 'البرنامج لا يعمل الان، تواصل مع المطور',
-          buttons: ['OK']
-        })
-        app.quit()
+        dialog
+          .showMessageBox({
+            type: 'error',
+            title: 'Error',
+            message: 'البرنامج لا يعمل الان، تواصل مع المطور',
+            buttons: ['OK']
+          })
+          .then((_) => {
+            app.quit()
+          })
       } else {
         mainWindow.show()
       }

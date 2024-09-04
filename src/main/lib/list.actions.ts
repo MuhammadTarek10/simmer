@@ -1,8 +1,8 @@
-import { groupByMonth } from '@shared/mappers'
-import { ListData } from '@shared/models'
+import { toListInfoRenderer } from '@shared/mappers'
+import { ListInfo } from '@shared/models'
 import { prisma } from './database'
 
-export async function getLists(all: boolean): Promise<ListData[]> {
+export async function getLists(all: boolean): Promise<ListInfo[]> {
   const invoices = await prisma.invoice.findMany({
     include: {
       customer: {
@@ -16,5 +16,5 @@ export async function getLists(all: boolean): Promise<ListData[]> {
     }
   })
 
-  return groupByMonth(invoices, all)
+  return toListInfoRenderer(invoices, all)
 }

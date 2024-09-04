@@ -1,6 +1,6 @@
 import CustomSelect from '@/components/CustomSelect'
 import SearchInput from '@/components/SearchInput'
-import { ListData } from '@shared/models'
+import { ListInfo } from '@shared/models'
 import { useEffect, useState } from 'react'
 import { defer, useLoaderData } from 'react-router-dom'
 import { updatePaymentInvoices } from '../../repositories/invoices'
@@ -13,19 +13,12 @@ export async function homeLoader() {
 }
 
 const Home = () => {
-  const { data } = useLoaderData() as { data: ListData[] }
+  const { data } = useLoaderData() as { data: ListInfo[] }
   const [search, setSearch] = useState('')
   const [filteredData, setFilteredData] = useState(data)
 
   useEffect(() => {
-    const filtered = data
-      .map((monthData) => ({
-        ...monthData,
-        info: monthData.info.filter((info) =>
-          info.name.toLowerCase().includes(search.toLowerCase())
-        )
-      }))
-      .filter((monthData) => monthData.info.length > 0)
+    const filtered = data.filter((info) => info.name.toLowerCase().includes(search))
 
     setFilteredData(filtered)
   }, [search, data])
@@ -48,7 +41,7 @@ const Home = () => {
         />
       </div>
       <div className="mt-4">
-        {filteredData.length > 1 && <MonthTable data={filteredData[filteredData.length - 1]} />}
+        <MonthTable data={filteredData} />
       </div>
     </div>
   )

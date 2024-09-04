@@ -18,7 +18,7 @@ const AddCustomerInvoice = ({ invoice }: { invoice?: InvoiceInfo }) => {
 
   return (
     <div className="flex flex-col m-4">
-      <InvoiceForm customer={customer} invoice={invoice} total={invoices[0].lastMonthTotal} />
+      <InvoiceForm customer={customer} invoice={invoice} total={invoices[0].total} />
     </div>
   )
 }

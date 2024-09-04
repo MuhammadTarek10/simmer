@@ -98,7 +98,10 @@ const InvoiceForm = ({
                   }
                 />
               </div>
-              <DisabledInput label="اجمالي المبلغ المطلوب" value={total.toString()} />
+              <DisabledInput
+                label="اجمالي المبلغ المطلوب"
+                value={total < 0 ? total.toString() : '0'}
+              />
               <div className="form-row">
                 <CustomFormField
                   control={form.control}
@@ -106,7 +109,7 @@ const InvoiceForm = ({
                   label="الدفع"
                   fieldType={FormFieldType.INPUT}
                 />
-                <DisabledInput label="المتبقي" value={remaining.toString()} />
+                <DisabledInput label="المتبقي" value={remaining < 0 ? remaining.toString() : '0'} />
               </div>
               <CustomFormField
                 control={form.control}
