@@ -48,7 +48,7 @@ const Home = () => {
         />
       </div>
       <div className="mt-4">
-        <MonthTable data={filteredData[filteredData.length - 1]} />
+        {filteredData.length > 1 && <MonthTable data={filteredData[filteredData.length - 1]} />}
       </div>
     </div>
   )
