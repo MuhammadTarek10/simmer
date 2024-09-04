@@ -32,9 +32,10 @@ import {
   UpdateInvoice,
   UpdatePaymentInvoices
 } from '@shared/types'
-import { app, BrowserWindow, ipcMain, shell } from 'electron'
+import { app, BrowserWindow, dialog, ipcMain, shell } from 'electron'
 import { join } from 'path'
 import icon from '../../resources/icon.png?asset'
+import { checkServer } from './check-server'
 import {
   addCard,
   deleteCard,
@@ -90,7 +91,19 @@ function createWindow(): void {
   })
 
   mainWindow.on('ready-to-show', () => {
-    mainWindow.show()
+    checkServer().then((res) => {
+      if (!res) {
+        dialog.showMessageBox({
+          type: 'error',
+          title: 'Error',
+          message: 'البرنامج لا يعمل الان، تواصل مع المطور',
+          buttons: ['OK']
+        })
+        app.quit()
+      } else {
+        mainWindow.show()
+      }
+    })
   })
 
   mainWindow.webContents.setWindowOpenHandler((details) => {
