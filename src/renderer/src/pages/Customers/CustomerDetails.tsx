@@ -1,5 +1,5 @@
 import CustomDropDownMenu from '@/components/CustomDropDownMenu'
-import { CardInfo, CustomerInfo } from '@shared/models'
+import { CardInfo, CustomerInfo, InvoiceData } from '@shared/models'
 import { DropDownOption } from '@shared/types'
 import { FaRegEdit } from 'react-icons/fa'
 import { GrView } from 'react-icons/gr'
@@ -11,25 +11,29 @@ import DeleteDialog from '@/components/dialogs/DeleteDialog'
 import { DataTable } from '@/components/ui/data-table'
 import { routes } from '@shared/constants'
 import { defer, useLoaderData, useNavigate } from 'react-router-dom'
+import CustomerInvoice from './components/CustomerInvoice'
 
 export async function customerDetailsLoader({ params }) {
   const customer = await window.context.getCustomer(params.id)
   const cards = await window.context.getCardsFromCustomerId(params.id)
+  const invoices = await window.context.getInvoicesByCustomerId(params.id)
 
   const unOccupiedCards = await window.context.getUnOccupiedCards()
   return defer({
     customer: customer,
     cards: cards,
-    unOccupiedCards: unOccupiedCards
+    unOccupiedCards: unOccupiedCards,
+    invoices: invoices
   })
 }
 
 const CustomerDetails = () => {
   const navigate = useNavigate()
-  const { customer, cards, unOccupiedCards } = useLoaderData() as {
+  const { customer, cards, unOccupiedCards, invoices } = useLoaderData() as {
     customer: CustomerInfo
     cards: CardInfo[]
     unOccupiedCards: CardInfo[]
+    invoices: InvoiceData
   }
 
   const updatePage = () => {
@@ -91,10 +95,13 @@ const CustomerDetails = () => {
       </div>
       <div>
         <hr className="my-4 border-gray-300" />
-        <div className="flex flex-col gap-4">
-          <h2 className="text-xl">الاسم الكامل: {customer.name}</h2>
-          <h2 className="text-xl">اسم الجد: {customer.grand_name}</h2>
-          <h2 className="text-xl">العنوان: {customer.address}</h2>
+        <div className="flex justify-between">
+          <div className="flex flex-col gap-4">
+            <h2 className="text-xl">الاسم الكامل: {customer.name}</h2>
+            <h2 className="text-xl">اسم الجد: {customer.grand_name}</h2>
+            <h2 className="text-xl">العنوان: {customer.address}</h2>
+          </div>
+          <CustomerInvoice key={invoices.name} invoices={invoices[0]} />
         </div>
       </div>
       <div className="mt-2">

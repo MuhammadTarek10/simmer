@@ -20,6 +20,7 @@ import {
   GetCustomers,
   GetInvoice,
   GetInvoices,
+  GetInvoicesByCustomerId,
   GetLists,
   GetOffers,
   GetUnOccupiedCards,
@@ -67,6 +68,8 @@ declare global {
       // * Invoices
       updatePaymentInvoices: UpdatePaymentInvoices
       getInvoices: GetInvoices
+      getInvoicesByCustomerId: GetInvoicesByCustomerId
+      getInvoicesGrouped: GetInvoices
       getInvoice: GetInvoice
       addInvoice: AddInvoice
       updateInvoice: UpdateInvoice

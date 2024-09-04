@@ -1,6 +1,6 @@
 import { InvoiceData } from '@shared/models'
 
-const InvoiceCard = ({ invoices }: { invoices: InvoiceData }) => {
+const CustomerInvoice = ({ invoices }: { invoices: InvoiceData }) => {
   const getLastPaid = (invoices: InvoiceData) => {
     const lastPaid = invoices.info.filter((element) => element.amount > 0)
     return lastPaid.length > 0 ? lastPaid[0].invoice_date : 'لم يتم الدفع'
@@ -12,7 +12,7 @@ const InvoiceCard = ({ invoices }: { invoices: InvoiceData }) => {
   }
 
   return (
-    <div className="bg-white shadow-md rounded-md p-4 space-y-2">
+    <div className="bg-white shadow-md rounded-md p-4 w-[50%] space-y-2">
       <div className="flex justify-between">
         <h1 className="text-xl">الفاتورة الشهرية</h1>
         <h1 className="text-xl font-bold">{invoices.lastMonthTotal}</h1>
@@ -32,4 +32,4 @@ const InvoiceCard = ({ invoices }: { invoices: InvoiceData }) => {
     </div>
   )
 }
-export default InvoiceCard
+export default CustomerInvoice

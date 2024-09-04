@@ -55,6 +55,13 @@ export interface OfferInfo {
   comment?: string
 }
 
+export interface InvoiceData {
+  name: string
+  total: number
+  lastMonthTotal: number
+  info: InvoiceInfo[]
+}
+
 export interface InvoiceInfo {
   id?: string
   customer: CustomerInfo

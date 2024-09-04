@@ -21,6 +21,7 @@ import {
   GetCustomers,
   GetInvoice,
   GetInvoices,
+  GetInvoicesByCustomerId,
   GetList,
   GetOffers,
   GetUnOccupiedCards,
@@ -65,6 +66,8 @@ import {
   deleteInvoice,
   getInvoice,
   getInvoices,
+  getInvoicesByCustomerId,
+  getInvoicesGrouped,
   updateInvoice,
   updatePaymentInvoices
 } from './lib/invoices.actions'
@@ -197,16 +200,18 @@ app.whenReady().then(() => {
   )
 
   // * Invoices
+  ipcMain.handle('updatePaymentInvoices', async (_, ...args: Parameters<UpdatePaymentInvoices>) =>
+    updatePaymentInvoices(...args)
+  )
+  ipcMain.handle('getInvoices', async (_, ...args: Parameters<GetInvoices>) => getInvoices(...args))
   ipcMain.handle(
-    functionNames.updatePaymentInvoices,
-    async (_, ...args: Parameters<UpdatePaymentInvoices>) => updatePaymentInvoices(...args)
+    'getInvoicesByCustomerId',
+    async (_, ...args: Parameters<GetInvoicesByCustomerId>) => getInvoicesByCustomerId(...args)
   )
-  ipcMain.handle(functionNames.getInvoices, async (_, ...args: Parameters<GetInvoices>) =>
-    getInvoices(...args)
+  ipcMain.handle('getInvoicesGrouped', async (_, ...args: Parameters<GetInvoices>) =>
+    getInvoicesGrouped(...args)
   )
-  ipcMain.handle(functionNames.getInvoice, async (_, ...args: Parameters<GetInvoice>) =>
-    getInvoice(...args)
-  )
+  ipcMain.handle('getInvoice', async (_, ...args: Parameters<GetInvoice>) => getInvoice(...args))
   ipcMain.handle(functionNames.addInvoice, async (_, ...args: Parameters<AddInvoice>) =>
     addInvoice(...args)
   )

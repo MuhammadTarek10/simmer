@@ -1,4 +1,12 @@
-import { CardInfo, CompanyInfo, CustomerInfo, InvoiceInfo, ListData, OfferInfo } from './models'
+import {
+  CardInfo,
+  CompanyInfo,
+  CustomerInfo,
+  InvoiceData,
+  InvoiceInfo,
+  ListData,
+  OfferInfo
+} from './models'
 
 export interface DropDownOption {
   name: string
@@ -55,11 +63,12 @@ export type UpdateCard = (card: CardInfo) => Promise<void>
 export type DeleteCard = (id: string) => Promise<void>
 
 // * List
-export type GetList = (year?: number) => Promise<ListData[]>
+export type GetList = (all: boolean) => Promise<ListData[]>
 
 // * Invoices
 export type UpdatePaymentInvoices = () => Promise<void>
 export type GetInvoices = () => Promise<InvoiceInfo[]>
+export type GetInvoicesByCustomerId = (id: string) => Promise<InvoiceData>
 export type GetInvoice = (id: string) => Promise<InvoiceInfo>
 export type AddInvoice = (invoice: InvoiceInfo) => Promise<void>
 export type UpdateInvoice = (invoice: InvoiceInfo) => Promise<void>

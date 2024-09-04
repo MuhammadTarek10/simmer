@@ -1,5 +1,5 @@
-import { toInvoiceMain, toInvoiceRenderer } from '@shared/mappers'
-import { InvoiceInfo } from '@shared/models'
+import { groupInvoicesByName, toInvoiceMain, toInvoiceRenderer } from '@shared/mappers'
+import { InvoiceData, InvoiceInfo } from '@shared/models'
 import { prisma } from './database'
 
 export async function updatePaymentInvoices() {
@@ -10,8 +10,6 @@ export async function updatePaymentInvoices() {
       }
     }
   })
-
-  console.log('HERE')
 
   for (const card of cards) {
     const date = new Date(card.start_date)
@@ -46,6 +44,22 @@ export async function addInvoice(invoice: InvoiceInfo): Promise<void> {
   })
 }
 
+export async function getInvoicesGrouped(): Promise<InvoiceData[]> {
+  const invoices = await prisma.invoice.findMany({
+    include: {
+      customer: {
+        include: {
+          cards: true
+        }
+      }
+    },
+    orderBy: {
+      invoice_date: 'desc'
+    }
+  })
+  return groupInvoicesByName(invoices)
+}
+
 export async function getInvoices(): Promise<InvoiceInfo[]> {
   const invoices = await prisma.invoice.findMany({
     include: {
@@ -58,6 +72,25 @@ export async function getInvoices(): Promise<InvoiceInfo[]> {
 export async function getInvoice(id: string): Promise<InvoiceInfo> {
   const invoice = await prisma.invoice.findUnique({ where: { id } })
   return toInvoiceRenderer(invoice)
+}
+
+export async function getInvoicesByCustomerId(id: string) {
+  const invoices = await prisma.invoice.findMany({
+    where: {
+      customer_id: id
+    },
+    include: {
+      customer: {
+        include: {
+          cards: true
+        }
+      }
+    },
+    orderBy: {
+      invoice_date: 'desc'
+    }
+  })
+  return groupInvoicesByName(invoices)
 }
 
 export async function updateInvoice(invoice: InvoiceInfo): Promise<void> {

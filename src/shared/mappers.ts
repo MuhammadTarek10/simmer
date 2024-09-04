@@ -1,4 +1,11 @@
-import { CompanyInfo, CustomerInfo, InvoiceInfo, ListData, ListInfo } from '@shared/models'
+import {
+  CompanyInfo,
+  CustomerInfo,
+  InvoiceData,
+  InvoiceInfo,
+  ListData,
+  ListInfo
+} from '@shared/models'
 import { convertDateToString } from './converters'
 
 export const toCompanyRenderer = (company: any) => {
@@ -135,6 +142,41 @@ export const toListInfoRenderer = (invoices: any[], all: boolean): ListInfo[] =>
 
   if (all) return result
   return result.filter((info) => info.remaining > 0)
+}
+
+export const groupInvoicesByName = (invoices: any): InvoiceData[] => {
+  const groupedByCustomerId = {}
+
+  invoices.forEach((invoice) => {
+    const customerId = invoice.customer.id
+
+    if (!groupedByCustomerId[customerId]) {
+      groupedByCustomerId[customerId] = []
+    }
+
+    groupedByCustomerId[customerId].push({
+      id: invoice.id,
+      customer: invoice.customer,
+      amount: invoice.amount,
+      invoice_date: convertDateToString(invoice.invoice_date),
+      comment: invoice.comment
+    })
+  })
+
+  const grouped = Object.values(groupedByCustomerId)
+
+  const result = grouped.map((group: any) => {
+    const total = group.reduce((acc, invoice) => acc + invoice.amount, 0)
+
+    return {
+      name: group[0].customer.name,
+      total: total,
+      lastMonthTotal: group[group.length - 1].amount,
+      info: group
+    }
+  })
+
+  return result
 }
 
 export const toInvoiceRenderer = (invoice: any) => {

@@ -20,6 +20,7 @@ import {
   GetCustomers,
   GetInvoice,
   GetInvoices,
+  GetInvoicesByCustomerId,
   GetList,
   GetOffers,
   GetUnOccupiedCards,
@@ -82,7 +83,11 @@ try {
     updatePaymentInvoices: (...args: Parameters<UpdatePaymentInvoices>) =>
       ipcRenderer.invoke('updatePaymentInvoices', ...args),
     getInvoices: (...args: Parameters<GetInvoices>) => ipcRenderer.invoke('getInvoices', ...args),
+    getInvoicesByCustomerId: (...args: Parameters<GetInvoicesByCustomerId>) =>
+      ipcRenderer.invoke('getInvoicesByCustomerId', ...args),
     getInvoice: (...args: Parameters<GetInvoice>) => ipcRenderer.invoke('getInvoice', ...args),
+    getInvoicesGrouped: (...args: Parameters<GetInvoice>) =>
+      ipcRenderer.invoke('getInvoicesGrouped', ...args),
     addInvoice: (...args: Parameters<AddInvoice>) => ipcRenderer.invoke('addInvoice', ...args),
     updateInvoice: (...args: Parameters<UpdateInvoice>) =>
       ipcRenderer.invoke('updateInvoice', ...args),

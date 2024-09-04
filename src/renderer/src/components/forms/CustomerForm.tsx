@@ -109,7 +109,7 @@ const CustomerForm = ({ customer }: { customer?: CustomerInfo }) => {
           </div>
           <div className="flex w-full justify-end p-2">
             <SubmitButton
-              className="absolute bottom-12 left-12 flex bg-save text-2xl py-2 px-12 rounded-full"
+              className="absolute bottom-24 left-24 flex bg-save text-4xl py-6 px-16 rounded-full"
               isLoading={isLoading}
             >
               حفظ

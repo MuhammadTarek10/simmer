@@ -12,12 +12,26 @@ import { Form } from '../ui/form'
 import { useToast } from '../ui/use-toast'
 import CustomFormField, { FormFieldType } from './CustomFormField'
 
-const InvoiceForm = ({ invoice, customer }: { invoice?: InvoiceInfo; customer: CustomerInfo }) => {
+const InvoiceForm = ({
+  invoice,
+  customer,
+  total
+}: {
+  invoice?: InvoiceInfo
+  customer: CustomerInfo
+  total: number
+}) => {
   const [isLoading, setIsLoading] = useState(false)
   const { toast } = useToast()
+  const [remaining, setRemaining] = useState(total)
   const form = useForm<z.infer<typeof InvoiceValidationSchema>>({
     resolver: zodResolver(InvoiceValidationSchema)
   })
+
+  useEffect(() => {
+    const amount = form.watch('amount')
+    setRemaining(total + Number(amount))
+  }, [form.watch('amount')])
 
   useEffect(() => {
     form.setValue('customer_name', customer.name)
@@ -57,40 +71,62 @@ const InvoiceForm = ({ invoice, customer }: { invoice?: InvoiceInfo; customer: C
   return (
     <div className="h-full">
       <AddingHeader title={'فاتورة'} />
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="flex-1 space-y-12">
-          <div className="w-[50vh] space-y-2">
-            <DisabledInput label="اسم العميل" value={customer.name} />
-            <CustomFormField
-              control={form.control}
-              name="invoice_date"
-              label="تاريخ الفاتورة"
-              fieldType={FormFieldType.DATE_PICKER}
-            />
-            <CustomFormField
-              control={form.control}
-              name="amount"
-              label="المبلغ"
-              fieldType={FormFieldType.INPUT}
-            />
-            <CustomFormField
-              control={form.control}
-              name="comment"
-              label="ملاحظات"
-              fieldType={FormFieldType.TEXTAREA}
-              height="h-[40vh]"
-            />
-            <div className="flex w-full justify-end p-2">
-              <SubmitButton
-                className="absolute bottom-12 left-12 flex bg-save text-2xl py-2 px-12 rounded-full"
-                isLoading={isLoading}
-              >
-                حفظ
-              </SubmitButton>
+      <div className="flex">
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="flex-1 space-y-12">
+            <div className="w-[70vh] space-y-2">
+              <div className="form-row">
+                <DisabledInput label="اسم العميل" value={customer.name} />
+                <DisabledInput
+                  label="عدد الخطوط"
+                  value={customer.cards?.length.toString() || '0'}
+                />
+              </div>
+              <div className="form-row">
+                <CustomFormField
+                  control={form.control}
+                  name="invoice_date"
+                  label="تاريخ الفاتورة"
+                  fieldType={FormFieldType.DATE_PICKER}
+                />
+                <DisabledInput
+                  label="المستحق شهريا"
+                  value={
+                    customer.cards
+                      ?.reduce((acc, card) => acc + card.price_after_vat, 0)
+                      .toString() || '0'
+                  }
+                />
+              </div>
+              <DisabledInput label="اجمالي المبلغ المطلوب" value={total.toString()} />
+              <div className="form-row">
+                <CustomFormField
+                  control={form.control}
+                  name="amount"
+                  label="الدفع"
+                  fieldType={FormFieldType.INPUT}
+                />
+                <DisabledInput label="المتبقي" value={remaining.toString()} />
+              </div>
+              <CustomFormField
+                control={form.control}
+                name="comment"
+                label="ملاحظات"
+                fieldType={FormFieldType.TEXTAREA}
+                height="h-[40vh]"
+              />
+              <div className="flex w-full justify-end p-2">
+                <SubmitButton
+                  className="absolute bottom-12 left-12 flex bg-save text-2xl py-2 px-12 rounded-full"
+                  isLoading={isLoading}
+                >
+                  حفظ
+                </SubmitButton>
+              </div>
             </div>
-          </div>
-        </form>
-      </Form>
+          </form>
+        </Form>
+      </div>
     </div>
   )
 }
