@@ -5,9 +5,6 @@ export const CompanyValidationSchema = z.object({
     .string({
       message: 'مطلوب'
     })
-    .min(3, {
-      message: 'يجب أن يكون اسم الشركة أكبر من 3 أحرف'
-    })
     .max(255),
   invoice_date: z.date().optional(),
   comment: z.string().optional()

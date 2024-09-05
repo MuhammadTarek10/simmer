@@ -35,7 +35,7 @@ import {
 import { app, BrowserWindow, dialog, ipcMain, shell } from 'electron'
 import { join } from 'path'
 import icon from '../../resources/icon.png?asset'
-import { checkServer } from './check-server'
+import { checkServer } from './check-update'
 import {
   addCard,
   deleteCard,
@@ -90,6 +90,18 @@ function createWindow(): void {
     }
   })
 
+  const splash = new BrowserWindow({
+    width: 400,
+    height: 400,
+    transparent: true,
+    frame: false,
+    alwaysOnTop: true,
+    webPreferences: {
+      nodeIntegration: true
+    }
+  })
+  splash.loadFile(join(__dirname, '../renderer/splash.html'))
+
   mainWindow.on('ready-to-show', () => {
     checkServer().then((res) => {
       if (!res) {
@@ -104,6 +116,7 @@ function createWindow(): void {
             app.quit()
           })
       } else {
+        splash.close()
         mainWindow.show()
       }
     })

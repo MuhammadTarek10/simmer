@@ -9,7 +9,11 @@ export async function addCustomer(customer: CustomerInfo): Promise<void> {
 }
 
 export async function getCustomers(): Promise<CustomerInfo[]> {
-  const customers = await prisma.customer.findMany()
+  const customers = await prisma.customer.findMany({
+    include: {
+      cards: true
+    }
+  })
   return customers.map((customer) => toCustomerRenderer(customer))
 }
 

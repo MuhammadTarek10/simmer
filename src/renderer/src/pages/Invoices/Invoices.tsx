@@ -10,18 +10,14 @@ export async function invoicesLoader() {
 }
 const Invoices = () => {
   const { invoices } = useLoaderData() as { invoices: InvoiceData[] }
-  const [filteredData, setFilteredData] = useState<InvoiceData[]>([])
+  const [filteredData, setFilteredData] = useState<InvoiceData[]>(invoices)
 
   const [search, setSearch] = useState('')
   useEffect(() => {
-    if (search) {
-      const filtered = invoices.filter(
-        (invoice) => invoice.name.toLowerCase() === search.toLowerCase()
-      )
-      setFilteredData(filtered)
-    } else {
-      setFilteredData([])
-    }
+    const filtered = invoices.filter((invoice) =>
+      invoice.name.toLowerCase().includes(search.toLowerCase())
+    )
+    setFilteredData(filtered)
   }, [search, invoices])
 
   return (

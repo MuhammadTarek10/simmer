@@ -13,15 +13,16 @@ export async function customersLoader() {
 const Customers = () => {
   const { customers } = useLoaderData() as { customers: CustomerInfo[] }
   const [search, setSearch] = useState('')
-  const [filteredData, setFilteredData] = useState<CustomerInfo[]>([])
+  const [filteredData, setFilteredData] = useState<CustomerInfo[]>(customers)
 
   useEffect(() => {
-    if (search) {
-      const filtered = customers.filter((customer) => customer.name === search.toLowerCase())
-      setFilteredData(filtered)
-    } else {
-      setFilteredData([])
-    }
+    const filtered = customers.filter((customer) => {
+      const nameMatches = customer.name.toLowerCase().includes(search.toLowerCase())
+      const cardNumberMatches = customer.cards?.some((card) => card.card_number.includes(search))
+
+      return nameMatches || cardNumberMatches
+    })
+    setFilteredData(filtered)
   }, [search, customers])
 
   return (
