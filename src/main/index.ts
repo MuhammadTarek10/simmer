@@ -100,7 +100,11 @@ function createWindow(): void {
       nodeIntegration: true
     }
   })
-  splash.loadFile(join(__dirname, '../renderer/splash.html'))
+  const splashScreenSrc = app.isPackaged
+    ? join(process.resourcesPath, 'splash', 'splash.html')
+    : join(__dirname, '../../splash', 'splash.html')
+
+  splash.loadFile(splashScreenSrc)
 
   mainWindow.on('ready-to-show', () => {
     checkServer().then((res) => {
