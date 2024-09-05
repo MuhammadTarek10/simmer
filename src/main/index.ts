@@ -35,7 +35,7 @@ import {
 import { app, BrowserWindow, dialog, ipcMain, shell } from 'electron'
 import { join } from 'path'
 import icon from '../../resources/icon.png?asset'
-import { checkServer } from './check-update'
+import { checkUpdate } from './check-update'
 import {
   addCard,
   deleteCard,
@@ -107,7 +107,7 @@ function createWindow(): void {
   splash.loadFile(splashScreenSrc)
 
   mainWindow.on('ready-to-show', () => {
-    checkServer().then((res) => {
+    checkUpdate().then((res) => {
       if (!res) {
         dialog
           .showMessageBox({

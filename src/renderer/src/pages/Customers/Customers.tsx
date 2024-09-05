@@ -30,7 +30,11 @@ const Customers = () => {
       <div className="flex items-center p-2 gap-4">
         {/* <BsThreeDotsVertical className="cursor-pointer" /> */}
         <h1 className="text-3xl font-bold ml-8">المشتركين</h1>
-        <SearchInput value={search} onChange={(e) => setSearch(e.target.value)} />
+        <SearchInput
+          placeholder="ابحث بالاسم او بالرقم"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
       </div>
       <div>
         <div className="name-list">

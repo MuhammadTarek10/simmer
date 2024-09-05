@@ -5,6 +5,7 @@ import { requireAuth } from '@shared/actions/auth.actions'
 import { routes } from '@shared/constants'
 import { createHashRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom'
 import './assets/globals.css'
+import Error from './components/Error'
 import Adding from './pages/Adding/Adding'
 import CardDetails, { cardDetailsLoader } from './pages/Cards/CardDetails'
 import Cards, { cardsLoader } from './pages/Cards/Cards'
@@ -22,7 +23,12 @@ function App() {
     createRoutesFromElements(
       <Route>
         <Route path={routes.login} element={<Login />} />
-        <Route path={routes.home} element={<Layout />} loader={async (_) => await requireAuth()}>
+        <Route
+          path={routes.home}
+          element={<Layout />}
+          loader={async (_) => await requireAuth()}
+          errorElement={<Error />}
+        >
           <Route index element={<Home />} loader={homeLoader} />
           <Route path={routes.companies} element={<Companies />} loader={companiesLoader} />
           <Route

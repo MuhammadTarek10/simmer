@@ -14,7 +14,7 @@ export const listColumns: ColumnDef<ListInfo>[] = [
   },
   {
     accessorKey: 'total',
-    header: 'الفاتورة الشهرية'
+    header: 'المجموع'
   },
   {
     accessorKey: 'paid',

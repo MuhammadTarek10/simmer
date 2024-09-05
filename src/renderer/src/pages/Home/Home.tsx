@@ -32,7 +32,11 @@ const Home = () => {
     <div className="p-2">
       <div className="flex items-center">
         <h1 className="flex text-3xl font-bold ml-8">الرئيسية</h1>
-        <SearchInput value={search} onChange={(e) => setSearch(e.target.value)} />
+        <SearchInput
+          placeholder="ابحث بالاسم"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
         <CustomSelect
           placeholder="المتأخرين"
           options={[{ name: 'الكل' }]}
