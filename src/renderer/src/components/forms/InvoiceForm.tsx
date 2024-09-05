@@ -15,11 +15,15 @@ import CustomFormField, { FormFieldType } from './CustomFormField'
 const InvoiceForm = ({
   invoice,
   customer,
-  total
+  total,
+  lastPaid,
+  lastAmountPaid
 }: {
   invoice?: InvoiceInfo
   customer: CustomerInfo
   total: number
+  lastPaid: string
+  lastAmountPaid: string
 }) => {
   const [isLoading, setIsLoading] = useState(false)
   const { toast } = useToast()
@@ -98,10 +102,14 @@ const InvoiceForm = ({
                   }
                 />
               </div>
-              <DisabledInput
-                label="اجمالي المبلغ المطلوب"
-                value={total < 0 ? total.toString() : '0'}
-              />
+              <div className="form-row">
+                <DisabledInput
+                  label="إجمالي المبلغ المطلوب"
+                  value={total < 0 ? total.toString() : '0'}
+                />
+                <DisabledInput label="دفع اخر مرة" value={lastAmountPaid} />
+                <DisabledInput label="تاريخ اخر دفع" value={lastPaid} />
+              </div>
               <div className="form-row">
                 <CustomFormField
                   control={form.control}
@@ -109,7 +117,7 @@ const InvoiceForm = ({
                   label="الدفع"
                   fieldType={FormFieldType.INPUT}
                 />
-                <DisabledInput label="المتبقي" value={remaining < 0 ? remaining.toString() : '0'} />
+                <DisabledInput label="المتبقي" value={remaining.toString()} />
               </div>
               <CustomFormField
                 control={form.control}

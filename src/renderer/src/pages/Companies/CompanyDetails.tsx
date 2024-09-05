@@ -25,7 +25,15 @@ const CompanyDetails = () => {
       icon: <FaRegEdit size={20} />,
       onClick: () => navigate(`/edit/${company.id}/company`)
     },
-    { name: 'حذف', className: 'text-red-500', icon: <BsTrash size={20} /> }
+    {
+      name: 'حذف',
+      className: 'text-red-500',
+      icon: <BsTrash size={20} />,
+      onClick: async () => {
+        await window.context.deleteCompany(company.id!)
+        navigate('/companies')
+      }
+    }
   ]
   const {
     phoneTotal,

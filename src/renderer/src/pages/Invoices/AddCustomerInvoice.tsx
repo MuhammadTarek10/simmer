@@ -18,9 +18,25 @@ const AddCustomerInvoice = ({ invoice }: { invoice?: InvoiceInfo }) => {
     invoices: InvoiceData
   }
 
+  const getLastPaid = (invoices: InvoiceData) => {
+    const lastPaid = invoices.info.filter((element) => element.amount > 0)
+    return lastPaid.length > 0 ? lastPaid[0].invoice_date : 'لم يتم الدفع'
+  }
+
+  const getAmountOfLastPaid = (invoices: InvoiceData) => {
+    const lastPaid = invoices.info.filter((element) => element.amount > 0)
+    return lastPaid.length > 0 ? lastPaid[0].amount : 'لم يتم الدفع'
+  }
+
   return (
     <div className="flex flex-col m-4">
-      <InvoiceForm customer={customer} invoice={invoice} total={invoices.total} />
+      <InvoiceForm
+        customer={customer}
+        invoice={invoice}
+        total={invoices.total}
+        lastPaid={getLastPaid(invoices).toString()}
+        lastAmountPaid={getAmountOfLastPaid(invoices).toString()}
+      />
     </div>
   )
 }

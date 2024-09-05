@@ -140,8 +140,14 @@ export const toListInfoRenderer = (invoices: any[], all: boolean): ListInfo[] =>
     }
   })
 
-  if (all) return result
-  return result.filter((info) => info.remaining > 0)
+  const sortedResult = result.sort((a, b) => {
+    if (a.remaining > b.remaining) return -1
+    if (a.remaining < b.remaining) return 1
+    return 0
+  })
+
+  if (all) return sortedResult
+  return sortedResult.filter((info) => info.remaining > 0)
 }
 
 export const groupInvoicesByName = (invoices: any): InvoiceData[] => {

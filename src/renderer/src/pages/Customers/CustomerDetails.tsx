@@ -41,7 +41,10 @@ const CustomerDetails = () => {
   }
 
   const getTotal = () => {
-    return customer.cards?.map((card) => card.price_after_vat).reduce((a, b) => a + b)
+    if (customer.cards && customer.cards.length > 0) {
+      return customer.cards?.map((card) => card.price_after_vat).reduce((a, b) => a + b)
+    }
+    return 0
   }
 
   const deleteCustomer = async () => {
