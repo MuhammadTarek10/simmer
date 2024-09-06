@@ -19,7 +19,7 @@
     "typecheck": "npm run typecheck:node && npm run typecheck:web",
     "start": "electron-vite preview",
     "dev": "electron-vite dev",
-    "build": "npm run typecheck && electron-vite build && electron-builder -mwl --x64",
+    "build": "npm run typecheck && electron-vite build && electron-builder -mwl",
     "release": "electron-builder -w -p 'onTagOrDraft'",
     "postinstall": "electron-builder install-app-deps",
     "build:unpack": "npm run build && electron-builder --dir",

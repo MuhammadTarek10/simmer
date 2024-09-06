@@ -18,9 +18,10 @@ const Home = () => {
   const [filteredData, setFilteredData] = useState(data)
 
   useEffect(() => {
-    const filtered = data.filter((info) => info.name.toLowerCase().includes(search))
-
-    setFilteredData(filtered)
+    setFilteredData((prev) => {
+      if (search === '') return data
+      return prev.filter((info) => info.name.toLowerCase().includes(search))
+    })
   }, [search, data])
 
   const onChangeValue = async (value: string) => {
