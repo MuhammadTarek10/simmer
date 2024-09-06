@@ -65,8 +65,9 @@ const AddCardToCustomerDialog = ({
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle className="flex justify-center">
-            إضافة خط لـ <span className="text-success">{customer.name}</span>
+          <DialogTitle className="flex justify-center gap-1">
+            <span>إضافة خط لـ</span>
+            <span className="text-success">{customer.name}</span>
           </DialogTitle>
           <DialogDescription className="flex justify-center">
             يمكنك اختيار الخط الذي تريد إضافته للعميل

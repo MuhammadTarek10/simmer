@@ -18,7 +18,7 @@ const CustomerInvoice = ({ invoices, total }: { invoices: InvoiceData; total?: n
         <h1 className="text-xl font-bold">{total}</h1>
       </div>
       <div className="flex justify-between">
-        <h1 className="text-xl">المدفوع هذا الشهر</h1>
+        <h1 className="text-xl">اخر دفع</h1>
         <h1 className="text-xl font-bold">{getAmountOfLastPaid(invoices)}</h1>
       </div>
       <div className="flex justify-between">

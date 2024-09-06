@@ -1,8 +1,15 @@
+import { serverUrl } from '@shared/constants'
+import axios from 'axios'
+
 export const checkUpdate = async () => {
-  const url = 'https://simmer-server.onrender.com/'
-  const res = await fetch(url)
-  if (res.status === 200) {
-    return true
+  try {
+    const res = await axios.get(serverUrl)
+    if (res.status === 200) {
+      return true
+    }
+    return setTimeout(checkUpdate, 1000)
+  } catch (error) {
+    console.log(error)
+    return false
   }
-  return false
 }

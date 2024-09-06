@@ -2,7 +2,6 @@ import CustomDropDownMenu from '@/components/CustomDropDownMenu'
 import { CardInfo, CustomerInfo, InvoiceData } from '@shared/models'
 import { DropDownOption } from '@shared/types'
 import { FaRegEdit } from 'react-icons/fa'
-import { GrView } from 'react-icons/gr'
 import { IoMdAdd } from 'react-icons/io'
 
 import { customerCardColumns } from '@/components/columns/customer-cards-columns'
@@ -65,18 +64,14 @@ const CustomerDetails = () => {
       )
     },
     {
-      name: 'تعديل',
-      icon: <FaRegEdit size={20} />,
-      onClick: () => navigate(`/edit/${customer.id}/customer`)
-    },
-    {
-      name: 'عرض الفواتير',
-      icon: <GrView size={20} />
-    },
-    {
       name: 'عمل فاتورة',
       icon: <IoMdAdd size={20} />,
       onClick: () => navigate(`/customer/${customer.id}/invoice`)
+    },
+    {
+      name: 'تعديل',
+      icon: <FaRegEdit size={20} />,
+      onClick: () => navigate(`/edit/${customer.id}/customer`)
     },
     {
       name: 'حذف',

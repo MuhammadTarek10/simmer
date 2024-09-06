@@ -15,37 +15,4 @@ export const routes = {
   login: 'login'
 }
 
-export const functionNames = {
-  getCompanies: 'getCompanies',
-  getCompany: 'getCompany',
-  addCompany: 'addCompany',
-  updateCompany: 'updateCompany',
-  deleteCompany: 'deleteCompany',
-  getCustomers: 'getCustomers',
-  getCustomer: 'getCustomer',
-  getCustomerFromInvoiceId: 'getCustomerFromInvoiceId',
-  addCustomer: 'addCustomer',
-  updateCustomer: 'updateCustomer',
-  deleteCustomer: 'deleteCustomer',
-  removeCardFromCustomer: 'removeCardFromCustomer',
-  getCards: 'getCards',
-  getUnOccupiedCards: 'getUnOccupiedCards',
-  getCard: 'getCard',
-  getCardsFromCompanyId: 'getCardsFromCompanyId',
-  getCardsFromCustomerId: 'getCardsFromCustomerId',
-  addCard: 'addCard',
-  updateCard: 'updateCard',
-  deleteCard: 'deleteCard',
-  getList: 'getList',
-  updatePaymentInvoices: 'updatePaymentInvoices',
-  getInvoices: 'getInvoices',
-  getInvoice: 'getInvoice',
-  addInvoice: 'addInvoice',
-  updateInvoice: 'updateInvoice',
-  deleteInvoice: 'deleteInvoice',
-  getOffers: 'getOffers',
-  getOffer: 'getOffer',
-  addOffer: 'addOffer',
-  updateOffer: 'updateOffer',
-  deleteOffer: 'deleteOffer'
-}
+export const serverUrl = 'https://simmer-server.onrender.com/'

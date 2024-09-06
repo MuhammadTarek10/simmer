@@ -1,5 +1,4 @@
 import SortableButton from '@/components/SortableButton'
-import { routes } from '@shared/constants'
 import { CardInfo } from '@shared/models'
 import { ColumnDef } from '@tanstack/react-table'
 import RemoveCardFromCustomerDialog from '../dialogs/RemoveCardFromCustomerDialog'
@@ -59,11 +58,6 @@ export const customerCardColumns: ColumnDef<CardInfo>[] = [
 
       return (
         <div className="flex w-fit">
-          <TableActionButton
-            title="عرض"
-            href={`/${routes.cards}/${card.id}`}
-            className="hover:bg-action/25 p-2 rounded-lg"
-          />
           <TableActionButton
             title="تعديل"
             href={`/edit/${card.id}/card`}

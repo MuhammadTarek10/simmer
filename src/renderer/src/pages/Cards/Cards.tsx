@@ -25,12 +25,14 @@ const Cards = () => {
   }, [search])
 
   return (
-    <div className="flex flex-col p-2 gap-4">
-      <div className="flex gap-4 items-center">
-        <h1 className="text-3xl font-bold ml-8">الخطوط</h1>
-        <SearchInput value={search} onChange={(e) => setSearch(e.target.value)} />
+    <div className="p-2">
+      <div className="flex flex-col p-2 gap-4">
+        <div className="flex gap-4 items-center">
+          <h1 className="text-3xl font-bold">الخطوط</h1>
+          <SearchInput value={search} onChange={(e) => setSearch(e.target.value)} />
+        </div>
+        <DataTable columns={cardsColumns} data={filteredCards} />
       </div>
-      <DataTable columns={cardsColumns} data={filteredCards} />
     </div>
   )
 }

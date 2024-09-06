@@ -31,7 +31,7 @@ const Home = () => {
   return (
     <div className="p-2">
       <div className="flex items-center">
-        <h1 className="flex text-3xl font-bold ml-8">الرئيسية</h1>
+        <h1 className="flex text-3xl font-bold">الرئيسية</h1>
         <SearchInput
           placeholder="ابحث بالاسم"
           value={search}

@@ -10,7 +10,7 @@ const SearchInput = ({
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }) => {
   return (
-    <div className="flex w-full gap-2 items-center my-2">
+    <div className="flex w-full mr-4 ml-4">
       <Input
         className="p-4 rounded-2xl"
         placeholder={placeholder}

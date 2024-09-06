@@ -58,6 +58,11 @@ export const cardsColumns: ColumnDef<CardInfo>[] = [
             href={`/${routes.cards}/${card.id}`}
             className="hover:bg-action/25 p-2 rounded-lg"
           /> */}
+          <TableActionButton
+            title="تعديل"
+            href={`/edit/${card.id}/card`}
+            className="hover:bg-action/25 p-2 rounded-lg"
+          />
           <DeleteDialog
             placeholder="حذف"
             title="حذف الخط"
@@ -67,11 +72,6 @@ export const cardsColumns: ColumnDef<CardInfo>[] = [
               window.location.reload()
             }}
             showIcon={false}
-          />
-          <TableActionButton
-            title="تعديل"
-            href={`/edit/${card.id}/card`}
-            className="hover:bg-action/25 p-2 rounded-lg"
           />
         </div>
       )

@@ -21,12 +21,14 @@ const Invoices = () => {
   }, [search, invoices])
 
   return (
-    <div className="h-full w-full p-2">
-      <div className="flex items-center">
-        <h1 className="flex text-3xl font-bold ml-8">الفواتير</h1>
-        <SearchInput value={search} onChange={(e) => setSearch(e.target.value)} />
+    <div className="p-2">
+      <div className="h-full w-full p-2">
+        <div className="flex items-center">
+          <h1 className="flex text-3xl font-bold">الفواتير</h1>
+          <SearchInput value={search} onChange={(e) => setSearch(e.target.value)} />
+        </div>
+        <InvoicesList invoices={filteredData} />
       </div>
-      <InvoicesList invoices={filteredData} />
     </div>
   )
 }

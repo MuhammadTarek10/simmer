@@ -22,18 +22,20 @@ const Companies = () => {
   }, [search, companies])
 
   return (
-    <div className="gap-4">
-      <div className="flex items-center p-2 gap-4">
-        {/* <BsThreeDotsVertical className="cursor-pointer" /> */}
-        <h1 className="text-3xl font-bold ml-8">الشركات</h1>
-        <SearchInput value={search} onChange={(e) => setSearch(e.target.value)} />
-      </div>
-      <div className="name-list">
-        {filteredData.map((company) => (
-          <Link to={company.id!} key={company.id}>
-            <NameCard name={company.name} icon={icon} />
-          </Link>
-        ))}
+    <div className="p-2">
+      <div className="gap-4">
+        <div className="flex items-center p-2 gap-4">
+          {/* <BsThreeDotsVertical className="cursor-pointer" /> */}
+          <h1 className="text-3xl font-bold">الشركات</h1>
+          <SearchInput value={search} onChange={(e) => setSearch(e.target.value)} />
+        </div>
+        <div className="name-list">
+          {filteredData.map((company) => (
+            <Link to={company.id!} key={company.id}>
+              <NameCard name={company.name} icon={icon} />
+            </Link>
+          ))}
+        </div>
       </div>
     </div>
   )
