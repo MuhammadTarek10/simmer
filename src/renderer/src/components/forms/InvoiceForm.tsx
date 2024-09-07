@@ -5,6 +5,7 @@ import { InvoiceValidationSchema } from '@shared/validation'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
+import { addInvoice } from '../../repositories/invoices.repository'
 import AddingHeader from '../AddingHeader'
 import DisabledInput from '../DisabledInput'
 import SubmitButton from '../SubmitButton'
@@ -47,9 +48,9 @@ const InvoiceForm = ({
     }
   }, [])
 
-  const addInvoice = async (invoice: InvoiceInfo) => {
+  const addInvoiceF = async (invoice: InvoiceInfo) => {
     try {
-      await window.context.addInvoice(invoice)
+      await addInvoice(invoice)
       toast({
         title: 'تمت اضافة الفاتورة بنجاح',
         description: 'تمت اضافة الفاتورة بنجاح'
@@ -64,7 +65,7 @@ const InvoiceForm = ({
   }
 
   const onSubmit = async (data: z.infer<typeof InvoiceValidationSchema>) => {
-    addInvoice({
+    addInvoiceF({
       customer: customer,
       invoice_date: convertDateToString(data.invoice_date),
       amount: data.amount,

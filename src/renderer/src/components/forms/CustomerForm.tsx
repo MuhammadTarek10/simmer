@@ -1,3 +1,4 @@
+import { addCustomer, updateCustomer } from '../../repositories/customer.repository'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { CustomerInfo } from '@shared/models'
 import { CustomerValidationSchema } from '@shared/validation'
@@ -31,7 +32,7 @@ const CustomerForm = ({ customer }: { customer?: CustomerInfo }) => {
     setIsLoading(true)
     try {
       if (customer) {
-        await window.context.updateCustomer({
+        await updateCustomer({
           ...data,
           id: customer.id
         })
@@ -40,7 +41,7 @@ const CustomerForm = ({ customer }: { customer?: CustomerInfo }) => {
           description: 'تم تعديل العميل بنجاح'
         })
       } else {
-        await window.context.addCustomer({
+        await addCustomer({
           ...data
         })
         toast({

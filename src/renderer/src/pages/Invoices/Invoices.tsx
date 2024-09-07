@@ -2,10 +2,11 @@ import SearchInput from '@/components/SearchInput'
 import { InvoiceData } from '@shared/models'
 import { useEffect, useState } from 'react'
 import { defer, useLoaderData } from 'react-router-dom'
+import { getInvoicesGrouped } from '../../repositories/invoices.repository'
 import InvoicesList from './components/InvoicesList'
 
 export async function invoicesLoader() {
-  const invoices = await window.context.getInvoicesGrouped()
+  const invoices = await getInvoicesGrouped()
   return defer({ invoices: invoices })
 }
 const Invoices = () => {

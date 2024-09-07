@@ -1,12 +1,13 @@
 import icon from '@/assets/icons/list-company.svg'
 import NameCard from '@/components/NameCard'
 import SearchInput from '@/components/SearchInput'
+import { getCompanies } from '../../repositories/company.repository'
 import { CompanyInfo } from '@shared/models'
 import { useEffect, useState } from 'react'
 import { defer, Link, useLoaderData } from 'react-router-dom'
 
 export async function companiesLoader() {
-  return defer({ companies: await window.context.getCompanies() })
+  return defer({ companies: await getCompanies() })
 }
 
 const Companies = () => {

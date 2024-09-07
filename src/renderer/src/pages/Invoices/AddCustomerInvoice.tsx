@@ -1,13 +1,17 @@
 import InvoiceForm from '@/components/forms/InvoiceForm'
 import { CustomerInfo, InvoiceData, InvoiceInfo } from '@shared/models'
 import { defer, useLoaderData } from 'react-router-dom'
-import { updatePaymentInvoices } from '../../repositories/invoices'
+import { getCustomer } from '../../repositories/customer.repository'
+import {
+  getInvoicesByCustomerId,
+  updatePaymentInvoices
+} from '../../repositories/invoices.repository'
 
 export async function addCustomerInvoiceLoader({ params }) {
   const { id } = params
   await updatePaymentInvoices()
-  const customer = await window.context.getCustomer(id)
-  const invoices = await window.context.getInvoicesByCustomerId(id)
+  const customer = await getCustomer(id)
+  const invoices = await getInvoicesByCustomerId(id)
 
   return defer({ customer: customer, invoices: invoices[0] })
 }

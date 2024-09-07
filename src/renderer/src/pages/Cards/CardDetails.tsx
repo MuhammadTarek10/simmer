@@ -1,9 +1,10 @@
 import { CardInfo } from '@shared/models'
 import { defer, useLoaderData } from 'react-router-dom'
+import { getCard } from '../../repositories/card.repository'
 
 export async function cardDetailsLoader({ params }) {
   const { id } = params
-  const card = await window.context.getCard(id)
+  const card = await getCard(id)
 
   return defer({ card: card })
 }

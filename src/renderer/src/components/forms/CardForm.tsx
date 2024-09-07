@@ -5,6 +5,9 @@ import { CardValidationSchema } from '@shared/validation'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
+import { addCard, updateCard } from '../../repositories/card.repository'
+import { getCompanies } from '../../repositories/company.repository'
+import { getOffers } from '../../repositories/offer.repository'
 import AddingHeader from '../AddingHeader'
 import DisabledInput from '../DisabledInput'
 import SubmitButton from '../SubmitButton'
@@ -46,25 +49,25 @@ const CardForm = ({ card }: { card?: CardInfo }) => {
   }, [])
 
   useEffect(() => {
-    const getCompanies = async () => {
+    const getCompaniesF = async () => {
       try {
-        const companies = await window.context.getCompanies()
+        const companies = await getCompanies()
         setCompanies(companies)
       } catch (e) {
         console.log(e)
       }
     }
-    const getOffers = async () => {
+    const getOffersF = async () => {
       try {
-        const offers = await window.context.getOffers()
+        const offers = await getOffers()
         setOffers(offers)
       } catch (e) {
         console.log(e)
       }
     }
 
-    getCompanies()
-    getOffers()
+    getCompaniesF()
+    getOffersF()
   }, [])
 
   const onSubmit = async (data: z.infer<typeof CardValidationSchema>) => {
@@ -72,7 +75,7 @@ const CardForm = ({ card }: { card?: CardInfo }) => {
 
     try {
       if (card) {
-        await window.context.updateCard({
+        await updateCard({
           ...card,
           ...data,
           start_date: convertDateToString(data.start_date),
@@ -86,7 +89,7 @@ const CardForm = ({ card }: { card?: CardInfo }) => {
           description: 'تم تعديل الخط بنجاح'
         })
       } else {
-        await window.context.addCard({
+        await addCard({
           ...data,
           start_date: convertDateToString(data.start_date),
           company: companies.find((company) => company.name === data.company_name)!,

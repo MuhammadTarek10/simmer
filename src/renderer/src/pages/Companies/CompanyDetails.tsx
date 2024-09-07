@@ -7,12 +7,14 @@ import { DropDownOption } from '@shared/types'
 import { BsTrash } from 'react-icons/bs'
 import { FaRegEdit } from 'react-icons/fa'
 import { defer, useLoaderData, useNavigate } from 'react-router-dom'
+import { getCardsFromCompanyId } from '../../repositories/card.repository'
+import { deleteCompany, getCompany } from '../../repositories/company.repository'
 import CardsStat from './components/CardsStat'
 import TotalStat from './components/TotalStat'
 
 export async function companyDetailsLoader({ params }) {
-  const company = await window.context.getCompany(params.id)
-  const cards = await window.context.getCardsFromCompanyId(params.id)
+  const company = await getCompany(params.id)
+  const cards = await getCardsFromCompanyId(params.id)
   return defer({ company: company, cards: cards })
 }
 
@@ -30,7 +32,7 @@ const CompanyDetails = () => {
       className: 'text-red-500',
       icon: <BsTrash size={20} />,
       onClick: async () => {
-        await window.context.deleteCompany(company.id!)
+        await deleteCompany(company.id!)
         navigate('/companies')
       }
     }

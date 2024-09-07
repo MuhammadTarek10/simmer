@@ -1,11 +1,12 @@
 import SortableButton from '@/components/SortableButton'
 import { CardInfo } from '@shared/models'
 import { ColumnDef } from '@tanstack/react-table'
+import { removeCardFromCustomer } from '../../repositories/customer.repository'
 import RemoveCardFromCustomerDialog from '../dialogs/RemoveCardFromCustomerDialog'
 import TableActionButton from '../TableActionButton'
 
-const removeCardFromCustomer = async (cardId: string, customerId: string) => {
-  await window.context.removeCardFromCustomer(cardId, customerId)
+const removeCard = async (cardId: string, customerId: string) => {
+  await removeCardFromCustomer(cardId, customerId)
   window.location.reload()
 }
 
@@ -63,9 +64,7 @@ export const customerCardColumns: ColumnDef<CardInfo>[] = [
             href={`/edit/${card.id}/card`}
             className="hover:bg-action/25 p-2 rounded-lg"
           />
-          <RemoveCardFromCustomerDialog
-            onClick={() => removeCardFromCustomer(card.id!, card.customer!.id!)}
-          />
+          <RemoveCardFromCustomerDialog onClick={() => removeCard(card.id!, card.customer!.id!)} />
         </div>
       )
     }

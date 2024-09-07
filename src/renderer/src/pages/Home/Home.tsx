@@ -3,11 +3,12 @@ import SearchInput from '@/components/SearchInput'
 import { ListInfo } from '@shared/models'
 import { useEffect, useState } from 'react'
 import { defer, useLoaderData } from 'react-router-dom'
-import { updatePaymentInvoices } from '../../repositories/invoices'
+import { updatePaymentInvoices } from '../../repositories/invoices.repository'
+import { getList } from '../../repositories/list.repository'
 import MonthTable from './components/MonthTable'
 
 export async function homeLoader() {
-  const list = await window.context.getList()
+  const list = await getList()
   await updatePaymentInvoices()
   return defer({ data: list })
 }
@@ -25,7 +26,7 @@ const Home = () => {
   }, [search, data])
 
   const onChangeValue = async (value: string) => {
-    const list = await window.context.getList(value === 'الكل')
+    const list = await getList(value === 'الكل')
     setFilteredData(list)
   }
 

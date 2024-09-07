@@ -10,14 +10,17 @@ import DeleteDialog from '@/components/dialogs/DeleteDialog'
 import { DataTable } from '@/components/ui/data-table'
 import { routes } from '@shared/constants'
 import { defer, useLoaderData, useNavigate } from 'react-router-dom'
+import { getCardsFromCustomerId, getUnOccupiedCards } from '../../repositories/card.repository'
+import { deleteCustomer, getCustomer } from '../../repositories/customer.repository'
+import { getInvoicesByCustomerId } from '../../repositories/invoices.repository'
 import CustomerInvoice from './components/CustomerInvoice'
 
 export async function customerDetailsLoader({ params }) {
-  const customer = await window.context.getCustomer(params.id)
-  const cards = await window.context.getCardsFromCustomerId(params.id)
-  const invoices = await window.context.getInvoicesByCustomerId(params.id)
+  const customer = await getCustomer(params.id)
+  const cards = await getCardsFromCustomerId(params.id)
+  const invoices = await getInvoicesByCustomerId(params.id)
 
-  const unOccupiedCards = await window.context.getUnOccupiedCards()
+  const unOccupiedCards = await getUnOccupiedCards()
   return defer({
     customer: customer,
     cards: cards,
@@ -46,8 +49,8 @@ const CustomerDetails = () => {
     return 0
   }
 
-  const deleteCustomer = async () => {
-    await window.context.deleteCustomer(customer.id!)
+  const deleteCustomerF = async () => {
+    await deleteCustomer(customer.id!)
     navigate(`/${routes.customers}`)
   }
 
@@ -81,7 +84,7 @@ const CustomerDetails = () => {
           placeholder="حذف"
           title="حذف العميل"
           description="هل انت متأكد من حذف العميل؟"
-          onConfirm={deleteCustomer}
+          onConfirm={deleteCustomerF}
         />
       )
     }

@@ -1,6 +1,7 @@
 import SortableButton from '@/components/SortableButton'
 import { CardInfo } from '@shared/models'
 import { ColumnDef } from '@tanstack/react-table'
+import { deleteCard } from '../../repositories/card.repository'
 import TableActionButton from '../TableActionButton'
 import DeleteDialog from '../dialogs/DeleteDialog'
 
@@ -68,7 +69,7 @@ export const cardsColumns: ColumnDef<CardInfo>[] = [
             title="حذف الخط"
             description="هل انت متأكد من حذف الخط؟"
             onConfirm={async () => {
-              await window.context.deleteCard(row.original.id!)
+              await deleteCard(row.original.id!)
               window.location.reload()
             }}
             showIcon={false}

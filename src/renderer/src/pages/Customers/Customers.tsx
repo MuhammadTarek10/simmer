@@ -4,9 +4,10 @@ import SearchInput from '@/components/SearchInput'
 import { CustomerInfo } from '@shared/models'
 import { useEffect, useState } from 'react'
 import { defer, Link, useLoaderData } from 'react-router-dom'
+import { getCustomers } from '../../repositories/customer.repository'
 
 export async function customersLoader() {
-  const customers = await window.context.getCustomers()
+  const customers = await getCustomers()
   return defer({ customers: customers })
 }
 

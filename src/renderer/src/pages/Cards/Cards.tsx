@@ -4,9 +4,10 @@ import { DataTable } from '@/components/ui/data-table'
 import { CardInfo } from '@shared/models'
 import { useEffect, useState } from 'react'
 import { defer, useLoaderData } from 'react-router-dom'
+import { getCards } from '../../repositories/card.repository'
 
 export async function cardsLoader() {
-  const cards = await window.context.getCards()
+  const cards = await getCards()
   return defer({ cards: cards })
 }
 

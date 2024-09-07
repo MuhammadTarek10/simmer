@@ -14,6 +14,7 @@ import CustomSelect from '../CustomSelect'
 import { Button } from '../ui/button'
 import { Label } from '../ui/label'
 import { useToast } from '../ui/use-toast'
+import { updateCard } from '../../repositories/card.repository'
 
 const AddCardToCustomerDialog = ({
   title,
@@ -38,7 +39,7 @@ const AddCardToCustomerDialog = ({
     if (selectedCard) {
       try {
         selectedCard.customer = customer
-        await window.context.updateCard(selectedCard)
+        await updateCard(selectedCard)
         toast({
           title: 'تمت الاضافة بنجاح',
           description: 'تمت اضافة الخط بنجاح'

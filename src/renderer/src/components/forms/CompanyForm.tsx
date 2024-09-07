@@ -5,6 +5,7 @@ import { CompanyValidationSchema } from '@shared/validation'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
+import { addCompany, updateCompany } from '../../repositories/company.repository'
 import AddingHeader from '../AddingHeader'
 import SubmitButton from '../SubmitButton'
 import { Form } from '../ui/form'
@@ -30,7 +31,7 @@ const CompanyForm = ({ company }: { company?: CompanyInfo }) => {
     setIsLoading(true)
     try {
       if (company) {
-        await window.context.updateCompany({
+        await updateCompany({
           ...data,
           invoice_date: convertDateToString(data.invoice_date),
           id: company.id
@@ -40,7 +41,7 @@ const CompanyForm = ({ company }: { company?: CompanyInfo }) => {
           description: 'تم تعديل الشركة بنجاح'
         })
       } else {
-        await window.context.addCompany({
+        await addCompany({
           ...data,
           invoice_date: convertDateToString(data.invoice_date)
         })

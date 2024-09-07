@@ -4,6 +4,7 @@ import { OfferValidationSchema } from '@shared/validation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
+import { addOffer } from '../../repositories/offer.repository'
 import AddingHeader from '../AddingHeader'
 import SubmitButton from '../SubmitButton'
 import { Form } from '../ui/form'
@@ -23,7 +24,7 @@ const OfferForm = ({ offer }: { offer?: OfferInfo }) => {
   const onSubmit = async (data: z.infer<typeof OfferValidationSchema>) => {
     setIsLoading(true)
     try {
-      await window.context.addOffer(data)
+      await addOffer(data)
       toast({
         title: 'تمت الاضافة بنجاح',
         description: 'تمت اضافة العرض بنجاح'
