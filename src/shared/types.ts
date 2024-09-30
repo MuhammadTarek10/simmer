@@ -80,3 +80,5 @@ export type GetOffer = (id: string) => Promise<OfferInfo>
 export type AddOffer = (offer: OfferInfo) => Promise<void>
 export type UpdateOffer = (offer: OfferInfo) => Promise<void>
 export type DeleteOffer = (id: string) => Promise<void>
+
+// * File

@@ -42,7 +42,7 @@ const Customers = () => {
           <div className="name-list">
             {filteredData.map((customer) => (
               <Link key={customer.id!} to={customer.id!}>
-                <NameCard name={customer.name} icon={icon} />
+                <NameCard key={customer.id} name={customer.name} icon={icon} />
               </Link>
             ))}
           </div>

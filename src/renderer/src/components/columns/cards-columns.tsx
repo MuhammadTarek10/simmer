@@ -1,4 +1,5 @@
 import SortableButton from '@/components/SortableButton'
+import { convertDateToString } from '@shared/converters'
 import { CardInfo } from '@shared/models'
 import { ColumnDef } from '@tanstack/react-table'
 import { deleteCard } from '../../repositories/card.repository'
@@ -23,9 +24,11 @@ export const cardsColumns: ColumnDef<CardInfo>[] = [
     accessorKey: 'offer_end_date',
     header: ({ column }) => <SortableButton title="تاريخ الانتهاء" column={column} />,
     cell: ({ row }) => {
-      const offerEndDate = row.original.offer_end_date
+      console.log(row.original)
+
+      const offerEndDate = row.original.offer?.end_date
       return offerEndDate ? (
-        <span>{offerEndDate}</span>
+        <span>{convertDateToString(offerEndDate)}</span>
       ) : (
         <span className="text-gray-400">لا يوجد تاريخ انتهاء</span>
       )
@@ -36,15 +39,11 @@ export const cardsColumns: ColumnDef<CardInfo>[] = [
     header: ({ column }) => <SortableButton title="السعر" column={column} />
   },
   {
-    accessorKey: 'comment',
-    header: 'ملاحظات',
+    accessorKey: 'customer.name',
+    header: ({ column }) => <SortableButton title="مستخدم الخط" column={column} />,
     cell: ({ row }) => {
-      const comment = row.original.comment
-      return comment ? (
-        <span>{comment}</span>
-      ) : (
-        <span className="text-gray-400">لا توجد ملاحظات</span>
-      )
+      const name = row.original.customer?.name
+      return name ? <span>{name}</span> : <span className="text-gray-400">لا يوجد مستخدم</span>
     }
   },
   {

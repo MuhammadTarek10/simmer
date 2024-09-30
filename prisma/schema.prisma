@@ -25,7 +25,7 @@ model Offer {
   id              String   @id @default(uuid())
   name            String
   percentage      Int
-  period_in_month Int
+  end_date        DateTime
   created_at      DateTime @default(now())
   updated_at      DateTime @updatedAt
   comment         String?

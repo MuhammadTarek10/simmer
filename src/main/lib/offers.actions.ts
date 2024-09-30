@@ -10,5 +10,6 @@ export async function addOffer(offer: OfferInfo): Promise<void> {
 
 export async function getOffers(): Promise<OfferInfo[]> {
   const offers = await prisma.offer.findMany()
+
   return offers.map((offer) => toOfferRenderer(offer))
 }

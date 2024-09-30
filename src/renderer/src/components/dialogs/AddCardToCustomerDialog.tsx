@@ -10,11 +10,11 @@ import { DialogDescription } from '@radix-ui/react-dialog'
 import { CardInfo, CustomerInfo } from '@shared/models'
 import { useState } from 'react'
 import { IoMdAdd } from 'react-icons/io'
-import CustomSelect from '../CustomSelect'
+import { updateCard } from '../../repositories/card.repository'
 import { Button } from '../ui/button'
+import { Combobox } from '../ui/combobox'
 import { Label } from '../ui/label'
 import { useToast } from '../ui/use-toast'
-import { updateCard } from '../../repositories/card.repository'
 
 const AddCardToCustomerDialog = ({
   title,
@@ -77,11 +77,10 @@ const AddCardToCustomerDialog = ({
         <div className="flex flex-col p-4 gap-4">
           <div className="flex gap-4 items-center w-full">
             <Label className="text-2xl">الخط</Label>
-            <CustomSelect
+            <Combobox
               options={convertCardsToSelectOptions(cards)}
               placeholder={'الخطوط'}
               onChange={onChange}
-              className="flex w-[350px]"
             />
           </div>
           <div className="flex gap-2">

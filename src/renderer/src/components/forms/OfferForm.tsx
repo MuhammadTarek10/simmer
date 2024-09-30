@@ -56,9 +56,9 @@ const OfferForm = ({ offer }: { offer?: OfferInfo }) => {
             />
 
             <CustomFormField
-              label="المدة بالشهور"
-              name="period_in_month"
-              fieldType={FormFieldType.INPUT}
+              label="تاريخ الانتهاء"
+              name="end_date"
+              fieldType={FormFieldType.DATE_PICKER}
               control={form.control}
             />
 

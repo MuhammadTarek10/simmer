@@ -74,6 +74,7 @@ import {
 } from './lib/invoices.actions'
 import { getLists } from './lib/list.actions'
 import { addOffer, getOffers } from './lib/offers.actions'
+import { createMene } from './menu-bar'
 
 function createWindow(): void {
   // Create the browser window.
@@ -133,9 +134,9 @@ function createWindow(): void {
   }
 
   // Open the DevTools.
-  // if (is.dev) {
-  //   mainWindow.webContents.openDevTools()
-  // }
+  if (is.dev) {
+    mainWindow.webContents.openDevTools()
+  }
 }
 
 // This method will be called when Electron has finished
@@ -144,6 +145,7 @@ function createWindow(): void {
 app.whenReady().then(() => {
   // Set app user model id for windows
   electronApp.setAppUserModelId('com.simmer')
+  createMene()
 
   // Default open or close DevTools by F12 in development
   // and ignore CommandOrControl + R in production.

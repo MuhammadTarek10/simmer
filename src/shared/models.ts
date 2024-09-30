@@ -50,7 +50,7 @@ export interface ListData {
 export interface OfferInfo {
   id?: string
   name: string
-  period_in_month: number
+  end_date: Date
   percentage: number
   comment?: string
 }

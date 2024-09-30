@@ -208,7 +208,7 @@ export const toOfferRenderer = (offer: any) => {
   return {
     id: offer.id,
     name: offer.name,
-    period_in_month: offer.period_on_month,
+    end_date: offer.end_date,
     percentage: offer.percentage,
     comment: offer.comment
   }
@@ -217,7 +217,7 @@ export const toOfferRenderer = (offer: any) => {
 export const toOfferMain = (offer: any) => {
   return {
     name: offer.name,
-    period_in_month: offer.period_in_month,
+    end_date: offer.end_date,
     percentage: offer.percentage,
     comment: offer.comment
   }

@@ -25,11 +25,9 @@ export const OfferValidationSchema = z.object({
     })
     .min(0)
     .max(100),
-  period_in_month: z.coerce
-    .number({
-      message: 'مطلوب'
-    })
-    .min(1),
+  end_date: z.date({
+    message: 'مطلوب'
+  }),
   comment: z.string().optional()
 })
 
