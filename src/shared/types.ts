@@ -82,3 +82,19 @@ export type UpdateOffer = (offer: OfferInfo) => Promise<void>
 export type DeleteOffer = (id: string) => Promise<void>
 
 // * File
+export interface FileSchema {
+  name: string
+  national_id: string
+  grand_name: string
+  address: string
+  card_number: string
+  company: string
+  company_invoice_date: string
+  card_start_date: string
+  price_before_vat: number
+  price_after_vat: number
+  offer_name: string
+  offer_end_date: string
+  offer_percentage: number
+  paid: number
+}

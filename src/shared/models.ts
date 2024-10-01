@@ -23,13 +23,24 @@ export interface CardInfo {
   card_number: string
   card_type: string
   start_date: string
+  price_before_vat: number
+  price_after_vat: number
   company: CompanyInfo
   offer?: OfferInfo
   customer?: CustomerInfo
-  offer_end_date?: string
+  comment?: string
+}
+
+export interface TempCardInfo {
+  id?: string
+  card_number: string
+  card_type: string
+  start_date: string
   price_before_vat: number
   price_after_vat: number
-  comment?: string
+  company_name: string
+  offer_name: string
+  customer_national_id: string
 }
 
 export interface ListInfo {
@@ -65,7 +76,7 @@ export interface InvoiceData {
 export interface InvoiceInfo {
   id?: string
   customer: CustomerInfo
-  invoice_date: string
+  invoice_date?: string
   amount: number
   comment?: string
 }

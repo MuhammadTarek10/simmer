@@ -198,7 +198,7 @@ export const toInvoiceRenderer = (invoice: any) => {
 export const toInvoiceMain = (invoice: InvoiceInfo) => {
   return {
     customer_id: invoice.customer.id,
-    invoice_date: new Date(invoice.invoice_date),
+    invoice_date: invoice.invoice_date,
     amount: invoice.amount,
     comment: invoice.comment
   }

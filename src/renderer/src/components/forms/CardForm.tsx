@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { convertDateToString, convertStringToDate } from '@shared/converters'
+import { convertDateToString, convertStringToDate, getCardType } from '@shared/converters'
 import { CardInfo, CompanyInfo, OfferInfo } from '@shared/models'
 import { CardValidationSchema } from '@shared/validation'
 import { useEffect, useState } from 'react'
@@ -81,7 +81,7 @@ const CardForm = ({ card }: { card?: CardInfo }) => {
           start_date: convertDateToString(data.start_date),
           company: companies.find((company) => company.name === data.company_name)!,
           offer: offers.find((offer) => offer.name === data.offer_name),
-          card_type: data.card_number.startsWith('01') ? 'phone' : 'local'
+          card_type: getCardType(data.card_number)
         })
 
         toast({

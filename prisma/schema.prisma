@@ -1,7 +1,6 @@
-
 generator client {
-  provider = "prisma-client-js"
- binaryTargets = ["native", "windows"]
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "windows"]
 }
 
 datasource db {
@@ -12,7 +11,7 @@ datasource db {
 
 model Company {
   id           String   @id @default(uuid())
-  name         String
+  name         String   @unique
   invoice_date String
   phone        String?
   created_at   DateTime @default(now())
@@ -22,14 +21,14 @@ model Company {
 }
 
 model Offer {
-  id              String   @id @default(uuid())
-  name            String
-  percentage      Int
-  end_date        DateTime
-  created_at      DateTime @default(now())
-  updated_at      DateTime @updatedAt
-  comment         String?
-  cards           Card[]
+  id         String   @id @default(uuid())
+  name       String   @unique
+  percentage Int
+  end_date   DateTime
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  comment    String?
+  cards      Card[]
 }
 
 model Card {
@@ -38,7 +37,6 @@ model Card {
   start_date       String
   price_before_vat Int      @default(0)
   price_after_vat  Int      @default(0)
-  sell_date        String?
   company_id       String
   customer_id      String?
   card_type        String
@@ -74,12 +72,12 @@ model Customer {
 }
 
 model Invoice {
-  id           String   @id @default(uuid())
+  id           String    @id @default(uuid())
   customer_id  String?
   amount       Float
   invoice_date DateTime?
-  created_at   DateTime @default(now())
-  updated_at   DateTime @updatedAt
+  created_at   DateTime  @default(now())
+  updated_at   DateTime  @updatedAt
   comment      String?
 
   customer Customer? @relation(fields: [customer_id], references: [id], onDelete: Cascade)
