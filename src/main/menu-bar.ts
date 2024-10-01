@@ -1,6 +1,6 @@
 import { Menu } from 'electron'
-import { importFile } from './lib/files/import-file'
 import { exportFile } from './lib/files/export-file'
+import { importFile } from './lib/files/import-file'
 
 const template: Array<Electron.MenuItemConstructorOptions> = [
   {

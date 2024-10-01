@@ -9,42 +9,23 @@ import {
   toOfferMain,
   toOfferRenderer
 } from '@shared/mappers'
-import { CardInfo, CompanyInfo, InvoiceInfo, OfferInfo, TempCardInfo } from '@shared/models'
+import {
+  CardInfo,
+  CompanyInfo,
+  CustomerInfo,
+  InvoiceInfo,
+  OfferInfo,
+  TempCardInfo
+} from '@shared/models'
 import { FileSchema } from '@shared/types'
 import { prisma } from './database'
 
 export const enterToDB = async (data: FileSchema[]) => {
-  console.log(data)
-
   try {
     // Create entities in parallel to improve performance
-    const customerPromises = data.map(async (element) => {
-      const customer = makeCustomers(element)
-      const createdCustomer = await prisma.customer.create({ data: toCustomerMain(customer) })
-      const invoice = makeInvoice(createdCustomer, customer.paid)
-      await prisma.invoice.create({ data: toInvoiceMain(invoice) })
+    data.map(async (element) => {
+      await addCard(element)
     })
-
-    const companyPromises = data.map(async (element) => {
-      const company = makeCompanies(element)
-      await prisma.company.create({ data: toCompanyMain(company) })
-    })
-
-    const offerPromises = data.map(async (element) => {
-      const offer = makeOffers(element)
-      await prisma.offer.create({ data: toOfferMain(offer) })
-    })
-
-    const cardPromises = data.map(async (element) => {
-      const tempCard = makeCards(element)
-      const cardInfo = await makeCardInfo(tempCard)
-      console.log(cardInfo)
-
-      await prisma.card.create({ data: toCardMain(cardInfo) })
-    })
-
-    // Await all promises to handle async operations
-    await Promise.all([...customerPromises, ...companyPromises, ...offerPromises, ...cardPromises])
     return true
   } catch (e) {
     console.error('Error entering data to database:', e) // Improved error logging
@@ -52,7 +33,7 @@ export const enterToDB = async (data: FileSchema[]) => {
   }
 }
 
-const makeCustomers = (element: FileSchema) => {
+const makeCustomer = (element: FileSchema) => {
   return {
     name: element.name,
     national_id: element.national_id,
@@ -62,14 +43,14 @@ const makeCustomers = (element: FileSchema) => {
   }
 }
 
-const makeCompanies = (element: FileSchema): CompanyInfo => {
+const makeCompany = (element: FileSchema): CompanyInfo => {
   return {
     name: element.company,
     invoice_date: element.company_invoice_date
   }
 }
 
-const makeOffers = (element: FileSchema): OfferInfo => {
+const makeOffer = (element: FileSchema): OfferInfo => {
   return {
     name: element.offer_name,
     end_date: convertStringToDate(element.offer_end_date),
@@ -77,7 +58,7 @@ const makeOffers = (element: FileSchema): OfferInfo => {
   }
 }
 
-const makeCards = (element: FileSchema): TempCardInfo => {
+const makeCard = (element: FileSchema): TempCardInfo => {
   return {
     card_number: element.card_number,
     card_type: getCardType(element.card_number),
@@ -93,37 +74,86 @@ const makeCards = (element: FileSchema): TempCardInfo => {
 const makeInvoice = (customer: any, amount: number): InvoiceInfo => {
   return {
     customer: customer,
-    amount: amount
+    amount: Number(amount)
   }
 }
 
-const makeCardInfo = async (tempCard: TempCardInfo): Promise<CardInfo> => {
-  const customer = await prisma.customer.findFirst({
-    where: {
-      national_id: tempCard.customer_national_id
-    }
-  })
-
-  const company = await prisma.company.findFirst({
-    where: {
-      name: tempCard.company_name
-    }
-  })
-
-  const offer = await prisma.offer.findFirst({
-    where: {
-      name: tempCard.offer_name
-    }
-  })
-
+const makeCardInfo = (
+  tempCard: TempCardInfo,
+  company: CompanyInfo,
+  customer: CustomerInfo | null,
+  offer: OfferInfo | null
+): CardInfo => {
   return {
     card_number: tempCard.card_number,
     card_type: tempCard.card_type,
     start_date: tempCard.start_date,
     price_before_vat: Number(tempCard.price_before_vat),
     price_after_vat: Number(tempCard.price_after_vat),
-    company: toCompanyRenderer(company),
-    offer: offer != null ? toOfferRenderer(offer) : undefined,
-    customer: customer != null ? toCustomerRenderer(customer) : undefined
+    company: company,
+    offer: offer != null ? offer : undefined,
+    customer: customer != null ? customer : undefined
   }
+}
+
+const addCustomer = async (info: FileSchema): Promise<CustomerInfo | null> => {
+  if (info.national_id == null) return null
+
+  let customer = await prisma.customer.findFirst({
+    where: {
+      national_id: info.national_id
+    }
+  })
+
+  if (customer == null) {
+    customer = await prisma.customer.create({ data: toCustomerMain(makeCustomer(info)) })
+  }
+
+  await addInvoice(customer, info.paid)
+  return toCustomerRenderer(customer)
+}
+
+const addInvoice = async (customer: any, amount: any) => {
+  const invoice = makeInvoice(customer, amount)
+  await prisma.invoice.create({ data: toInvoiceMain(invoice) })
+}
+
+const addCompany = async (info: FileSchema): Promise<CompanyInfo> => {
+  let company = await prisma.company.findFirst({
+    where: {
+      name: info.company
+    }
+  })
+
+  console.log(company)
+  console.log(info.company)
+  console.log(company == null)
+
+  if (company == null) {
+    company = await prisma.company.create({ data: toCompanyMain(makeCompany(info)) })
+  }
+
+  return toCompanyRenderer(company)
+}
+const addOffer = async (info: FileSchema): Promise<OfferInfo | null> => {
+  let offer = await prisma.offer.findFirst({ where: { name: info.offer_name } })
+
+  if (offer == null) {
+    offer = await prisma.offer.create({ data: toOfferMain(makeOffer(info)) })
+  }
+
+  return toOfferRenderer(offer)
+}
+const addCard = async (info: FileSchema) => {
+  const card = await prisma.card.findFirst({ where: { card_number: info.card_number } })
+  if (card != null) return
+
+  const company = await addCompany(info)
+  const offer = await addOffer(info)
+  const customer = await addCustomer(info)
+
+  const tempCard = makeCard(info)
+  const newCard = makeCardInfo(tempCard, company, customer, offer)
+
+  await prisma.card.create({ data: toCardMain(newCard) })
 }
