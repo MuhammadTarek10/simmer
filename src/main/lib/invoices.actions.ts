@@ -1,4 +1,4 @@
-import { groupInvoicesByName, toInvoiceMain, toInvoiceRenderer } from '@shared/mappers'
+import { groupInvoicesByName, toInvoiceDB, toInvoiceInfo } from '@shared/mappers'
 import { InvoiceData, InvoiceInfo } from '@shared/models'
 import { prisma } from './database'
 
@@ -41,7 +41,7 @@ export async function updatePaymentInvoices() {
 
 export async function addInvoice(invoice: InvoiceInfo): Promise<void> {
   await prisma.invoice.create({
-    data: toInvoiceMain(invoice)
+    data: toInvoiceDB(invoice)
   })
 }
 
@@ -67,12 +67,12 @@ export async function getInvoices(): Promise<InvoiceInfo[]> {
       customer: true
     }
   })
-  return invoices.map((invoice) => toInvoiceRenderer(invoice))
+  return invoices.map((invoice) => toInvoiceInfo(invoice))
 }
 
 export async function getInvoice(id: string): Promise<InvoiceInfo> {
   const invoice = await prisma.invoice.findUnique({ where: { id } })
-  return toInvoiceRenderer(invoice)
+  return toInvoiceInfo(invoice)
 }
 
 export async function getInvoicesByCustomerId(id: string) {
@@ -97,7 +97,7 @@ export async function getInvoicesByCustomerId(id: string) {
 export async function updateInvoice(invoice: InvoiceInfo): Promise<void> {
   await prisma.invoice.update({
     where: { id: invoice.id },
-    data: toInvoiceMain(invoice)
+    data: toInvoiceDB(invoice)
   })
 }
 

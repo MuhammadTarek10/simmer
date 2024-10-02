@@ -8,7 +8,7 @@ import {
 } from '@shared/models'
 import { convertDateToString } from './converters'
 
-export const toCompanyRenderer = (company: any) => {
+export const toCompanyInfo = (company: any) => {
   return {
     id: company.id,
     name: company.name,
@@ -19,7 +19,7 @@ export const toCompanyRenderer = (company: any) => {
   }
 }
 
-export const toCompanyMain = (company: CompanyInfo) => {
+export const toCompanyDB = (company: CompanyInfo) => {
   return {
     name: company.name,
     invoice_date: company.invoice_date || '',
@@ -28,7 +28,7 @@ export const toCompanyMain = (company: CompanyInfo) => {
   }
 }
 
-export const toCustomerRenderer = (customer: any) => {
+export const toCustomerInfo = (customer: any) => {
   return {
     id: customer.id,
     name: customer.name,
@@ -40,7 +40,7 @@ export const toCustomerRenderer = (customer: any) => {
   }
 }
 
-export const toCustomerMain = (customer: CustomerInfo) => {
+export const toCustomerDB = (customer: CustomerInfo) => {
   return {
     name: customer.name,
     national_id: customer.national_id,
@@ -50,7 +50,7 @@ export const toCustomerMain = (customer: CustomerInfo) => {
   }
 }
 
-export const toCardRenderer = (card: any) => {
+export const toCardInfo = (card: any) => {
   return {
     id: card.id,
     card_number: card.card_number,
@@ -66,7 +66,7 @@ export const toCardRenderer = (card: any) => {
   }
 }
 
-export const toCardMain = (card: any) => {
+export const toCardDB = (card: any) => {
   return {
     card_number: card.card_number,
     start_date: card.start_date,
@@ -97,12 +97,12 @@ export const groupByMonth = (invoices: any[], all: boolean): ListData[] => {
   return Object.entries(grouped).map(([month, invoices]) => {
     return {
       month: month,
-      info: toListInfoRenderer(invoices as any, all)
+      info: toListInfoInfo(invoices as any, all)
     }
   })
 }
 
-export const toListInfoRenderer = (invoices: any[], all: boolean): ListInfo[] => {
+export const toListInfoInfo = (invoices: any[], all: boolean): ListInfo[] => {
   const groupedByCustomerId = {}
 
   invoices.forEach((invoice) => {
@@ -185,7 +185,7 @@ export const groupInvoicesByName = (invoices: any): InvoiceData[] => {
   return result
 }
 
-export const toInvoiceRenderer = (invoice: any) => {
+export const toInvoiceInfo = (invoice: any) => {
   return {
     id: invoice.id,
     customer: invoice.customer,
@@ -195,16 +195,16 @@ export const toInvoiceRenderer = (invoice: any) => {
   }
 }
 
-export const toInvoiceMain = (invoice: InvoiceInfo) => {
+export const toInvoiceDB = (invoice: InvoiceInfo) => {
   return {
     customer_id: invoice.customer.id,
-    invoice_date: invoice.invoice_date,
+    invoice_date: invoice.invoice_date === undefined ? new Date() : new Date(invoice.invoice_date!),
     amount: invoice.amount,
     comment: invoice.comment
   }
 }
 
-export const toOfferRenderer = (offer: any) => {
+export const toOfferInfo = (offer: any) => {
   return {
     id: offer.id,
     name: offer.name,
@@ -214,7 +214,7 @@ export const toOfferRenderer = (offer: any) => {
   }
 }
 
-export const toOfferMain = (offer: any) => {
+export const toOfferDB = (offer: any) => {
   return {
     name: offer.name,
     end_date: offer.end_date,

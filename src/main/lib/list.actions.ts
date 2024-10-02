@@ -1,4 +1,4 @@
-import { toListInfoRenderer } from '@shared/mappers'
+import { toListInfoInfo } from '@shared/mappers'
 import { ListInfo } from '@shared/models'
 import { prisma } from './database'
 
@@ -16,5 +16,5 @@ export async function getLists(all: boolean): Promise<ListInfo[]> {
     }
   })
 
-  return toListInfoRenderer(invoices, all)
+  return toListInfoInfo(invoices, all)
 }

@@ -1,10 +1,10 @@
-import { toCustomerMain, toCustomerRenderer } from '@shared/mappers'
+import { toCustomerDB, toCustomerInfo } from '@shared/mappers'
 import { CustomerInfo } from '@shared/models'
 import { prisma } from './database'
 
 export async function addCustomer(customer: CustomerInfo): Promise<void> {
   await prisma.customer.create({
-    data: toCustomerMain(customer)
+    data: toCustomerDB(customer)
   })
 }
 
@@ -14,13 +14,13 @@ export async function getCustomers(): Promise<CustomerInfo[]> {
       cards: true
     }
   })
-  return customers.map((customer) => toCustomerRenderer(customer))
+  return customers.map((customer) => toCustomerInfo(customer))
 }
 
 export async function getCustomer(id: string): Promise<CustomerInfo> {
   const customer = await prisma.customer.findUnique({ where: { id }, include: { cards: true } })
   if (!customer) throw new Error('Customer not found')
-  return toCustomerRenderer(customer)
+  return toCustomerInfo(customer)
 }
 
 export async function getCustomerFromInvoiceId(id: string) {
@@ -34,13 +34,13 @@ export async function getCustomerFromInvoiceId(id: string) {
     }
   })
   if (!customer) throw new Error('Customer not found')
-  return toCustomerRenderer(customer)
+  return toCustomerInfo(customer)
 }
 
 export async function updateCustomer(customer: CustomerInfo): Promise<void> {
   await prisma.customer.update({
     where: { id: customer.id },
-    data: toCustomerMain(customer)
+    data: toCustomerDB(customer)
   })
 }
 

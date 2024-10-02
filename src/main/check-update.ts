@@ -4,11 +4,9 @@ import axios from 'axios'
 export const checkUpdate = async () => {
   try {
     const res = await axios.get(serverUrl)
-    if (res.status === 200) {
-      return true
-    }
+    if (res.status === 200) return true
 
-    console.log('Failed')
+    console.log('Failed to check for updates')
     return setTimeout(checkUpdate, 1000)
   } catch (error) {
     console.log(error)

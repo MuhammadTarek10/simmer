@@ -1,10 +1,10 @@
-import { toCardMain, toCardRenderer } from '@shared/mappers'
+import { toCardDB, toCardInfo } from '@shared/mappers'
 import { CardInfo } from '@shared/models'
 import { prisma } from './database'
 
 export async function addCard(card: CardInfo): Promise<void> {
   await prisma.card.create({
-    data: toCardMain(card)
+    data: toCardDB(card)
   })
 }
 
@@ -17,7 +17,7 @@ export async function getCards(): Promise<CardInfo[]> {
     }
   })
 
-  return cards.map((card) => toCardRenderer(card))
+  return cards.map((card) => toCardInfo(card))
 }
 
 export async function getUnOccupiedCards(): Promise<CardInfo[]> {
@@ -32,7 +32,7 @@ export async function getUnOccupiedCards(): Promise<CardInfo[]> {
     }
   })
 
-  return cards.map((card) => toCardRenderer(card))
+  return cards.map((card) => toCardInfo(card))
 }
 
 export async function getCard(id: string): Promise<CardInfo> {
@@ -44,7 +44,7 @@ export async function getCard(id: string): Promise<CardInfo> {
       customer: true
     }
   })
-  return toCardRenderer(card)
+  return toCardInfo(card)
 }
 
 export async function getCardsFromCompanyId(id: string): Promise<CardInfo[]> {
@@ -59,7 +59,7 @@ export async function getCardsFromCompanyId(id: string): Promise<CardInfo[]> {
     }
   })
 
-  return cards.map((card) => toCardRenderer(card))
+  return cards.map((card) => toCardInfo(card))
 }
 
 export async function getCardsFromCustomerId(id: string): Promise<CardInfo[]> {
@@ -74,13 +74,13 @@ export async function getCardsFromCustomerId(id: string): Promise<CardInfo[]> {
     }
   })
 
-  return cards.map((card) => toCardRenderer(card))
+  return cards.map((card) => toCardInfo(card))
 }
 
 export async function updateCard(card: CardInfo): Promise<void> {
   await prisma.card.update({
     where: { id: card.id },
-    data: toCardMain(card)
+    data: toCardDB(card)
   })
 }
 
