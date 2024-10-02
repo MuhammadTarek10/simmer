@@ -23,7 +23,7 @@ const CustomerInvoice = ({ invoices, total }: { invoices: InvoiceData; total?: n
       </div>
       <div className="flex justify-between">
         <h1 className="text-xl">المتبقي</h1>
-        <h1 className="text-xl font-bold">{invoices.total < 0 ? invoices.total : '0'}</h1>
+        <h1 className="text-xl font-bold">{invoices.total}</h1>
       </div>
       <div className="flex justify-between">
         <h1 className="text-xl">تاريخ اخر دفع</h1>

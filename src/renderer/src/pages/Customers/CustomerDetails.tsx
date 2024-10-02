@@ -94,7 +94,9 @@ const CustomerDetails = () => {
       <div className="flex justify-between">
         <div>
           <h1 className="text-3xl">{customer.name}</h1>
-          <h2 className="text-lg text-subtitle">الرقم القومي: {customer.national_id}</h2>
+          <h2 className="text-lg text-subtitle">
+            الرقم القومي: {customer.national_id ?? 'لا يوجد'}
+          </h2>
         </div>
         <CustomDropDownMenu options={options} />
       </div>
@@ -102,9 +104,9 @@ const CustomerDetails = () => {
         <hr className="my-4 border-gray-300" />
         <div className="flex justify-between">
           <div className="flex flex-col gap-4">
-            <h2 className="text-xl">الاسم الكامل: {customer.name}</h2>
-            <h2 className="text-xl">اسم الجد: {customer.grand_name}</h2>
-            <h2 className="text-xl">العنوان: {customer.address}</h2>
+            <h2 className="text-xl">الاسم الكامل: {customer.name ?? 'لا يوجد'}</h2>
+            <h2 className="text-xl">اسم الجد: {customer.grand_name ?? 'لا يوجد'}</h2>
+            <h2 className="text-xl">العنوان: {customer.address ?? 'لا يوجد'}</h2>
           </div>
           {invoices.length > 0 ? (
             <CustomerInvoice key={invoices[0].name} invoices={invoices[0]} total={getTotal()} />

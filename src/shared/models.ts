@@ -10,9 +10,9 @@ export interface CompanyInfo {
 export interface CustomerInfo {
   id?: string
   name: string
-  national_id: string
-  grand_name: string
-  address: string
+  national_id?: string
+  grand_name?: string
+  address?: string
   cards?: CardInfo[]
   invoices?: InvoiceInfo[]
   comment?: string

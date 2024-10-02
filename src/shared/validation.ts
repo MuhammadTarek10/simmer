@@ -41,26 +41,13 @@ export const CustomerValidationSchema = z.object({
     })
     .max(255),
   national_id: z
-    .string({
-      message: 'مطلوب'
-    })
+    .string()
     .length(14, {
       message: 'يجب أن يكون الرقم القومي 14 رقم'
-    }),
-  grand_name: z
-    .string({
-      message: 'مطلوب'
     })
-    .min(2, {
-      message: 'يجب أن يكون اسم الجد أكبر من 2 أحرف'
-    }),
-  address: z
-    .string({
-      message: 'مطلوب'
-    })
-    .min(3, {
-      message: 'يجب أن يكون العنوان أكبر من 3 أحرف'
-    }),
+    .optional(),
+  grand_name: z.string().optional(),
+  address: z.string().optional(),
   comment: z.string().optional()
 })
 

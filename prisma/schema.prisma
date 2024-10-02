@@ -58,9 +58,9 @@ model Card {
 model Customer {
   id          String   @id @default(uuid())
   name        String
-  national_id String   @unique
-  address     String
-  grand_name  String
+  national_id String?  @unique
+  address     String?
+  grand_name  String?
   created_at  DateTime @default(now())
   updated_at  DateTime @updatedAt
   comment     String?

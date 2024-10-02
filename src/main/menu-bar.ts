@@ -4,6 +4,9 @@ import { importFile } from './lib/files/import-file'
 
 const template: Array<Electron.MenuItemConstructorOptions> = [
   {
+    label: ''
+  },
+  {
     label: 'بيانات',
     submenu: [
       {

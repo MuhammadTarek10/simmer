@@ -101,7 +101,7 @@ const addCustomer = async (info: FileSchema): Promise<CustomerInfo | null> => {
 
   let customer = await prisma.customer.findFirst({
     where: {
-      national_id: info.national_id
+      name: info.name
     }
   })
 

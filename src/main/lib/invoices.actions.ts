@@ -55,7 +55,7 @@ export async function getInvoicesGrouped(): Promise<InvoiceData[]> {
       }
     },
     orderBy: {
-      invoice_date: 'desc'
+      created_at: 'desc'
     }
   })
   return groupInvoicesByName(invoices)
@@ -88,7 +88,7 @@ export async function getInvoicesByCustomerId(id: string) {
       }
     },
     orderBy: {
-      invoice_date: 'desc'
+      created_at: 'desc'
     }
   })
   return groupInvoicesByName(invoices)

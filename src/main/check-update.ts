@@ -2,6 +2,7 @@ import { serverUrl } from '@shared/constants'
 import axios from 'axios'
 
 export const checkUpdate = async () => {
+  return true
   try {
     const res = await axios.get(serverUrl)
     if (res.status === 200) return true
