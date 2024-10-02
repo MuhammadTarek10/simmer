@@ -96,7 +96,10 @@ try {
 
     // * Offers
     getOffers: (...args: Parameters<GetOffers>) => ipcRenderer.invoke('getOffers', ...args),
-    addOffer: (...args: Parameters<AddOffer>) => ipcRenderer.invoke('addOffer', ...args)
+    addOffer: (...args: Parameters<AddOffer>) => ipcRenderer.invoke('addOffer', ...args),
+
+    // * File
+    importFile: (...args: Parameters<any>) => ipcRenderer.invoke('importFile', ...args)
   })
 } catch (e) {
   console.error(e)

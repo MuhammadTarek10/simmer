@@ -21,7 +21,7 @@ const template: Array<Electron.MenuItemConstructorOptions> = [
   }
 ]
 
-export const createMene = () => {
+export const createMenu = () => {
   const menu = Menu.buildFromTemplate(template)
   Menu.setApplicationMenu(menu)
 }

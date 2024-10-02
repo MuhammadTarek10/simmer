@@ -98,3 +98,5 @@ export interface FileSchema {
   offer_percentage: number
   paid: number
 }
+
+export type FileImport = () => Promise<void>

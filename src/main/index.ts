@@ -9,6 +9,7 @@ import {
   DeleteCompany,
   DeleteCustomer,
   DeleteInvoice,
+  FileImport,
   GetCard,
   GetCards,
   GetCardsFromCompanyId,
@@ -62,6 +63,7 @@ import {
   removeCardFromCustomer,
   updateCustomer
 } from './lib/customer.actions'
+import { importFile } from './lib/files/import-file'
 import {
   addInvoice,
   deleteInvoice,
@@ -74,7 +76,6 @@ import {
 } from './lib/invoices.actions'
 import { getLists } from './lib/list.actions'
 import { addOffer, getOffers } from './lib/offers.actions'
-import { createMene } from './menu-bar'
 
 function createWindow(): void {
   // Create the browser window.
@@ -145,7 +146,6 @@ function createWindow(): void {
 app.whenReady().then(() => {
   // Set app user model id for windows
   electronApp.setAppUserModelId('com.simmer')
-  createMene()
 
   // Default open or close DevTools by F12 in development
   // and ignore CommandOrControl + R in production.
@@ -231,6 +231,9 @@ app.whenReady().then(() => {
   // * Offers
   ipcMain.handle('getOffers', async (_, ...args: Parameters<GetOffers>) => getOffers(...args))
   ipcMain.handle('addOffer', async (_, ...args: Parameters<AddOffer>) => addOffer(...args))
+
+  // * File
+  ipcMain.handle('importFile', async (_, ...args: Parameters<FileImport>) => importFile(...args))
 
   createWindow()
 

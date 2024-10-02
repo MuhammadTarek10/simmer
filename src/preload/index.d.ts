@@ -9,6 +9,7 @@ import {
   DeleteCustomer,
   DeleteInvoice,
   DeleteOffer,
+  FileImport,
   GetCard,
   GetCards,
   GetCardsFromCompanyId,
@@ -81,6 +82,9 @@ declare global {
       addOffer: AddOffer
       updateOffer: UpdateOffer
       deleteOffer: DeleteOffer
+
+      // * File
+      importFile: FileImport
     }
   }
 }

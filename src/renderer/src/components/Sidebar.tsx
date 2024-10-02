@@ -5,6 +5,8 @@ import homeOn from '@/assets/icons/home-on.svg'
 import money from '@/assets/icons/money.svg'
 import sim from '@/assets/icons/sim.svg'
 import { routes } from '@shared/constants'
+import { FileIcon } from 'lucide-react'
+import { importFile } from '../repositories/file.repository'
 import CustomNavLink from './CustomNavLink'
 
 const sidebarLinks = [
@@ -46,6 +48,9 @@ const Sidebar = () => {
       {sidebarLinks.map((link) => (
         <CustomNavLink key={link.alt} href={link.href} icon={link.icon} alt={link.alt} />
       ))}
+      <div className="cursor-pointer" onClick={importFile}>
+        <FileIcon className="w-10 h-10" />
+      </div>
     </div>
   )
 }
