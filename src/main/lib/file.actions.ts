@@ -96,20 +96,24 @@ const makeCardInfo = (
   }
 }
 
-const addCustomer = async (info: FileSchema): Promise<CustomerInfo | null> => {
-  if (info.national_id == null) return null
+const addCustomer = async (schema: FileSchema): Promise<CustomerInfo | null> => {
+  if (schema.name == null) return null
 
   let customer = await prisma.customer.findFirst({
     where: {
-      name: info.name
+      name: schema.name
     }
   })
 
   if (customer == null) {
-    customer = await prisma.customer.create({ data: toCustomerDB(makeCustomer(info)) })
+    try {
+      customer = await prisma.customer.create({ data: toCustomerDB(makeCustomer(schema)) })
+    } catch (e) {
+      return null
+    }
   }
 
-  await addInvoice(customer, info.paid)
+  await addInvoice(customer, schema.paid)
   return toCustomerInfo(customer)
 }
 
@@ -119,37 +123,41 @@ const addInvoice = async (customer: any, amount: any) => {
   await prisma.invoice.create({ data: toInvoiceDB(invoice) })
 }
 
-const addCompany = async (info: FileSchema): Promise<CompanyInfo> => {
+const addCompany = async (schema: FileSchema): Promise<CompanyInfo> => {
   let company = await prisma.company.findFirst({
     where: {
-      name: info.company
+      name: schema.company
     }
   })
 
   if (company == null) {
-    company = await prisma.company.create({ data: toCompanyDB(makeCompany(info)) })
+    company = await prisma.company.create({ data: toCompanyDB(makeCompany(schema)) })
   }
 
   return toCompanyInfo(company)
 }
-const addOffer = async (info: FileSchema): Promise<OfferInfo | null> => {
-  let offer = await prisma.offer.findFirst({ where: { name: info.offer_name } })
+const addOffer = async (schema: FileSchema): Promise<OfferInfo | null> => {
+  let offer = await prisma.offer.findFirst({ where: { name: schema.offer_name } })
 
   if (offer == null) {
-    offer = await prisma.offer.create({ data: toOfferDB(makeOffer(info)) })
+    try {
+      offer = await prisma.offer.create({ data: toOfferDB(makeOffer(schema)) })
+    } catch (e) {
+      return null
+    }
   }
 
   return toOfferInfo(offer)
 }
-const addCard = async (info: FileSchema) => {
-  const card = await prisma.card.findFirst({ where: { card_number: info.card_number } })
+const addCard = async (schema: FileSchema) => {
+  const card = await prisma.card.findFirst({ where: { card_number: schema.card_number } })
   if (card != null) return
 
-  const company = await addCompany(info)
-  const offer = await addOffer(info)
-  const customer = await addCustomer(info)
+  const company = await addCompany(schema)
+  const offer = await addOffer(schema)
+  const customer = await addCustomer(schema)
 
-  const tempCard = makeTempCard(info)
+  const tempCard = makeTempCard(schema)
   const newCard = makeCardInfo(tempCard, company, customer, offer)
 
   await prisma.card.create({ data: toCardDB(newCard) })
