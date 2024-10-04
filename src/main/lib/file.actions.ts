@@ -36,7 +36,7 @@ export const enterToDB = async (data: FileSchema[]) => {
 const makeCustomer = (element: FileSchema) => {
   return {
     name: element.name,
-    national_id: element.national_id,
+    national_id: element.national_id.toString(),
     grand_name: element.grand_name,
     address: element.address,
     paid: Number(element.paid)
@@ -97,11 +97,11 @@ const makeCardInfo = (
 }
 
 const addCustomer = async (schema: FileSchema): Promise<CustomerInfo | null> => {
-  if (schema.name == null) return null
+  if (schema.national_id == null) return null
 
   let customer = await prisma.customer.findFirst({
     where: {
-      name: schema.name
+      national_id: schema.national_id.toString()
     }
   })
 
