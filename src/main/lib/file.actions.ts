@@ -22,9 +22,7 @@ import { prisma } from './database'
 
 export const enterToDB = async (data: FileSchema[]) => {
   try {
-    data.map(async (element) => {
-      await addCard(element)
-    })
+    await Promise.all(data.map((element) => addCard(element)))
     return true
   } catch (e) {
     console.error('Error entering data to database:', e)

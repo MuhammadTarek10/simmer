@@ -198,7 +198,8 @@ export const toInvoiceInfo = (invoice: any) => {
 export const toInvoiceDB = (invoice: InvoiceInfo) => {
   return {
     customer_id: invoice.customer.id,
-    invoice_date: invoice.invoice_date === undefined ? new Date() : new Date(invoice.invoice_date!),
+    invoice_date:
+      invoice.invoice_date === undefined ? new Date(Date.now()) : new Date(invoice.invoice_date!),
     amount: invoice.amount,
     comment: invoice.comment
   }
