@@ -22,13 +22,12 @@ import { prisma } from './database'
 
 export const enterToDB = async (data: FileSchema[]) => {
   try {
-    // Create entities in parallel to improve performance
     data.map(async (element) => {
       await addCard(element)
     })
     return true
   } catch (e) {
-    console.error('Error entering data to database:', e) // Improved error logging
+    console.error('Error entering data to database:', e)
     return false
   }
 }
@@ -97,7 +96,7 @@ const makeCardInfo = (
 }
 
 const addCustomer = async (schema: FileSchema): Promise<CustomerInfo | null> => {
-  if (schema.national_id == null) return null
+  if (schema.national_id === null) return null
 
   let customer = await prisma.customer.findFirst({
     where: {
@@ -105,7 +104,7 @@ const addCustomer = async (schema: FileSchema): Promise<CustomerInfo | null> => 
     }
   })
 
-  if (customer == null) {
+  if (customer === null) {
     try {
       customer = await prisma.customer.create({ data: toCustomerDB(makeCustomer(schema)) })
     } catch (e) {
@@ -130,7 +129,7 @@ const addCompany = async (schema: FileSchema): Promise<CompanyInfo> => {
     }
   })
 
-  if (company == null) {
+  if (company === null) {
     company = await prisma.company.create({ data: toCompanyDB(makeCompany(schema)) })
   }
 
@@ -139,7 +138,7 @@ const addCompany = async (schema: FileSchema): Promise<CompanyInfo> => {
 const addOffer = async (schema: FileSchema): Promise<OfferInfo | null> => {
   let offer = await prisma.offer.findFirst({ where: { name: schema.offer_name } })
 
-  if (offer == null) {
+  if (offer === null) {
     try {
       offer = await prisma.offer.create({ data: toOfferDB(makeOffer(schema)) })
     } catch (e) {
