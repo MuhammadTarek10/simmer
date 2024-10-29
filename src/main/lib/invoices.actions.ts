@@ -3,39 +3,50 @@ import { InvoiceData, InvoiceInfo } from '@shared/models'
 import { prisma } from './database'
 
 export async function updatePaymentInvoices() {
-  const cards = await prisma.card.findMany({
-    where: {
-      NOT: {
-        customer_id: null
-      }
-    }
-  })
-
-  for (const card of cards) {
-    const date = new Date(card.start_date)
-    const currentDate = new Date()
-
-    while (date <= currentDate) {
-      // Check if invoice already exists
-      const invoice = await prisma.invoice.findFirst({
-        where: {
-          amount: -card.price_after_vat,
-          invoice_date: date,
-          customer_id: card.customer_id
+  try {
+    const cards = await prisma.card.findMany({
+      where: {
+        NOT: {
+          customer_id: null
         }
-      })
-
-      if (!invoice) {
-        await prisma.invoice.create({
-          data: {
-            amount: -card.price_after_vat,
-            invoice_date: date,
-            customer_id: card.customer_id
-          }
-        })
       }
-      date.setMonth(date.getMonth() + 1)
+    })
+
+    for (const card of cards) {
+      const date = new Date(card.start_date)
+      const currentDate = new Date()
+
+      while (date <= currentDate) {
+        try {
+          // Check if invoice already exists
+          const invoice = await prisma.invoice.findFirst({
+            where: {
+              amount: -card.price_after_vat,
+              invoice_date: date,
+              customer_id: card.customer_id
+            }
+          })
+
+          if (!invoice) {
+            await prisma.invoice.create({
+              data: {
+                amount: -card.price_after_vat,
+                invoice_date: date,
+                customer_id: card.customer_id
+              }
+            })
+          }
+          date.setMonth(date.getMonth() + 1)
+        } catch (invoiceError) {
+          console.error(`Failed to process invoice for card ${card.id}:`, invoiceError)
+          // Continue with next iteration instead of failing entire process
+          continue
+        }
+      }
     }
+  } catch (error) {
+    console.error('Failed to update payment invoices:', error)
+    throw new Error('Failed to update payment records. Please try again.')
   }
 }
 

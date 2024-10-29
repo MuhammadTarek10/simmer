@@ -3,9 +3,18 @@ import { CustomerInfo } from '@shared/models'
 import { prisma } from './database'
 
 export async function addCustomer(customer: CustomerInfo): Promise<void> {
-  await prisma.customer.create({
-    data: toCustomerDB(customer)
-  })
+  try {
+    await prisma.customer.create({
+      data: toCustomerDB(customer)
+    })
+  } catch (error) {
+    console.error('Failed to add customer:', error)
+    if ((error as { code?: string }).code === 'P2002') {
+      // Prisma unique constraint error
+      throw new Error('Customer with this national ID already exists.')
+    }
+    throw new Error('Failed to add customer. Please try again.')
+  }
 }
 
 export async function getCustomers(): Promise<CustomerInfo[]> {
@@ -38,10 +47,19 @@ export async function getCustomerFromInvoiceId(id: string) {
 }
 
 export async function updateCustomer(customer: CustomerInfo): Promise<void> {
-  await prisma.customer.update({
-    where: { id: customer.id },
-    data: toCustomerDB(customer)
-  })
+  try {
+    await prisma.customer.update({
+      where: { id: customer.id },
+      data: toCustomerDB(customer)
+    })
+  } catch (error) {
+    console.error('Failed to update customer:', error)
+    if ((error as { code?: string }).code === 'P2025') {
+      // Record not found
+      throw new Error('Customer not found.')
+    }
+    throw new Error('Failed to update customer information. Please try again.')
+  }
 }
 
 export async function deleteCustomer(id: string): Promise<void> {

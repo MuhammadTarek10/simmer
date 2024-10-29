@@ -3,21 +3,30 @@ import { CardInfo } from '@shared/models'
 import { prisma } from './database'
 
 export async function addCard(card: CardInfo): Promise<void> {
-  await prisma.card.create({
-    data: toCardDB(card)
-  })
+  try {
+    await prisma.card.create({
+      data: toCardDB(card)
+    })
+  } catch (error) {
+    console.error('Failed to add card:', error)
+    throw new Error('Failed to add card. Card number may already exist.')
+  }
 }
 
 export async function getCards(): Promise<CardInfo[]> {
-  const cards = await prisma.card.findMany({
-    include: {
-      company: true,
-      offer: true,
-      customer: true
-    }
-  })
-
-  return cards.map((card) => toCardInfo(card))
+  try {
+    const cards = await prisma.card.findMany({
+      include: {
+        company: true,
+        offer: true,
+        customer: true
+      }
+    })
+    return cards.map((card) => toCardInfo(card))
+  } catch (error) {
+    console.error('Failed to fetch cards:', error)
+    throw new Error('Failed to retrieve cards. Please try again.')
+  }
 }
 
 export async function getUnOccupiedCards(): Promise<CardInfo[]> {
@@ -36,15 +45,23 @@ export async function getUnOccupiedCards(): Promise<CardInfo[]> {
 }
 
 export async function getCard(id: string): Promise<CardInfo> {
-  const card = await prisma.card.findUnique({
-    where: { id },
-    include: {
-      company: true,
-      offer: true,
-      customer: true
+  try {
+    const card = await prisma.card.findUnique({
+      where: { id },
+      include: {
+        company: true,
+        offer: true,
+        customer: true
+      }
+    })
+    if (!card) {
+      throw new Error(`Card with ID ${id} not found`)
     }
-  })
-  return toCardInfo(card)
+    return toCardInfo(card)
+  } catch (error) {
+    console.error('Failed to fetch card:', error)
+    throw new Error('Failed to retrieve card details. Please try again.')
+  }
 }
 
 export async function getCardsFromCompanyId(id: string): Promise<CardInfo[]> {
