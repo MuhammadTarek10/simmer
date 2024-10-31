@@ -1,5 +1,3 @@
-'use client'
-
 import { Check, ChevronsUpDown } from 'lucide-react'
 import * as React from 'react'
 
@@ -53,7 +51,7 @@ export function Combobox({
                   value={option.name}
                   onSelect={(currentValue) => {
                     setValue(currentValue === value ? '' : currentValue)
-                    onChange(option.value)
+                    onChange(currentValue)
                     setOpen(false)
                   }}
                 >

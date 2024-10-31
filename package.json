@@ -1,6 +1,6 @@
 {
   "name": "Simmer",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "CRM app that manipulates sim cards and customers",
   "main": "./out/main/index.js",
   "author": "Muhammad Tarek",
