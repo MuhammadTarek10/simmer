@@ -59,6 +59,7 @@ model Card {
 model Customer {
   id          String   @id @default(uuid())
   name        String
+  name_clean  String
   national_id String?  @unique
   address     String?
   grand_name  String?

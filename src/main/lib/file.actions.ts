@@ -1,6 +1,6 @@
 import { convertStringToDate, getCardType } from '@shared/converters'
 import {
-  hashCompanyName,
+  hash,
   toCompanyDB,
   toCompanyInfo,
   toCustomerDB,
@@ -40,7 +40,7 @@ export const enterToDB = async (data: FileSchema[]) => {
 const makeCustomer = (element: FileSchema) => {
   return {
     name: element.name,
-    national_id: element.national_id.toString(),
+    national_id: element.national_id,
     grand_name: element.grand_name,
     address: element.address,
     paid: Number(element.paid)
@@ -101,11 +101,11 @@ const makeCardInfo = (
 }
 
 const addCustomer = async (schema: FileSchema): Promise<CustomerInfo | null> => {
-  if (schema.national_id === null) return null
+  if (schema.name === null) return null
 
   let customer = await prisma.customer.findFirst({
     where: {
-      national_id: schema.national_id.toString()
+      name_clean: hash(schema.name.trim())
     }
   })
 
@@ -132,7 +132,7 @@ const addCompany = async (schema: FileSchema): Promise<CompanyInfo> => {
     async (tx) => {
       let company = await tx.company.findFirst({
         where: {
-          name_clean: hashCompanyName(schema.company.trim())
+          name_clean: hash(schema.company.trim())
         }
       })
 
