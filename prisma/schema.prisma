@@ -12,6 +12,7 @@ datasource db {
 model Company {
   id           String   @id @default(uuid())
   name         String   @unique
+  name_clean   String
   invoice_date String
   phone        String?
   created_at   DateTime @default(now())
@@ -82,6 +83,5 @@ model Invoice {
 
   customer Customer? @relation(fields: [customer_id], references: [id], onDelete: Cascade)
 
-  @@unique([customer_id, amount, invoice_date])
   @@index([customer_id])
 }
