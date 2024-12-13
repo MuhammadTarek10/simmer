@@ -4,6 +4,7 @@ import { prisma } from './database'
 
 export async function updatePaymentInvoices() {
   try {
+    // Fetch all cards with customers
     const cards = await prisma.card.findMany({
       where: {
         NOT: {
@@ -12,36 +13,48 @@ export async function updatePaymentInvoices() {
       }
     })
 
+    const currentDate = new Date()
+
     for (const card of cards) {
-      const date = new Date(card.start_date)
-      const currentDate = new Date()
+      const startDate = new Date(card.start_date)
+      startDate.setUTCHours(0, 0, 0, 0) // Ensure the date has no time component
 
-      while (date <= currentDate) {
-        try {
-          // Check if invoice already exists
-          const invoice = await prisma.invoice.findFirst({
-            where: {
-              amount: -card.price_after_vat,
-              invoice_date: date,
-              customer_id: card.customer_id
-            }
-          })
-
-          if (!invoice) {
-            await prisma.invoice.create({
-              data: {
-                amount: -card.price_after_vat,
-                invoice_date: date,
-                customer_id: card.customer_id
-              }
-            })
+      // Fetch existing invoices for this specific card
+      const existingInvoices = await prisma.invoice.findMany({
+        where: {
+          customer_id: card.customer_id,
+          amount: -card.price_after_vat,
+          card_number: card.card_number, // Distinguish by card
+          invoice_date: {
+            gte: startDate,
+            lte: currentDate
           }
-          date.setMonth(date.getMonth() + 1)
-        } catch (invoiceError) {
-          console.error(`Failed to process invoice for card ${card.id}:`, invoiceError)
-          // Continue with next iteration instead of failing entire process
-          continue
+        },
+        select: { invoice_date: true }
+      })
+
+      const existingDates = new Set(
+        existingInvoices.map((invoice) => invoice.invoice_date.toISOString().split('T')[0])
+      )
+
+      const invoicesToCreate = []
+      const dateIterator = new Date(startDate)
+
+      while (dateIterator <= currentDate) {
+        const dateString = dateIterator.toISOString().split('T')[0]
+        if (!existingDates.has(dateString)) {
+          invoicesToCreate.push({
+            amount: -card.price_after_vat,
+            invoice_date: new Date(dateIterator), // Clone the date
+            customer_id: card.customer_id,
+            card_number: card.card_number // Include card information in the invoice
+          })
         }
+        dateIterator.setMonth(dateIterator.getMonth() + 1)
+      }
+
+      if (invoicesToCreate.length > 0) {
+        await prisma.invoice.createMany({ data: invoicesToCreate })
       }
     }
   } catch (error) {

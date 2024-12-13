@@ -201,7 +201,8 @@ export const toInvoiceDB = (invoice: InvoiceInfo) => {
     invoice_date:
       invoice.invoice_date === undefined ? new Date(Date.now()) : new Date(invoice.invoice_date!),
     amount: invoice.amount !== undefined ? Number(invoice.amount) : 0,
-    comment: invoice.comment
+    comment: invoice.comment,
+    card_number: invoice.card_number
   }
 }
 

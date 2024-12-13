@@ -68,9 +68,10 @@ const makeTempCard = (element: FileSchema): TempCardInfo => ({
   customer_national_id: element.national_id
 })
 
-const makeInvoice = (customer: any, amount?: number): InvoiceInfo => ({
+const makeInvoice = (customer: any, card_number: string, amount?: number): InvoiceInfo => ({
   customer: customer,
-  amount: amount !== undefined ? Number(amount) : 0
+  amount: amount !== undefined ? Number(amount) : 0,
+  card_number: card_number
 })
 
 const makeCardInfo = (

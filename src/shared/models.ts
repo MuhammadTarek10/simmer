@@ -28,6 +28,7 @@ export interface CardInfo {
   company: CompanyInfo
   offer?: OfferInfo
   customer?: CustomerInfo
+  invoices?: InvoiceInfo[]
   comment?: string
 }
 
@@ -76,6 +77,7 @@ export interface InvoiceData {
 export interface InvoiceInfo {
   id?: string
   customer: CustomerInfo
+  card_number: string
   invoice_date?: string
   amount: number
   comment?: string

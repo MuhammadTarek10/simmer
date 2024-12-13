@@ -48,6 +48,7 @@ model Card {
   company  Company   @relation(fields: [company_id], references: [id], onDelete: Cascade)
   offer    Offer?    @relation(fields: [offer_id], references: [id])
   customer Customer? @relation(fields: [customer_id], references: [id])
+  Invoice  Invoice[]
 
   @@index([card_number])
   @@index([company_id])
@@ -74,6 +75,7 @@ model Customer {
 model Invoice {
   id           String    @id @default(uuid())
   customer_id  String?
+  card_number  String?
   amount       Float
   invoice_date DateTime?
   created_at   DateTime  @default(now())
@@ -81,6 +83,8 @@ model Invoice {
   comment      String?
 
   customer Customer? @relation(fields: [customer_id], references: [id], onDelete: Cascade)
+  card     Card?     @relation(fields: [card_number], references: [card_number], onDelete: Cascade)
 
   @@index([customer_id])
+  @@index([card_number])
 }
