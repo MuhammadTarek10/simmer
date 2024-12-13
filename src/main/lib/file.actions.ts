@@ -70,8 +70,8 @@ const makeTempCard = (element: FileSchema): TempCardInfo => ({
 
 const makeInvoice = (customer: any, card_number: string, amount?: number): InvoiceInfo => ({
   customer: customer,
-  amount: amount !== undefined ? Number(amount) : 0,
-  card_number: card_number
+  card_number: card_number,
+  amount: amount !== undefined ? Number(amount) : 0
 })
 
 const makeCardInfo = (
@@ -103,15 +103,20 @@ const addCustomer = async (
       create: toCustomerDB(makeCustomer(schema))
     })
 
-    await addInvoice(tx, customer, schema.paid)
+    await addInvoice(tx, customer, schema.card_number, schema.paid)
     return toCustomerInfo(customer)
   } catch (e) {
     console.error(`Error adding customer with national_id: ${schema.national_id}`, e)
     return null
   }
 }
-const addInvoice = async (tx: Prisma.TransactionClient, customer: any, amount: any) => {
-  const invoice = makeInvoice(customer, amount)
+const addInvoice = async (
+  tx: Prisma.TransactionClient,
+  customer: any,
+  card_number: string,
+  amount: number
+) => {
+  const invoice = makeInvoice(customer, card_number, amount)
   await tx.invoice.create({ data: toInvoiceDB(invoice) })
 }
 
