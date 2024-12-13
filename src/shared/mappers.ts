@@ -6,10 +6,7 @@ import {
   ListData,
   ListInfo
 } from '@shared/models'
-import { createHash } from 'crypto'
 import { convertDateToString } from './converters'
-
-export const hash = (value: string) => createHash('sha256').update(value).digest('hex')
 
 export const toCompanyInfo = (company: any) => {
   return {
@@ -25,7 +22,6 @@ export const toCompanyInfo = (company: any) => {
 export const toCompanyDB = (company: CompanyInfo) => {
   return {
     name: company.name.trim(),
-    name_clean: hash(company.name.trim()),
     invoice_date: company.invoice_date || '',
     phone: company.phone,
     comment: company.comment
@@ -47,7 +43,6 @@ export const toCustomerInfo = (customer: any) => {
 export const toCustomerDB = (customer: CustomerInfo) => {
   return {
     name: customer.name,
-    name_clean: hash(customer.name.trim()),
     national_id: customer.national_id,
     grand_name: customer.grand_name,
     address: customer.address,

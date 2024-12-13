@@ -1,58 +1,58 @@
 export const schema = {
   الاسم: {
     prop: 'name',
-    data: String
+    type: String
   },
   'الرقم القومي': {
     prop: 'national_id',
-    data: String
+    type: String
   },
   'اسم الجد': {
     prop: 'grand_name',
-    data: String
+    type: String
   },
   العنوان: {
     prop: 'address',
-    data: String
+    type: String
   },
   الخط: {
     prop: 'card_number',
-    data: String
+    type: String
   },
   الشركة: {
     prop: 'company',
-    data: String
+    type: String
   },
   'تاريخ سداد الشركة': {
     prop: 'company_invoice_date',
-    data: String
+    type: String
   },
   'تاريخ بداية تشغيل الخط': {
     prop: 'card_start_date',
-    data: String
+    type: String
   },
   'السعر قبل الضريبة': {
     prop: 'price_before_vat',
-    data: String
+    type: String
   },
   'السعر بعد الضريبة': {
     prop: 'price_after_vat',
-    data: String
+    type: String
   },
   'اسم العرض': {
     prop: 'offer_name',
-    data: String
+    type: String
   },
   'تاريخ انتهاء العرض': {
     prop: 'offer_end_date',
-    data: String
+    type: String
   },
   'نسبة الخصم': {
     prop: 'offer_percentage',
-    date: Number
+    type: Number
   },
   الدفع: {
     prop: 'paid',
-    data: Number
+    type: Number
   }
 }

@@ -2,6 +2,7 @@ import { serverUrl } from '@shared/constants'
 import axios from 'axios'
 
 export async function checkUpdate(): Promise<boolean> {
+  return true
   const MAX_RETRIES = 3
   const RETRY_DELAY = 1000
   let attempts = 0

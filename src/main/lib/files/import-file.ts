@@ -4,7 +4,7 @@ import readXlsxFile from 'read-excel-file/node'
 import { enterToDB } from '../file.actions'
 import { schema } from './file-schema'
 
-const readExcel = async (filepath, schema): Promise<FileSchema[]> => {
+const readExcel = async (filepath: any, schema: any): Promise<FileSchema[]> => {
   const data = await readXlsxFile(filepath, { schema: schema })
   return data.rows as FileSchema[]
 }
