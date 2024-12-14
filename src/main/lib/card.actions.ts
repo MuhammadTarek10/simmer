@@ -1,10 +1,10 @@
 import { toCardDB, toCardInfo } from '@shared/mappers'
 import { CardInfo } from '@shared/models'
-import { prisma } from './database'
+import { db } from './database'
 
 export async function addCard(card: CardInfo): Promise<void> {
   try {
-    await prisma.card.create({
+    await db.card.create({
       data: toCardDB(card)
     })
   } catch (error) {
@@ -15,7 +15,7 @@ export async function addCard(card: CardInfo): Promise<void> {
 
 export async function getCards(): Promise<CardInfo[]> {
   try {
-    const cards = await prisma.card.findMany({
+    const cards = await db.card.findMany({
       include: {
         company: true,
         offer: true,
@@ -30,7 +30,7 @@ export async function getCards(): Promise<CardInfo[]> {
 }
 
 export async function getUnOccupiedCards(): Promise<CardInfo[]> {
-  const cards = await prisma.card.findMany({
+  const cards = await db.card.findMany({
     where: {
       customer_id: null
     },
@@ -46,7 +46,7 @@ export async function getUnOccupiedCards(): Promise<CardInfo[]> {
 
 export async function getCard(id: string): Promise<CardInfo> {
   try {
-    const card = await prisma.card.findUnique({
+    const card = await db.card.findUnique({
       where: { id },
       include: {
         company: true,
@@ -65,7 +65,7 @@ export async function getCard(id: string): Promise<CardInfo> {
 }
 
 export async function getCardsFromCompanyId(id: string): Promise<CardInfo[]> {
-  const cards = await prisma.card.findMany({
+  const cards = await db.card.findMany({
     where: {
       company_id: id
     },
@@ -80,7 +80,7 @@ export async function getCardsFromCompanyId(id: string): Promise<CardInfo[]> {
 }
 
 export async function getCardsFromCustomerId(id: string): Promise<CardInfo[]> {
-  const cards = await prisma.card.findMany({
+  const cards = await db.card.findMany({
     where: {
       customer_id: id
     },
@@ -95,14 +95,14 @@ export async function getCardsFromCustomerId(id: string): Promise<CardInfo[]> {
 }
 
 export async function updateCard(card: CardInfo): Promise<void> {
-  await prisma.card.update({
+  await db.card.update({
     where: { id: card.id },
     data: toCardDB(card)
   })
 }
 
 export async function deleteCard(id: string): Promise<void> {
-  await prisma.card.delete({
+  await db.card.delete({
     where: { id }
   })
 }

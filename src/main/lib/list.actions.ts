@@ -1,9 +1,9 @@
 import { toListInfoInfo } from '@shared/mappers'
 import { ListInfo } from '@shared/models'
-import { prisma } from './database'
+import { db } from './database'
 
 export async function getLists(all: boolean): Promise<ListInfo[]> {
-  const invoices = await prisma.invoice.findMany({
+  const invoices = await db.invoice.findMany({
     include: {
       customer: {
         include: {

@@ -59,6 +59,7 @@ const CustomerDetails = () => {
       name: 'اضافة خط',
       render: (
         <AddCardToCustomerDialog
+          key="اضافة خط"
           customer={customer}
           title="اضافة خط"
           cards={unOccupiedCards}
@@ -81,6 +82,7 @@ const CustomerDetails = () => {
       className: 'text-red-500',
       render: (
         <DeleteDialog
+          key="حذف"
           placeholder="حذف"
           title="حذف العميل"
           description="هل انت متأكد من حذف العميل؟"

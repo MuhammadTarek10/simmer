@@ -191,7 +191,8 @@ export const toInvoiceInfo = (invoice: any) => {
     customer: invoice.customer,
     amount: invoice.amount,
     invoice_date: convertDateToString(invoice.invoice_date),
-    comment: invoice.comment
+    comment: invoice.comment,
+    card_number: invoice.card_number
   }
 }
 

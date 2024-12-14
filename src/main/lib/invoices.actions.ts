@@ -1,11 +1,11 @@
 import { groupInvoicesByName, toInvoiceDB, toInvoiceInfo } from '@shared/mappers'
 import { InvoiceData, InvoiceInfo } from '@shared/models'
-import { prisma } from './database'
+import { db } from './database'
 
 export async function updatePaymentInvoices() {
   try {
     // Fetch all cards with customers
-    const cards = await prisma.card.findMany({
+    const cards = await db.card.findMany({
       where: {
         NOT: {
           customer_id: null
@@ -20,7 +20,7 @@ export async function updatePaymentInvoices() {
       startDate.setUTCHours(0, 0, 0, 0) // Ensure the date has no time component
 
       // Fetch existing invoices for this specific card
-      const existingInvoices = await prisma.invoice.findMany({
+      const existingInvoices = await db.invoice.findMany({
         where: {
           customer_id: card.customer_id,
           amount: -card.price_after_vat,
@@ -34,10 +34,10 @@ export async function updatePaymentInvoices() {
       })
 
       const existingDates = new Set(
-        existingInvoices.map((invoice) => invoice.invoice_date.toISOString().split('T')[0])
+        existingInvoices.map((invoice) => invoice.invoice_date?.toISOString().split('T')[0])
       )
 
-      const invoicesToCreate = []
+      const invoicesToCreate: any = []
       const dateIterator = new Date(startDate)
 
       while (dateIterator <= currentDate) {
@@ -54,7 +54,7 @@ export async function updatePaymentInvoices() {
       }
 
       if (invoicesToCreate.length > 0) {
-        await prisma.invoice.createMany({ data: invoicesToCreate })
+        await db.invoice.createMany({ data: invoicesToCreate })
       }
     }
   } catch (error) {
@@ -64,13 +64,13 @@ export async function updatePaymentInvoices() {
 }
 
 export async function addInvoice(invoice: InvoiceInfo): Promise<void> {
-  await prisma.invoice.create({
+  await db.invoice.create({
     data: toInvoiceDB(invoice)
   })
 }
 
 export async function getInvoicesGrouped(): Promise<InvoiceData[]> {
-  const invoices = await prisma.invoice.findMany({
+  const invoices = await db.invoice.findMany({
     include: {
       customer: {
         include: {
@@ -86,7 +86,7 @@ export async function getInvoicesGrouped(): Promise<InvoiceData[]> {
 }
 
 export async function getInvoices(): Promise<InvoiceInfo[]> {
-  const invoices = await prisma.invoice.findMany({
+  const invoices = await db.invoice.findMany({
     include: {
       customer: true
     }
@@ -95,12 +95,12 @@ export async function getInvoices(): Promise<InvoiceInfo[]> {
 }
 
 export async function getInvoice(id: string): Promise<InvoiceInfo> {
-  const invoice = await prisma.invoice.findUnique({ where: { id } })
+  const invoice = await db.invoice.findUnique({ where: { id } })
   return toInvoiceInfo(invoice)
 }
 
 export async function getInvoicesByCustomerId(id: string) {
-  const invoices = await prisma.invoice.findMany({
+  const invoices = await db.invoice.findMany({
     where: {
       customer_id: id
     },
@@ -119,14 +119,14 @@ export async function getInvoicesByCustomerId(id: string) {
 }
 
 export async function updateInvoice(invoice: InvoiceInfo): Promise<void> {
-  await prisma.invoice.update({
+  await db.invoice.update({
     where: { id: invoice.id },
     data: toInvoiceDB(invoice)
   })
 }
 
 export async function deleteInvoice(id: string): Promise<void> {
-  await prisma.invoice.delete({
+  await db.invoice.delete({
     where: { id }
   })
 }

@@ -1,10 +1,10 @@
 import { toCustomerDB, toCustomerInfo } from '@shared/mappers'
 import { CustomerInfo } from '@shared/models'
-import { prisma } from './database'
+import { db } from './database'
 
 export async function addCustomer(customer: CustomerInfo): Promise<void> {
   try {
-    await prisma.customer.create({
+    await db.customer.create({
       data: toCustomerDB(customer)
     })
   } catch (error) {
@@ -18,7 +18,7 @@ export async function addCustomer(customer: CustomerInfo): Promise<void> {
 }
 
 export async function getCustomers(): Promise<CustomerInfo[]> {
-  const customers = await prisma.customer.findMany({
+  const customers = await db.customer.findMany({
     include: {
       cards: true
     }
@@ -27,13 +27,13 @@ export async function getCustomers(): Promise<CustomerInfo[]> {
 }
 
 export async function getCustomer(id: string): Promise<CustomerInfo> {
-  const customer = await prisma.customer.findUnique({ where: { id }, include: { cards: true } })
+  const customer = await db.customer.findUnique({ where: { id }, include: { cards: true } })
   if (!customer) throw new Error('Customer not found')
   return toCustomerInfo(customer)
 }
 
 export async function getCustomerFromInvoiceId(id: string) {
-  const customer = await prisma.customer.findFirst({
+  const customer = await db.customer.findFirst({
     where: {
       invoices: {
         some: {
@@ -48,7 +48,7 @@ export async function getCustomerFromInvoiceId(id: string) {
 
 export async function updateCustomer(customer: CustomerInfo): Promise<void> {
   try {
-    await prisma.customer.update({
+    await db.customer.update({
       where: { id: customer.id },
       data: toCustomerDB(customer)
     })
@@ -63,13 +63,13 @@ export async function updateCustomer(customer: CustomerInfo): Promise<void> {
 }
 
 export async function deleteCustomer(id: string): Promise<void> {
-  await prisma.customer.delete({
+  await db.customer.delete({
     where: { id }
   })
 }
 
 export async function removeCardFromCustomer(cardId: string, customerId: string) {
-  await prisma.customer.update({
+  await db.customer.update({
     where: { id: customerId },
     data: {
       cards: {

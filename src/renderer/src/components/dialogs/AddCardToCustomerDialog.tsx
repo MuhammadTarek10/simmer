@@ -31,11 +31,12 @@ const AddCardToCustomerDialog = ({
   const [open, setOpen] = useState(false)
   const [selectedCard, setSelectedCard] = useState<CardInfo | null>(null)
 
-  const onChange = (id: string) => {
-    setSelectedCard(cards.find((card) => card.id === id)!)
+  const onChange = (card_number: string) => {
+    setSelectedCard(cards.find((card) => card.card_number === card_number)!)
   }
 
   const onSubmit = async () => {
+    console.log(`${selectedCard} has been called`)
     if (selectedCard) {
       try {
         selectedCard.customer = customer

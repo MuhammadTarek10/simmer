@@ -1,15 +1,15 @@
 import { toOfferDB, toOfferInfo } from '@shared/mappers'
 import { OfferInfo } from '@shared/models'
-import { prisma } from './database'
+import { db } from './database'
 
 export async function addOffer(offer: OfferInfo): Promise<void> {
-  await prisma.offer.create({
+  await db.offer.create({
     data: toOfferDB(offer)
   })
 }
 
 export async function getOffers(): Promise<OfferInfo[]> {
-  const offers = await prisma.offer.findMany()
+  const offers = await db.offer.findMany()
 
   return offers.map((offer) => toOfferInfo(offer))
 }

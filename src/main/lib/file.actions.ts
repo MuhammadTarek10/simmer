@@ -19,11 +19,11 @@ import {
 } from '@shared/models'
 import { FileSchema } from '@shared/types'
 import { Prisma } from '@prisma/client'
-import { prisma } from './database'
+import { db } from './database'
 
 export const enterToDB = async (data: FileSchema[]) => {
   try {
-    await prisma.$transaction(
+    await db.$transaction(
       async (tx) => {
         for (const item of data) {
           await addCard(tx, item)
