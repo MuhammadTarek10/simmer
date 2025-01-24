@@ -9,12 +9,20 @@ import {
 declare global {
   interface Window {
     context: {
-      // * Company
+      // NOTE: Company
       getCompanies: GetCompanies
       getCompanyById: GetCompanyById
       createCompany: CreateCompany
       updateCompany: UpdateCompany
       deleteCompany: DeleteCompany
+
+      // NOTE: Card
+
+      // NOTE: Customer
+
+      // NOTE: Invoice
+
+      // NOTE: File
     }
   }
 }

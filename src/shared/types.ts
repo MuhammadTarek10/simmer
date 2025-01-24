@@ -1,8 +1,16 @@
-import { Company } from '@shared/models/company.model'
+import { CompanyDto } from '@shared/models/company.model'
 
-// * Company
-export type GetCompanies = () => Promise<Company[]>
-export type GetCompanyById = (id: string) => Promise<Company>
-export type CreateCompany = (company: Company) => Promise<Company>
-export type UpdateCompany = (id: string, company: Company) => Promise<Company>
-export type DeleteCompany = (id: string) => Promise<Company>
+// NOTE: Company
+export type GetCompanies = () => Promise<CompanyDto[]>
+export type GetCompanyById = (id: string) => Promise<CompanyDto>
+export type CreateCompany = (company: CompanyDto) => Promise<CompanyDto>
+export type UpdateCompany = (id: string, company: CompanyDto) => Promise<CompanyDto>
+export type DeleteCompany = (id: string) => Promise<void>
+
+// NOTE: Card
+
+// NOTE: Customer
+
+// NOTE: Invoice
+
+// NOTE: File

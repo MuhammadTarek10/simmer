@@ -1,9 +1,9 @@
-import { Company } from '@shared/models/company.model'
+import { CompanyDto } from '@shared/dtos/company.dto'
 
 export interface ICompanyService {
-  getCompanies(): Promise<Company[]>
-  getCompanyById(id: string): Promise<Company>
-  createCompany(company: Company): Promise<Company>
-  updateCompany(id: string, company: Company): Promise<Company>
-  deleteCompany(id: string): Promise<Company>
+  getCompanies(): Promise<CompanyDto[]>
+  getCompanyById(id: string): Promise<CompanyDto>
+  createCompany(company: CompanyDto): Promise<CompanyDto>
+  updateCompany(id: string, company: CompanyDto): Promise<CompanyDto>
+  deleteCompany(id: string): Promise<void>
 }

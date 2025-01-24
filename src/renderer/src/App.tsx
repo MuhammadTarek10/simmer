@@ -1,9 +1,9 @@
 import '@assets/global.css'
-import { CompanyApis } from './api/company.apis'
+import { CompanyController } from './controllers/company.controller'
 
 function App(): JSX.Element {
   const getCompanies = async () => {
-    const companies = await CompanyApis.getCompanies()
+    const companies = await CompanyController.getCompanies()
     console.log(companies)
   }
 

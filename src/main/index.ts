@@ -2,7 +2,13 @@ import { electronApp, is, optimizer } from '@electron-toolkit/utils'
 import { join } from 'path'
 import icon from '../../resources/icon.png?asset'
 import { app, BrowserWindow, ipcMain, shell } from 'electron'
-import { GetCompanies } from '@shared/types'
+import {
+  CreateCompany,
+  DeleteCompany,
+  GetCompanies,
+  GetCompanyById,
+  UpdateCompany
+} from '@shared/types'
 import { ICompanyService } from '@shared/interfaces/icompany.service'
 import { CompanyService } from './services/company/company.service'
 
@@ -91,9 +97,36 @@ app.whenReady().then(() => {
 
   createWindow()
 
+  // * NOTE: Company
   ipcMain.handle('getCompanies', async (_, ...args: Parameters<GetCompanies>) =>
     companyService.getCompanies(...args)
   )
+
+  ipcMain.handle('getCompany', async (_, ...args: Parameters<GetCompanyById>) =>
+    companyService.getCompanyById(...args)
+  )
+
+  ipcMain.handle('createCompany', async (_, ...args: Parameters<CreateCompany>) =>
+    companyService.createCompany(...args)
+  )
+
+  ipcMain.handle('updateCompany', async (_, ...args: Parameters<UpdateCompany>) =>
+    companyService.updateCompany(...args)
+  )
+
+  ipcMain.handle('deleteCompany', async (_, ...args: Parameters<DeleteCompany>) =>
+    companyService.deleteCompany(...args)
+  )
+
+  // TODO: Card
+
+  // TODO: Customer
+
+  // TODO: Invoice
+
+  // TODO: Home
+
+  // TODO: File
 
   app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the
