@@ -60,14 +60,15 @@ model Customer {
   id          String   @id @default(uuid())
   name        String
   national_id String?  @unique
-  address     String?
+  fullname    String?
   grand_name  String?
   created_at  DateTime @default(now())
   updated_at  DateTime @updatedAt
   comment     String?
 
-  cards    Card[]
-  invoices Invoice[]
+  cards        Card[]
+  Invoice      Invoice[]
+  ExtraInvoice ExtraInvoice[]
 
   @@index([name, national_id])
 }
@@ -87,4 +88,16 @@ model Invoice {
 
   @@index([customer_id])
   @@index([card_number])
+}
+
+model ExtraInvoice {
+  id          String   @id @default(uuid())
+  amount      Float
+  customer_id String
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  Customer Customer? @relation(fields: [customer_id], references: [id])
+
+  @@index([customer_id])
 }

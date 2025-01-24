@@ -13,23 +13,29 @@ export async function addCustomerInvoiceLoader({ params }) {
   const customer = await getCustomer(id)
   const invoices = await getInvoicesByCustomerId(id)
 
-  return defer({ customer: customer, invoices: invoices[0] })
+  return defer({ customer: customer, invoices: invoices.length > 0 ? invoices[0] : null })
 }
 
 const AddCustomerInvoice = ({ invoice }: { invoice?: InvoiceInfo }) => {
   const { customer, invoices } = useLoaderData() as {
     customer: CustomerInfo
-    invoices: InvoiceData
+    invoices: InvoiceData | null
   }
 
-  const getLastPaid = (invoices: InvoiceData) => {
+  const getLastPaid = (invoices: InvoiceData): string => {
     const lastPaid = invoices.info.filter((element) => element.amount > 0)
-    return lastPaid.length > 0 ? lastPaid[0].invoice_date : 'لم يتم الدفع'
+
+    if (lastPaid.length <= 0) return 'لم يتم الدفع'
+
+    return lastPaid[0].invoice_date ?? 'لم يتم الدفع'
   }
 
-  const getAmountOfLastPaid = (invoices: InvoiceData) => {
+  const getAmountOfLastPaid = (invoices: InvoiceData): string => {
     const lastPaid = invoices.info.filter((element) => element.amount > 0)
-    return lastPaid.length > 0 ? lastPaid[0].amount : 'لم يتم الدفع'
+
+    if (lastPaid.length <= 0) return 'لم يتم الدفع'
+
+    return lastPaid[0].amount.toString()
   }
 
   return (
@@ -37,9 +43,9 @@ const AddCustomerInvoice = ({ invoice }: { invoice?: InvoiceInfo }) => {
       <InvoiceForm
         customer={customer}
         invoice={invoice}
-        total={invoices.total}
-        lastPaid={getLastPaid(invoices).toString()}
-        lastAmountPaid={getAmountOfLastPaid(invoices).toString()}
+        total={invoices === null ? 0 : invoices.total}
+        lastPaid={invoices === null ? 'لم يتم الدفع' : getLastPaid(invoices)}
+        lastAmountPaid={invoices === null ? 'لم يتم الدفع' : getAmountOfLastPaid(invoices)}
       />
     </div>
   )

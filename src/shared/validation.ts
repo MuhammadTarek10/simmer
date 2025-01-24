@@ -47,7 +47,7 @@ export const CustomerValidationSchema = z.object({
     })
     .optional(),
   grand_name: z.string().optional(),
-  address: z.string().optional(),
+  fullname: z.string().optional(),
   comment: z.string().optional()
 })
 

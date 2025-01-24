@@ -115,6 +115,7 @@ export async function getInvoicesByCustomerId(id: string) {
       created_at: 'desc'
     }
   })
+
   return groupInvoicesByName(invoices)
 }
 

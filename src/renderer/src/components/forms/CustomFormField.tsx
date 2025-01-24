@@ -83,7 +83,7 @@ const RenderInput = ({ field, props }: { field: any; props: CustomProps }) => {
             selected={field.value}
             onChange={(date: Date | null) => field.onChange(date)}
             timeInputLabel="Time:"
-            dateFormat={props!.dateFormat ?? 'MM/dd/yyyy'}
+            dateFormat={props!.dateFormat ?? 'dd/MM/yyyy'}
             wrapperClassName="overflow-hidden border-transparent w-full placeholder:text-dark-600 h-11 rounded-md outline-none"
           />
         </FormControl>

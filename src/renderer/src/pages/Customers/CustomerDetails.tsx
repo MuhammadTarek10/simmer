@@ -14,6 +14,7 @@ import { getCardsFromCustomerId, getUnOccupiedCards } from '../../repositories/c
 import { deleteCustomer, getCustomer } from '../../repositories/customer.repository'
 import { getInvoicesByCustomerId } from '../../repositories/invoices.repository'
 import CustomerInvoice from './components/CustomerInvoice'
+import { Http2ServerRequest } from 'http2'
 
 export async function customerDetailsLoader({ params }) {
   const customer = await getCustomer(params.id)
@@ -72,6 +73,11 @@ const CustomerDetails = () => {
       icon: <IoMdAdd size={20} />,
       onClick: () => navigate(`/customer/${customer.id}/invoice`)
     },
+    // {
+    //   name: 'عمل فاتورة',
+    //   icon: <IoMdAdd size={20} />,
+    //   onClick: () => navigate(`/customer/${customer.id}/invoice`)
+    // },
     {
       name: 'تعديل',
       icon: <FaRegEdit size={20} />,
@@ -106,9 +112,13 @@ const CustomerDetails = () => {
         <hr className="my-4 border-gray-300" />
         <div className="flex justify-between">
           <div className="flex flex-col gap-4">
-            <h2 className="text-xl">الاسم الكامل: {customer.name ?? 'لا يوجد'}</h2>
+            <h2 className="text-xl">الاسم: {customer.name ?? 'لا يوجد'}</h2>
             <h2 className="text-xl">اسم الجد: {customer.grand_name ?? 'لا يوجد'}</h2>
-            <h2 className="text-xl">العنوان: {customer.address ?? 'لا يوجد'}</h2>
+            <h2 className="text-xl">الاسم بالكامل: {customer.fullname ?? 'لا يوجد'}</h2>
+            <h2 className="text-xl">
+              الملاحظلات:{' '}
+              {customer.comment === null || customer.comment == '' ? 'لا يوجد' : customer.comment}
+            </h2>
           </div>
           {invoices.length > 0 ? (
             <CustomerInvoice key={invoices[0].name} invoices={invoices[0]} total={getTotal()} />

@@ -22,9 +22,9 @@ const CustomerForm = ({ customer }: { customer?: CustomerInfo }) => {
     if (customer) {
       form.setValue('name', customer.name)
       form.setValue('national_id', customer.national_id)
-      form.setValue('grand_name', customer.grand_name)
-      form.setValue('address', customer.address)
-      form.setValue('comment', customer.comment)
+      form.setValue('grand_name', customer.grand_name ?? '')
+      form.setValue('fullname', customer.fullname ?? '')
+      form.setValue('comment', customer.comment ?? '')
     }
   }, [])
 
@@ -93,8 +93,8 @@ const CustomerForm = ({ customer }: { customer?: CustomerInfo }) => {
               />
 
               <CustomFormField
-                label="العنوان"
-                name="address"
+                label="الاسم بالكامل"
+                name="fullname"
                 fieldType={FormFieldType.INPUT}
                 control={form.control}
               />

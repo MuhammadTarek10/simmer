@@ -12,7 +12,7 @@ export interface CustomerInfo {
   name: string
   national_id?: string
   grand_name?: string
-  address?: string
+  fullname?: string
   cards?: CardInfo[]
   invoices?: InvoiceInfo[]
   comment?: string

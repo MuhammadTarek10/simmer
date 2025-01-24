@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import { routes } from '@shared/constants'
 import { convertDateToString, convertStringToDate, getCardType } from '@shared/converters'
 import { CardInfo, CompanyInfo, OfferInfo } from '@shared/models'
 import { CardValidationSchema } from '@shared/validation'
@@ -14,9 +15,11 @@ import SubmitButton from '../SubmitButton'
 import { Form } from '../ui/form'
 import { useToast } from '../ui/use-toast'
 import CustomFormField, { FormFieldType } from './CustomFormField'
+import { useNavigate } from 'react-router-dom'
 
 const CardForm = ({ card }: { card?: CardInfo }) => {
   const { toast } = useToast()
+  const navigate = useNavigate()
   const [companies, setCompanies] = useState<CompanyInfo[]>([])
   const [offers, setOffers] = useState<OfferInfo[]>([])
   const [isLoading, setIsLoading] = useState(false)
@@ -88,6 +91,7 @@ const CardForm = ({ card }: { card?: CardInfo }) => {
           title: 'تم التعديل بنجاح',
           description: 'تم تعديل الخط بنجاح'
         })
+        navigate(`/${routes.cards}/${card.id}`)
       } else {
         await addCard({
           ...data,

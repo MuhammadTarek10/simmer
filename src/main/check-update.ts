@@ -7,6 +7,7 @@ export async function checkUpdate(): Promise<boolean> {
   let attempts = 0
 
   while (attempts < MAX_RETRIES) {
+    return true
     try {
       const res = await axios.get(serverUrl, { timeout: 5000 })
       if (res.status === 200) {

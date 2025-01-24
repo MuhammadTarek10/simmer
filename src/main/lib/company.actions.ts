@@ -9,7 +9,11 @@ export async function addCompany(company: CompanyInfo): Promise<void> {
 }
 
 export async function getCompanies(): Promise<CompanyInfo[]> {
-  const companies = await db.company.findMany()
+  const companies = await db.company.findMany({
+    orderBy: {
+      name: 'asc'
+    }
+  })
 
   return companies.map((company) => toCompanyInfo(company))
 }

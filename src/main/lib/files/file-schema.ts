@@ -11,8 +11,8 @@ export const schema = {
     prop: 'grand_name',
     type: String
   },
-  العنوان: {
-    prop: 'address',
+  'الاسم بالكامل': {
+    prop: 'fullname',
     type: String
   },
   الخط: {

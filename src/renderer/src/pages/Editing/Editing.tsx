@@ -9,7 +9,7 @@ import { getCustomer } from '../../repositories/customer.repository'
 
 export async function editingLoader({ params }) {
   const { id, type } = params
-  let component
+  let component: any
   if (type === 'company') {
     const company = await getCompany(id)
     component = <CompanyForm company={company} />

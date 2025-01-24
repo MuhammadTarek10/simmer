@@ -7,6 +7,7 @@ import {
   ListInfo
 } from '@shared/models'
 import { convertDateToString } from './converters'
+import { log } from 'console'
 
 export const toCompanyInfo = (company: any) => {
   return {
@@ -34,7 +35,7 @@ export const toCustomerInfo = (customer: any) => {
     name: customer.name,
     national_id: customer.national_id,
     grand_name: customer.grand_name,
-    address: customer.address,
+    fullname: customer.fullname,
     cards: customer.cards,
     comment: customer.comment || ''
   }
@@ -45,7 +46,7 @@ export const toCustomerDB = (customer: CustomerInfo) => {
     name: customer.name,
     national_id: customer.national_id,
     grand_name: customer.grand_name,
-    address: customer.address,
+    fullname: customer.fullname,
     comment: customer.comment
   }
 }
@@ -153,7 +154,7 @@ export const toListInfoInfo = (invoices: any[], all: boolean): ListInfo[] => {
 export const groupInvoicesByName = (invoices: any): InvoiceData[] => {
   const groupedByCustomerId = {}
 
-  invoices.forEach((invoice) => {
+  invoices.forEach((invoice: any) => {
     const customerId = invoice.customer.id
 
     if (!groupedByCustomerId[customerId]) {
@@ -172,7 +173,7 @@ export const groupInvoicesByName = (invoices: any): InvoiceData[] => {
   const grouped = Object.values(groupedByCustomerId)
 
   const result = grouped.map((group: any) => {
-    const total = group.reduce((acc, invoice) => acc + invoice.amount, 0)
+    const total = group.reduce((acc: any, invoice: any) => acc + invoice.amount, 0)
 
     return {
       name: group[0].customer.name,

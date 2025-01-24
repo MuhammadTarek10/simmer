@@ -68,7 +68,7 @@ export type GetList = (all: boolean) => Promise<ListData[]>
 // * Invoices
 export type UpdatePaymentInvoices = () => Promise<void>
 export type GetInvoices = () => Promise<InvoiceInfo[]>
-export type GetInvoicesByCustomerId = (id: string) => Promise<InvoiceData>
+export type GetInvoicesByCustomerId = (id: string) => Promise<InvoiceData[]>
 export type GetInvoice = (id: string) => Promise<InvoiceInfo>
 export type AddInvoice = (invoice: InvoiceInfo) => Promise<void>
 export type UpdateInvoice = (invoice: InvoiceInfo) => Promise<void>
@@ -86,7 +86,7 @@ export interface FileSchema {
   name: string
   national_id: string
   grand_name: string
-  address: string
+  fullname: string
   card_number: string
   company: string
   company_invoice_date: string

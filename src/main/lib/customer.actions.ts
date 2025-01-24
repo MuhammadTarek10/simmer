@@ -21,6 +21,9 @@ export async function getCustomers(): Promise<CustomerInfo[]> {
   const customers = await db.customer.findMany({
     include: {
       cards: true
+    },
+    orderBy: {
+      name: 'asc'
     }
   })
   return customers.map((customer) => toCustomerInfo(customer))

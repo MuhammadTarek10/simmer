@@ -42,7 +42,7 @@ const makeCustomer = (element: FileSchema) => ({
   name: element.name,
   national_id: element.national_id,
   grand_name: element.grand_name,
-  address: element.address,
+  fullname: element.fullname,
   paid: Number(element.paid)
 })
 
