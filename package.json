@@ -1,0 +1,86 @@
+{
+  "name": "simmer",
+  "version": "2.0.0",
+  "description": "An Electron application with React and TypeScript",
+  "main": "./out/main/index.js",
+  "author": "Muhammad Tarek",
+  "homepage": "https://github.com/MuhammadTarek10/simmer",
+  "repository": "https://github.com/MuhammadTarek10/simmer",
+  "keywords": [
+    "CRM",
+    "Sales",
+    "Management"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "format": "prettier --write .",
+    "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
+    "typecheck:node": "tsc --noEmit -p tsconfig.node.json --composite false",
+    "typecheck:web": "tsc --noEmit -p tsconfig.web.json --composite false",
+    "typecheck": "npm run typecheck:node && npm run typecheck:web",
+    "start": "electron-vite preview",
+    "dev": "electron-vite dev",
+    "build": "npm run typecheck && electron-vite build",
+    "postinstall": "electron-builder install-app-deps",
+    "build:unpack": "npm run build && electron-builder --dir",
+    "build:win": "npm run build && electron-builder --win --x64",
+    "build:mac": "electron-vite build && electron-builder --mac",
+    "build:linux": "electron-vite build && electron-builder --linux"
+  },
+  "dependencies": {
+    "@electron-toolkit/preload": "^3.0.0",
+    "@electron-toolkit/utils": "^3.0.0",
+    "@prisma/client": "^6.2.1",
+    "@tailwindcss/vite": "^4.0.0",
+    "electron-updater": "^6.1.7",
+    "tailwindcss": "^4.0.0"
+  },
+  "devDependencies": {
+    "@electron-toolkit/eslint-config-prettier": "^2.0.0",
+    "@electron-toolkit/eslint-config-ts": "^1.0.1",
+    "@electron-toolkit/tsconfig": "^1.0.1",
+    "@types/node": "^18.19.9",
+    "@types/react": "^18.2.48",
+    "@types/react-dom": "^18.2.18",
+    "@vitejs/plugin-react": "^4.2.1",
+    "autoprefixer": "^10.4.20",
+    "electron": "^28.2.0",
+    "electron-builder": "^24.9.1",
+    "electron-vite": "^2.0.0",
+    "eslint": "^8.56.0",
+    "eslint-plugin-react": "^7.33.2",
+    "prettier": "^3.2.4",
+    "prisma": "^6.2.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.12"
+  },
+  "build": {
+    "appId": "com.tarek.simmer",
+    "productName": "Simmer",
+    "asar": true,
+    "publish": {
+      "provider": "github",
+      "repo": "simmer"
+    },
+    "mac": {
+      "category": "public.app-category.productivity",
+      "target": "dmg"
+    },
+    "win": {
+      "target": "zip",
+      "publisherName": "Muhammad Tarek",
+      "certificateFile": "private/MuhammadTarek.p12",
+      "certificatePassword": "",
+      "verifyUpdateCodeSignature": false
+    },
+    "extraResources": [
+      "prisma/**/*",
+      "node_modules/.prisma/**/*",
+      "node_modules/@prisma/client/**/*",
+      ".env",
+      "./splash/**"
+    ]
+  }
+}

@@ -1,0 +1,88 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "windows"]
+}
+
+datasource db {
+  provider     = "sqlite"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model Company {
+  id         String   @id @default(uuid())
+  name       String   @unique
+  pay_date   DateTime
+  phone      String?
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  comment    String?
+
+  cards Card[]
+}
+
+model Card {
+  id               String   @id @default(uuid())
+  number           String   @unique
+  price_before_vat Decimal  @default(0)
+  price_after_vat  Decimal  @default(0)
+  created_at       DateTime @default(now())
+  updated_at       DateTime @updatedAt
+  commnet          String?
+
+  company_id  String
+  Company     Company?  @relation(fields: [company_id], references: [id], onDelete: Cascade)
+  customer_id String?
+  Customer    Customer? @relation(fields: [customer_id], references: [id])
+
+  invoices Invoice[]
+
+  @@index([company_id])
+  @@index([customer_id])
+}
+
+model Customer {
+  id          String   @id @default(uuid())
+  national_id String   @unique
+  firstname   String
+  fullname    String
+  grand_name  String?
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+  commnet     String?
+
+  Card         Card[]
+  Invoices     Invoice[]
+  ExtraInvoice ExtraInvoice[]
+}
+
+model ExtraInvoice {
+  id         String   @id @default(uuid())
+  amount     Decimal
+  pay_date   DateTime
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  commnet    String?
+
+  customer_id String?
+  Customer    Customer? @relation(fields: [customer_id], references: [id])
+
+  @@index([customer_id])
+}
+
+model Invoice {
+  id         String   @id @default(uuid())
+  amount     Decimal
+  pay_date   DateTime
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  commnet    String?
+
+  customer_id String?
+  Customer    Customer? @relation(fields: [customer_id], references: [id])
+  card_id     String?
+  Card        Card?     @relation(fields: [card_id], references: [id])
+
+  @@index([customer_id])
+  @@index([card_id])
+}
