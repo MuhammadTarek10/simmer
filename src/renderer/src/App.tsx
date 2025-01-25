@@ -1,10 +1,9 @@
 import '@assets/global.css'
-import { CompanyController } from './controllers/company.controller'
+import { InvoiceController } from './controllers/invoice.controller'
 
 function App(): JSX.Element {
-  const getCompanies = async () => {
-    const companies = await CompanyController.getCompanies()
-    console.log(companies)
+  const handleClick = async () => {
+    await InvoiceController.getInvoices()
   }
 
   return (
@@ -23,7 +22,12 @@ function App(): JSX.Element {
             Documentation
           </a>
         </div>
-        <button onClick={getCompanies}>Get Companies</button>
+        <button
+          className="cursor-pointer bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          onClick={handleClick}
+        >
+          Get Companies
+        </button>
       </div>
     </>
   )

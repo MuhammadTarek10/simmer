@@ -1,3 +1,5 @@
+import { CompanyDto } from '@shared/dtos/company.dto'
+
 export class CompanyController {
   public static async getCompanies(): Promise<CompanyDto[]> {
     return await window.context.getCompanies()

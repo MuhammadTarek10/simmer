@@ -3,8 +3,15 @@ import {
   GetCompanyById,
   CreateCompany,
   UpdateCompany,
-  DeleteCompany
-} from '@shared/types'
+  DeleteCompany,
+  GetInvoices,
+  GetInvoicesByCardId,
+  GetInvoicesByCustomerId,
+  GetInvoiceById,
+  CreateInvoice,
+  UpdateInvoice,
+  DeleteInvoice
+} from '@shared/constants/types'
 
 declare global {
   interface Window {
@@ -21,6 +28,13 @@ declare global {
       // NOTE: Customer
 
       // NOTE: Invoice
+      getInvoices: GetInvoices
+      getInvoicesByCardId: GetInvoicesByCardId
+      getInvoicesByCustomerId: GetInvoicesByCustomerId
+      getInvoiceById: GetInvoiceById
+      createInvoice: CreateInvoice
+      updateInvoice: UpdateInvoice
+      deleteInvoice: DeleteInvoice
 
       // NOTE: File
     }

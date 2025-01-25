@@ -4,13 +4,24 @@ import icon from '../../resources/icon.png?asset'
 import { app, BrowserWindow, ipcMain, shell } from 'electron'
 import {
   CreateCompany,
+  CreateInvoice,
   DeleteCompany,
+  DeleteInvoice,
+  GenerateInvoices,
   GetCompanies,
   GetCompanyById,
-  UpdateCompany
-} from '@shared/types'
+  GetInvoiceById,
+  GetInvoices,
+  GetInvoicesByCardId,
+  GetInvoicesByCustomerId,
+  UpdateCompany,
+  UpdateInvoice
+} from '@shared/constants/types'
 import { ICompanyService } from '@shared/interfaces/icompany.service'
 import { CompanyService } from './services/company/company.service'
+import { IInvoiceService } from '@shared/interfaces/iincoive.service'
+import { InvoiceService } from './services/invoice/invoice.service'
+import { Communication } from '@shared/constants/communication'
 
 function createWindow(): void {
   // Create the browser window.
@@ -80,6 +91,7 @@ function createWindow(): void {
 
 // * Services
 const companyService: ICompanyService = new CompanyService()
+const invoiceService: IInvoiceService = new InvoiceService()
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
@@ -97,24 +109,24 @@ app.whenReady().then(() => {
 
   createWindow()
 
-  // * NOTE: Company
-  ipcMain.handle('getCompanies', async (_, ...args: Parameters<GetCompanies>) =>
+  //  NOTE: Company
+  ipcMain.handle(Communication.GET_COMPANIES, async (_, ...args: Parameters<GetCompanies>) =>
     companyService.getCompanies(...args)
   )
 
-  ipcMain.handle('getCompany', async (_, ...args: Parameters<GetCompanyById>) =>
+  ipcMain.handle(Communication.GET_COMPANY_BY_ID, async (_, ...args: Parameters<GetCompanyById>) =>
     companyService.getCompanyById(...args)
   )
 
-  ipcMain.handle('createCompany', async (_, ...args: Parameters<CreateCompany>) =>
+  ipcMain.handle(Communication.CREATE_COMPANY, async (_, ...args: Parameters<CreateCompany>) =>
     companyService.createCompany(...args)
   )
 
-  ipcMain.handle('updateCompany', async (_, ...args: Parameters<UpdateCompany>) =>
+  ipcMain.handle(Communication.UPDATE_COMPANY, async (_, ...args: Parameters<UpdateCompany>) =>
     companyService.updateCompany(...args)
   )
 
-  ipcMain.handle('deleteCompany', async (_, ...args: Parameters<DeleteCompany>) =>
+  ipcMain.handle(Communication.DELETE_COMPANY, async (_, ...args: Parameters<DeleteCompany>) =>
     companyService.deleteCompany(...args)
   )
 
@@ -122,7 +134,43 @@ app.whenReady().then(() => {
 
   // TODO: Customer
 
-  // TODO: Invoice
+  // NOTE: Invoice
+  ipcMain.handle(Communication.GET_INVOICES, async (_, ...args: Parameters<GetInvoices>) =>
+    invoiceService.getInvoices(...args)
+  )
+
+  ipcMain.handle(Communication.GET_INVOICE_BY_ID, async (_, ...args: Parameters<GetInvoiceById>) =>
+    invoiceService.getInvoiceById(...args)
+  )
+
+  ipcMain.handle(
+    Communication.GET_INVOICES_BY_CARD_ID,
+    async (_, ...args: Parameters<GetInvoicesByCardId>) =>
+      invoiceService.getInvoiceByCardId(...args)
+  )
+
+  ipcMain.handle(
+    Communication.GET_INVOICES_BY_CUSTOMER_ID,
+    async (_, ...args: Parameters<GetInvoicesByCustomerId>) =>
+      invoiceService.getInvoicesByCustomerId(...args)
+  )
+
+  ipcMain.handle(Communication.CREATE_INVOICE, async (_, ...args: Parameters<CreateInvoice>) =>
+    invoiceService.createInvoice(...args)
+  )
+
+  ipcMain.handle(Communication.UPDATE_INVOICE, async (_, ...args: Parameters<UpdateInvoice>) =>
+    invoiceService.updateInvoice(...args)
+  )
+
+  ipcMain.handle(Communication.DELETE_INVOICE, async (_, ...args: Parameters<DeleteInvoice>) =>
+    invoiceService.deleteInvoice(...args)
+  )
+
+  ipcMain.handle(
+    Communication.GENERATE_INVOICES,
+    async (_, ...args: Parameters<GenerateInvoices>) => invoiceService.generateInvoices(...args)
+  )
 
   // TODO: Home
 
