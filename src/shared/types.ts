@@ -1,4 +1,4 @@
-import { CompanyDto } from '@shared/models/company.model'
+import { CompanyDto } from './dtos/company.dto'
 
 // NOTE: Company
 export type GetCompanies = () => Promise<CompanyDto[]>

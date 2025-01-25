@@ -22,13 +22,14 @@ model Company {
 }
 
 model Card {
-  id               String   @id @default(uuid())
-  number           String   @unique
-  price_before_vat Decimal  @default(0)
-  price_after_vat  Decimal  @default(0)
-  created_at       DateTime @default(now())
-  updated_at       DateTime @updatedAt
+  id               String    @id @default(uuid())
+  number           String    @unique
+  price_before_vat Decimal   @default(0)
+  price_after_vat  Decimal   @default(0)
+  created_at       DateTime  @default(now())
+  updated_at       DateTime  @updatedAt
   comment          String?
+  last_invoiced    DateTime?
 
   company_id  String
   company     Company?  @relation(fields: [company_id], references: [id], onDelete: Cascade)
@@ -58,13 +59,19 @@ model Customer {
   @@index([national_id])
 }
 
+enum InvoiceType {
+  PENDING
+  PAID
+}
+
 model ExtraInvoice {
-  id           String   @id @default(uuid())
-  amount       Decimal  @default(0)
+  id           String      @id @default(uuid())
+  amount       Decimal     @default(0)
   invoice_date DateTime
-  created_at   DateTime @default(now())
-  updated_at   DateTime @updatedAt
+  created_at   DateTime    @default(now())
+  updated_at   DateTime    @updatedAt
   comment      String?
+  type         InvoiceType @default(PENDING)
 
   customer_id String
   customer    Customer @relation(fields: [customer_id], references: [id])
@@ -74,18 +81,20 @@ model ExtraInvoice {
 }
 
 model Invoice {
-  id           String   @id @default(uuid())
-  amount       Decimal  @default(0)
+  id           String      @id @default(uuid())
+  amount       Decimal     @default(0)
   invoice_date DateTime
-  created_at   DateTime @default(now())
-  updated_at   DateTime @updatedAt
+  created_at   DateTime    @default(now())
+  updated_at   DateTime    @updatedAt
   comment      String?
+  type         InvoiceType @default(PENDING)
 
   customer_id String?
   customer    Customer? @relation(fields: [customer_id], references: [id])
   card_id     String?
   card        Card?     @relation(fields: [card_id], references: [id])
 
+  @@unique([card_id, invoice_date])
   @@index([customer_id])
   @@index([card_id])
   @@index([invoice_date])
