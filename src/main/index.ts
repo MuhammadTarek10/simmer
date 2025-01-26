@@ -5,9 +5,11 @@ import { app, BrowserWindow, ipcMain, shell } from 'electron'
 import {
   CreateCard,
   CreateCompany,
+  CreateCustomer,
   CreateInvoice,
   DeleteCard,
   DeleteCompany,
+  DeleteCustomer,
   DeleteInvoice,
   GenerateInvoices,
   GetCardById,
@@ -16,6 +18,8 @@ import {
   GetCardsByCustomerId,
   GetCompanies,
   GetCompanyById,
+  GetCustomerById,
+  GetCustomers,
   GetInvoiceById,
   GetInvoices,
   GetInvoicesByCardId,
@@ -24,6 +28,7 @@ import {
   PayPartialInvoice,
   UpdateCard,
   UpdateCompany,
+  UpdateCustomer,
   UpdateInvoice
 } from '@shared/constants/types'
 import { ICompanyService } from '@shared/interfaces/icompany.service'
@@ -33,6 +38,8 @@ import { InvoiceService } from './services/invoice/invoice.service'
 import { Communication } from '@shared/constants/communication'
 import { ICardService } from '@shared/interfaces/icard.service'
 import { CardService } from './services/card/card.service'
+import { ICustomerService } from '@shared/interfaces/icustomer.service'
+import { CustomerService } from './services/customer/customer.service'
 
 function createWindow(): void {
   // Create the browser window.
@@ -104,6 +111,7 @@ function createWindow(): void {
 const companyService: ICompanyService = new CompanyService()
 const invoiceService: IInvoiceService = new InvoiceService()
 const cardService: ICardService = new CardService()
+const customerService: ICustomerService = new CustomerService()
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
@@ -174,7 +182,27 @@ app.whenReady().then(() => {
     async (_, ...args: Parameters<GetCardsByCompanyId>) => cardService.getCardsByCompanyId(...args)
   )
 
-  // TODO: Customer
+  // NOTE: Customer
+  ipcMain.handle(Communication.GET_CUSTOMERS, async (_, ...args: Parameters<GetCustomers>) =>
+    customerService.getCustomers(...args)
+  )
+
+  ipcMain.handle(
+    Communication.GET_CUSTOMER_BY_ID,
+    async (_, ...args: Parameters<GetCustomerById>) => customerService.getCustomerById(...args)
+  )
+
+  ipcMain.handle(Communication.CREATE_CUSTOMER, async (_, ...args: Parameters<CreateCustomer>) =>
+    customerService.createCustomer(...args)
+  )
+
+  ipcMain.handle(Communication.UPDATE_CUSTOMER, async (_, ...args: Parameters<UpdateCustomer>) =>
+    customerService.updateCustomer(...args)
+  )
+
+  ipcMain.handle(Communication.DELETE_CUSTOMER, async (_, ...args: Parameters<DeleteCustomer>) =>
+    customerService.deleteCustomer(...args)
+  )
 
   // NOTE: Invoice
   ipcMain.handle(Communication.GET_INVOICES, async (_, ...args: Parameters<GetInvoices>) =>
@@ -223,9 +251,9 @@ app.whenReady().then(() => {
     async (_, ...args: Parameters<PayPartialInvoice>) => invoiceService.payPartialInvoice(...args)
   )
 
-  // TODO: Home
-
   // TODO: File
+
+  // TODO: Home
 
   app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the

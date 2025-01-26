@@ -1,9 +1,28 @@
 import '@assets/global.css'
 import { InvoiceController } from './controllers/invoice.controller'
+import { CompanyController } from './controllers/company.controller'
+import { CardController } from './controllers/card.controller'
+import { CustomerController } from './controllers/customer.controller'
 
 function App(): JSX.Element {
-  const handleClick = async () => {
-    await InvoiceController.getInvoices()
+  const getCompanies = async () => {
+    const companies = await CompanyController.getCompanies()
+    console.log(companies)
+  }
+
+  const getInvoices = async () => {
+    const invoices = await InvoiceController.getInvoices()
+    console.log(invoices)
+  }
+
+  const getCustomers = async () => {
+    const customers = await CustomerController.getCustomers()
+    console.log(customers)
+  }
+
+  const getCards = async () => {
+    const cards = await CardController.getCards()
+    console.log(cards)
   }
 
   return (
@@ -22,12 +41,35 @@ function App(): JSX.Element {
             Documentation
           </a>
         </div>
-        <button
-          className="cursor-pointer bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          onClick={handleClick}
-        >
-          Get Companies
-        </button>
+        <div className="flex justify-around gap-8 border border-gray-500 p-4 m-4">
+          <button
+            className="cursor-pointer bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            onClick={getCompanies}
+          >
+            Get Companies
+          </button>
+
+          <button
+            className="cursor-pointer bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            onClick={getInvoices}
+          >
+            Get Invoices
+          </button>
+
+          <button
+            className="cursor-pointer bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            onClick={getCustomers}
+          >
+            Get Customers
+          </button>
+
+          <button
+            className="cursor-pointer bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            onClick={getCards}
+          >
+            Get Cards
+          </button>
+        </div>
       </div>
     </>
   )
