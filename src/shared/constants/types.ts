@@ -1,3 +1,4 @@
+import { CardDto } from '@shared/dtos/card.dto'
 import { CompanyDto } from '@shared/dtos/company.dto'
 import { InvoiceDto } from '@shared/dtos/invoice.dto'
 
@@ -9,6 +10,13 @@ export type UpdateCompany = (id: string, company: CompanyDto) => Promise<Company
 export type DeleteCompany = (id: string) => Promise<void>
 
 // NOTE: Card
+export type GetCards = () => Promise<CardDto[]>
+export type GetCardById = (id: string) => Promise<CardDto>
+export type CreateCard = (card: CardDto) => Promise<CardDto>
+export type UpdateCard = (id: string, card: CardDto) => Promise<CardDto>
+export type DeleteCard = (id: string) => Promise<void>
+export type GetCardsByCustomerId = (id: string) => Promise<CardDto[]>
+export type GetCardsByCompanyId = (id: string) => Promise<CardDto[]>
 
 // NOTE: Customer
 

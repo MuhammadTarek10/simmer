@@ -3,11 +3,17 @@ import { join } from 'path'
 import icon from '../../resources/icon.png?asset'
 import { app, BrowserWindow, ipcMain, shell } from 'electron'
 import {
+  CreateCard,
   CreateCompany,
   CreateInvoice,
+  DeleteCard,
   DeleteCompany,
   DeleteInvoice,
   GenerateInvoices,
+  GetCardById,
+  GetCards,
+  GetCardsByCompanyId,
+  GetCardsByCustomerId,
   GetCompanies,
   GetCompanyById,
   GetInvoiceById,
@@ -16,6 +22,7 @@ import {
   GetInvoicesByCustomerId,
   PayInvoice,
   PayPartialInvoice,
+  UpdateCard,
   UpdateCompany,
   UpdateInvoice
 } from '@shared/constants/types'
@@ -24,6 +31,8 @@ import { CompanyService } from './services/company/company.service'
 import { IInvoiceService } from '@shared/interfaces/iincoive.service'
 import { InvoiceService } from './services/invoice/invoice.service'
 import { Communication } from '@shared/constants/communication'
+import { ICardService } from '@shared/interfaces/icard.service'
+import { CardService } from './services/card/card.service'
 
 function createWindow(): void {
   // Create the browser window.
@@ -94,6 +103,7 @@ function createWindow(): void {
 // * Services
 const companyService: ICompanyService = new CompanyService()
 const invoiceService: IInvoiceService = new InvoiceService()
+const cardService: ICardService = new CardService()
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
@@ -132,7 +142,37 @@ app.whenReady().then(() => {
     companyService.deleteCompany(...args)
   )
 
-  // TODO: Card
+  // NOTE: Card
+  ipcMain.handle(Communication.GET_CARDS, async (_, ...args: Parameters<GetCards>) =>
+    cardService.getCards(...args)
+  )
+
+  ipcMain.handle(Communication.GET_CARD_BY_ID, async (_, ...args: Parameters<GetCardById>) =>
+    cardService.getCardById(...args)
+  )
+
+  ipcMain.handle(Communication.CREATE_CARD, async (_, ...args: Parameters<CreateCard>) =>
+    cardService.createCard(...args)
+  )
+
+  ipcMain.handle(Communication.UPDATE_CARD, async (_, ...args: Parameters<UpdateCard>) =>
+    cardService.updateCard(...args)
+  )
+
+  ipcMain.handle(Communication.DELETE_CARD, async (_, ...args: Parameters<DeleteCard>) =>
+    cardService.deleteCard(...args)
+  )
+
+  ipcMain.handle(
+    Communication.GET_CARDS_BY_CUSTOMER_ID,
+    async (_, ...args: Parameters<GetCardsByCustomerId>) =>
+      cardService.getCardsByCustomerId(...args)
+  )
+
+  ipcMain.handle(
+    Communication.GET_CARDS_BY_COMPANY_ID,
+    async (_, ...args: Parameters<GetCardsByCompanyId>) => cardService.getCardsByCompanyId(...args)
+  )
 
   // TODO: Customer
 

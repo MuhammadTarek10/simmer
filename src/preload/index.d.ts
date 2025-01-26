@@ -13,7 +13,14 @@ import {
   DeleteInvoice,
   GenerateInvoices,
   PayInvoice,
-  PayPartialInvoice
+  PayPartialInvoice,
+  GetCards,
+  GetCardById,
+  CreateCard,
+  UpdateCard,
+  DeleteCard,
+  GetCardsByCustomerId,
+  GetCardsByCompanyId
 } from '@shared/constants/types'
 
 declare global {
@@ -27,6 +34,13 @@ declare global {
       deleteCompany: DeleteCompany
 
       // NOTE: Card
+      getCards: GetCards
+      getCardById: GetCardById
+      createCard: CreateCard
+      updateCard: UpdateCard
+      deleteCard: DeleteCard
+      getCardsByCustomerId: GetCardsByCustomerId
+      getCardsByCompanyId: GetCardsByCompanyId
 
       // NOTE: Customer
 

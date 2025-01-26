@@ -12,6 +12,8 @@ export class Communication {
   static CREATE_CARD = 'createCard'
   static UPDATE_CARD = 'updateCard'
   static DELETE_CARD = 'deleteCard'
+  static GET_CARDS_BY_CUSTOMER_ID = 'getCardsByCustomerId'
+  static GET_CARDS_BY_COMPANY_ID = 'getCardsByCompanyId'
 
   // NOTE: Customer
   static GET_CUSTOMERS = 'getCustomers'
