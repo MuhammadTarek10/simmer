@@ -5,7 +5,7 @@ export interface InvoiceDto {
   id: string
   amount: number
   invoice_date: Date
-  type: string
+  status: string
   customer: CustomerDto | null
   card?: CardDto | null
 }

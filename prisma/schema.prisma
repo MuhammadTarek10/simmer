@@ -10,26 +10,26 @@ datasource db {
 }
 
 model Company {
-  id           String   @id @default(uuid())
-  name         String   @unique
-  invoice_date DateTime
-  phone        String?
-  created_at   DateTime @default(now())
-  updated_at   DateTime @updatedAt
-  comment      String?
+  id                String    @id @default(uuid())
+  name              String    @unique
+  invoice_date      DateTime
+  phone             String?
+  created_at        DateTime  @default(now())
+  updated_at        DateTime  @updatedAt
+  comment           String?
+  last_invoice_date DateTime?
 
   cards Card[]
 }
 
 model Card {
-  id               String    @id @default(uuid())
-  number           String    @unique
-  price_before_vat Decimal   @default(0)
-  price_after_vat  Decimal   @default(0)
-  created_at       DateTime  @default(now())
-  updated_at       DateTime  @updatedAt
+  id               String   @id @default(uuid())
+  number           String   @unique
+  price_before_vat Decimal  @default(0)
+  price_after_vat  Decimal  @default(0)
+  created_at       DateTime @default(now())
+  updated_at       DateTime @updatedAt
   comment          String?
-  last_invoiced    DateTime?
 
   company_id  String
   company     Company?  @relation(fields: [company_id], references: [id], onDelete: Cascade)
@@ -52,26 +52,26 @@ model Customer {
   updated_at  DateTime @updatedAt
   comment     String?
 
-  card         Card[]
-  invoices     Invoice[]
-  extraInvoice ExtraInvoice[]
+  cards         Card[]
+  invoices      Invoice[]
+  extraInvoices ExtraInvoice[]
 
   @@index([national_id])
 }
 
-enum InvoiceType {
+enum InvoiceStatus {
   PENDING
   PAID
 }
 
 model ExtraInvoice {
-  id           String      @id @default(uuid())
-  amount       Decimal     @default(0)
+  id           String        @id @default(uuid())
+  amount       Decimal       @default(0)
   invoice_date DateTime
-  created_at   DateTime    @default(now())
-  updated_at   DateTime    @updatedAt
+  created_at   DateTime      @default(now())
+  updated_at   DateTime      @updatedAt
   comment      String?
-  type         InvoiceType @default(PENDING)
+  status       InvoiceStatus @default(PENDING)
 
   customer_id String
   customer    Customer @relation(fields: [customer_id], references: [id])
@@ -81,13 +81,13 @@ model ExtraInvoice {
 }
 
 model Invoice {
-  id           String      @id @default(uuid())
-  amount       Decimal     @default(0)
-  invoice_date DateTime
-  created_at   DateTime    @default(now())
-  updated_at   DateTime    @updatedAt
+  id           String        @id @default(uuid())
+  amount       Decimal       @default(0)
+  invoice_date DateTime      @default(now())
+  created_at   DateTime      @default(now())
+  updated_at   DateTime      @updatedAt
   comment      String?
-  type         InvoiceType @default(PENDING)
+  status       InvoiceStatus @default(PENDING)
 
   customer_id String?
   customer    Customer? @relation(fields: [customer_id], references: [id])

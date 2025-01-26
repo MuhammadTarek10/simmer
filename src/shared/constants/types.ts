@@ -21,5 +21,11 @@ export type UpdateInvoice = (id: string, invoice: InvoiceDto) => Promise<Invoice
 export type DeleteInvoice = (id: string) => Promise<void>
 export type GetInvoicesByCustomerId = (id: string) => Promise<InvoiceDto[]>
 export type GetInvoicesByCardId = (id: string) => Promise<InvoiceDto[]>
+export type PayInvoice = (id: string) => Promise<InvoiceDto>
+export type PayPartialInvoice = (
+  customer_id: string,
+  card_id: string,
+  amount: number
+) => Promise<InvoiceDto>
 
 // NOTE: File

@@ -2,8 +2,9 @@ import { InvoiceDto } from '@shared/dtos/invoice.dto'
 import { IInvoiceService } from '@shared/interfaces/iincoive.service'
 
 import { context } from '@shared/database/db-context'
-import { InvoiceMapper } from '../mappers/invoice.mapper'
-import { Prisma } from '@prisma/client'
+import { InvoiceMapper } from '@/mappers/invoice.mapper'
+import { InvoiceStatus, Prisma } from '@prisma/client'
+import { DateService } from '../date/date.service'
 
 export class InvoiceService implements IInvoiceService {
   async getInvoices(): Promise<InvoiceDto[]> {
@@ -101,6 +102,70 @@ export class InvoiceService implements IInvoiceService {
   }
 
   async generateInvoices(): Promise<void> {
-    throw new Error('Method not implemented.')
+    const date = await DateService.getCurrentDate()
+    const today = new Date(date.getFullYear(), date.getMonth(), date.getDate())
+
+    const companies = await context.company.findMany({
+      include: {
+        cards: {
+          where: { customer_id: { not: null } },
+          include: { customer: true }
+        }
+      }
+    })
+
+    for (const company of companies) {
+      if (company.invoice_date.getDate() !== today.getDate()) continue
+
+      if (company.last_invoice_date && company.last_invoice_date >= today) continue
+
+      const invoicesToCreate = company.cards.map((card) => ({
+        customer_id: card.customer_id,
+        card_id: card.id,
+        amount: card.price_after_vat,
+        invoice_date: today,
+        status: InvoiceStatus.PENDING
+      }))
+
+      if (invoicesToCreate.length > 0) {
+        await context.invoice.createMany({
+          data: invoicesToCreate
+        })
+      }
+
+      await context.company.update({
+        where: { id: company.id },
+        data: { last_invoice_date: today }
+      })
+    }
+  }
+
+  async payInvoice(id: string): Promise<InvoiceDto> {
+    const invoice = await this.getInvoiceById(id)
+
+    if (invoice.status !== InvoiceStatus.PENDING)
+      throw new Error(`Invoice with ID ${id} is not pending`)
+
+    return await this.updateInvoice(id, {
+      ...invoice,
+      status: InvoiceStatus.PAID
+    })
+  }
+
+  async payPartialInvoice(
+    customer_id: string,
+    card_id: string,
+    amount: number
+  ): Promise<InvoiceDto> {
+    const invoice = await context.invoice.create({
+      data: {
+        customer_id: customer_id,
+        card_id: card_id,
+        amount: amount,
+        status: InvoiceStatus.PAID
+      }
+    })
+
+    return InvoiceMapper.toDto(invoice)
   }
 }

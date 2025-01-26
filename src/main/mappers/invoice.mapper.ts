@@ -21,15 +21,15 @@ export class InvoiceMapper {
       customer: 'customer' in invoice ? CustomerMapper.toDto(invoice.customer) : null,
       invoice_date: invoice.invoice_date,
       amount: Number(invoice.amount),
-      type: invoice.type
+      status: invoice.status
     }
   }
 
   public static toModel(invoice: Partial<InvoiceDto>): Partial<Invoice> {
     return {
       id: invoice.id,
-      // card_id: invoice.card_id,
-      // customer_id: invoice.customer_id,
+      card_id: invoice.card?.id,
+      customer_id: invoice.customer?.id,
       invoice_date: invoice.invoice_date,
       amount: new Decimal(invoice.amount ?? 0)
     }

@@ -29,6 +29,8 @@ export class Communication {
   static GENERATE_INVOICES = 'generateInvoices'
   static GET_INVOICES_BY_CUSTOMER_ID = 'getInvoicesByCustomerId'
   static GET_INVOICES_BY_CARD_ID = 'getInvoicesByCardId'
+  static PAY_INVOICE = 'payInvoice'
+  static PAY_PARTIAL_INVOICE = 'payPartialInvoice'
 
   // NOTE: File
   static IMPORT_FILE = 'importFile'

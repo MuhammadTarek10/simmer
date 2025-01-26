@@ -10,7 +10,10 @@ import {
   GetInvoiceById,
   CreateInvoice,
   UpdateInvoice,
-  DeleteInvoice
+  DeleteInvoice,
+  GenerateInvoices,
+  PayInvoice,
+  PayPartialInvoice
 } from '@shared/constants/types'
 
 declare global {
@@ -35,6 +38,9 @@ declare global {
       createInvoice: CreateInvoice
       updateInvoice: UpdateInvoice
       deleteInvoice: DeleteInvoice
+      generateInvoices: GenerateInvoices
+      payInvoice: PayInvoice
+      payPartialInvoice: PayPartialInvoice
 
       // NOTE: File
     }

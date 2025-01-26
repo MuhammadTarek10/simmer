@@ -1,7 +1,7 @@
 import { ICompanyService } from '@shared/interfaces/icompany.service'
 import { context } from '@shared/database/db-context'
 import { CompanyDto } from '@shared/dtos/company.dto'
-import { CompanyMapper } from '../mappers/company.mapper'
+import { CompanyMapper } from '@/mappers/company.mapper'
 import { Prisma } from '@prisma/client'
 
 export class CompanyService implements ICompanyService {

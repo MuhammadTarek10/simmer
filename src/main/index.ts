@@ -14,6 +14,8 @@ import {
   GetInvoices,
   GetInvoicesByCardId,
   GetInvoicesByCustomerId,
+  PayInvoice,
+  PayPartialInvoice,
   UpdateCompany,
   UpdateInvoice
 } from '@shared/constants/types'
@@ -170,6 +172,15 @@ app.whenReady().then(() => {
   ipcMain.handle(
     Communication.GENERATE_INVOICES,
     async (_, ...args: Parameters<GenerateInvoices>) => invoiceService.generateInvoices(...args)
+  )
+
+  ipcMain.handle(Communication.PAY_INVOICE, async (_, ...args: Parameters<PayInvoice>) =>
+    invoiceService.payInvoice(...args)
+  )
+
+  ipcMain.handle(
+    Communication.PAY_PARTIAL_INVOICE,
+    async (_, ...args: Parameters<PayPartialInvoice>) => invoiceService.payPartialInvoice(...args)
   )
 
   // TODO: Home

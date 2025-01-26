@@ -1,10 +1,10 @@
 import { CardDto } from './card.dto'
 
 export interface CompanyDto {
-  id: string | undefined
+  id: string
   name: string
   invoice_date: Date
-  phone: string | undefined
-  comment: string | undefined
-  cards?: CardDto[]
+  phone: string | null
+  comment: string | null
+  cards: CardDto[]
 }
