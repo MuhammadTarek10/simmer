@@ -1,6 +1,6 @@
 import { Card, Company } from '@prisma/client'
-import { CompanyDto } from '@shared/dtos/company.dto'
 import { CardMapper } from './card.mapper'
+import { CompanyDto } from '@shared/dtos/company.dto'
 
 interface CompanyWithRelations extends Company {
   cards: Card[]

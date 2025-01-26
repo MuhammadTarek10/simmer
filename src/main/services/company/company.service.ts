@@ -1,8 +1,8 @@
 import { ICompanyService } from '@shared/interfaces/icompany.service'
 import { context } from '@shared/database/db-context'
 import { CompanyDto } from '@shared/dtos/company.dto'
-import { CompanyMapper } from '@/mappers/company.mapper'
 import { Prisma } from '@prisma/client'
+import { CompanyMapper } from '@/mappers/company.mapper'
 
 export class CompanyService implements ICompanyService {
   async getCompanies(): Promise<CompanyDto[]> {
