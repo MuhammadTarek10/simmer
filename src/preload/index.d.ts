@@ -25,7 +25,8 @@ import {
   GetCustomerById,
   CreateCustomer,
   UpdateCustomer,
-  DeleteCustomer
+  DeleteCustomer,
+  TransferCard
 } from '@shared/constants/types'
 
 declare global {
@@ -53,6 +54,7 @@ declare global {
       createCustomer: CreateCustomer
       updateCustomer: UpdateCustomer
       deleteCustomer: DeleteCustomer
+      transferCard: TransferCard
 
       // NOTE: Invoice
       getInvoices: GetInvoices

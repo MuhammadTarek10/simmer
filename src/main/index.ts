@@ -26,6 +26,7 @@ import {
   GetInvoicesByCustomerId,
   PayInvoice,
   PayPartialInvoice,
+  TransferCard,
   UpdateCard,
   UpdateCompany,
   UpdateCustomer,
@@ -202,6 +203,10 @@ app.whenReady().then(() => {
 
   ipcMain.handle(Communication.DELETE_CUSTOMER, async (_, ...args: Parameters<DeleteCustomer>) =>
     customerService.deleteCustomer(...args)
+  )
+
+  ipcMain.handle(Communication.TRANSFER_CARD, async (_, ...args: Parameters<TransferCard>) =>
+    customerService.transferCard(...args)
   )
 
   // NOTE: Invoice

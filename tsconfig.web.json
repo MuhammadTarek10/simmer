@@ -27,7 +27,10 @@
         "src/config/*"
       ],
       "@shadcn/*": [
-        "src/renderer/src/shadcn/components/ui/*"
+        "src/renderer/src/shadcn/components/*"
+      ],
+      "@components/*": [
+        "src/renderer/src/components/*"
       ],
       "@lib/*": [
         "src/config/shadcn/lib/*"

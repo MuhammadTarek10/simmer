@@ -25,6 +25,7 @@ export type GetCustomerById = (id: string) => Promise<CustomerDto>
 export type CreateCustomer = (customer: CustomerDto) => Promise<CustomerDto>
 export type UpdateCustomer = (id: string, customer: CustomerDto) => Promise<CustomerDto>
 export type DeleteCustomer = (id: string) => Promise<void>
+export type TransferCard = (receiver_id: string, card_id: string) => Promise<void>
 
 // NOTE: Invoice
 export type GenerateInvoices = () => Promise<void>

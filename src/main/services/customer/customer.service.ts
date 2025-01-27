@@ -49,4 +49,11 @@ export class CustomerService implements ICustomerService {
       }
     })
   }
+
+  async transferCard(receiver_id: string, card_id: string): Promise<void> {
+    await context.card.update({
+      where: { id: card_id },
+      data: { customer_id: receiver_id }
+    })
+  }
 }

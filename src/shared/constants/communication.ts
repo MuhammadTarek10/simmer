@@ -21,6 +21,7 @@ export class Communication {
   static CREATE_CUSTOMER = 'createCustomer'
   static UPDATE_CUSTOMER = 'updateCustomer'
   static DELETE_CUSTOMER = 'deleteCustomer'
+  static TRANSFER_CARD = 'transferCard'
 
   // NOTE: Invoice
   static GET_INVOICES = 'getInvoices'

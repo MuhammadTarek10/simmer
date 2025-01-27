@@ -20,6 +20,7 @@ import {
   GetInvoices,
   GetInvoicesByCardId,
   GetInvoicesByCustomerId,
+  TransferCard,
   UpdateCard,
   UpdateCompany,
   UpdateCustomer,
@@ -72,6 +73,8 @@ try {
       ipcRenderer.invoke(Communication.UPDATE_CUSTOMER, ...args),
     deleteCustomer: (...args: Parameters<DeleteCustomer>) =>
       ipcRenderer.invoke(Communication.DELETE_CUSTOMER, ...args),
+    transferCard: (...args: Parameters<TransferCard>) =>
+      ipcRenderer.invoke(Communication.TRANSFER_CARD, ...args),
 
     // NOTE: Invoice
     getInvoices: (...args: Parameters<GetInvoices>) =>
