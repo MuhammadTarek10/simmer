@@ -117,8 +117,6 @@ export class InvoiceService implements IInvoiceService {
     for (const company of companies) {
       if (company.invoice_date.getDate() !== today.getDate()) continue
 
-      if (company.last_invoice_date && company.last_invoice_date >= today) continue
-
       const invoicesToCreate = company.cards.map((card) => ({
         customer_id: card.customer_id,
         card_id: card.id,

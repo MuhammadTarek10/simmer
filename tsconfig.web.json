@@ -26,6 +26,12 @@
       "@config/*": [
         "src/config/*"
       ],
+      "@shadcn/*": [
+        "src/renderer/src/shadcn/components/ui/*"
+      ],
+      "@lib/*": [
+        "src/config/shadcn/lib/*"
+      ],
       "@mocks/*": [
         "src/mocks/*"
       ]

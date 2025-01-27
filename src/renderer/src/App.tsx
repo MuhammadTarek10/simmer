@@ -3,6 +3,7 @@ import { InvoiceController } from './controllers/invoice.controller'
 import { CompanyController } from './controllers/company.controller'
 import { CardController } from './controllers/card.controller'
 import { CustomerController } from './controllers/customer.controller'
+import { Button } from '@shadcn/button'
 
 function App(): JSX.Element {
   const getCompanies = async () => {
@@ -37,38 +38,18 @@ function App(): JSX.Element {
       </p>
       <div className="actions">
         <div className="action">
+          {' '}
           <a href="https://electron-vite.org/" target="_blank" rel="noreferrer">
             Documentation
           </a>
         </div>
-        <div className="flex justify-around gap-8 border border-gray-500 p-4 m-4">
-          <button
-            className="cursor-pointer bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            onClick={getCompanies}
-          >
-            Get Companies
-          </button>
-
-          <button
-            className="cursor-pointer bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            onClick={getInvoices}
-          >
-            Get Invoices
-          </button>
-
-          <button
-            className="cursor-pointer bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            onClick={getCustomers}
-          >
-            Get Customers
-          </button>
-
-          <button
-            className="cursor-pointer bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            onClick={getCards}
-          >
-            Get Cards
-          </button>
+        <div className="">
+          <div className="flex justify-around gap-8 border border-gray-500 p-4 m-4">
+            <Button onClick={getCompanies}>Get Companies</Button>
+            <Button onClick={getInvoices}>Get Invoices</Button>
+            <Button onClick={getCustomers}>Get Customers</Button>
+            <Button onClick={getCards}>Get Cards</Button>
+          </div>
         </div>
       </div>
     </>
