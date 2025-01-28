@@ -4,7 +4,11 @@
     "src/renderer/src/env.d.ts",
     "src/renderer/src/**/*",
     "src/renderer/src/**/*.tsx",
-    "src/preload/*.d.ts"
+    "src/preload/*.d.ts",
+    "src/preload/**/*",
+    "src/shared/**/*",
+    "src/mocks/**/*",
+    "src/renderer/shadcn/**/*"
   ],
   "compilerOptions": {
     "composite": true,
@@ -24,13 +28,13 @@
         "resources/assets/*"
       ],
       "@shadcn/*": [
-        "src/renderer/src/shadcn/components/*"
+        "src/renderer/shadcn/components/*"
       ],
       "@components/*": [
         "src/renderer/src/components/*"
       ],
       "@lib/*": [
-        "src/config/shadcn/lib/*"
+        "src/renderer/shadcn/lib/*"
       ],
       "@mocks/*": [
         "src/mocks/*"
