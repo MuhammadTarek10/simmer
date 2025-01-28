@@ -5,10 +5,10 @@
   --color-primary-foreground: #fff;
 
   --color-secondary: #bbb222;
-  --color-secondary-foreground: 222.2 47.4% 11.2%;
+  --color-secondary-foreground: #fafafa;
 
-  --color-background: 0 0% 100%;
-  --color-foreground: 222.2 47.4% 11.2%;
+  --color-background: #fff;
+  --color-foreground: #000;
 
   --color-muted: 210 40% 96.1%;
   --color-muted-foreground: 215.4 16.3% 46.9%;
