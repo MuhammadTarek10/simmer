@@ -31,7 +31,6 @@ export default defineConfig({
         '@renderer': resolve('src/renderer/src'),
         '@assets': resolve('resources/assets'),
         '@shared': resolve('src/shared'),
-        '@config': resolve('src/config'),
         '@lib': resolve('src/config/shadcn/lib'),
         '@components': resolve('src/renderer/src/components'),
         '@shadcn': resolve('src/renderer/src/shadcn/components/'),

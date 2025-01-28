@@ -4,7 +4,7 @@
   --color-primary: #222;
   --color-primary-foreground: #fff;
 
-  --color-secondary: 210 40% 96.1%;
+  --color-secondary: #bbb222;
   --color-secondary-foreground: 222.2 47.4% 11.2%;
 
   --color-background: 0 0% 100%;
@@ -19,13 +19,13 @@
   --color-border: 214.3 31.8% 91.4%;
   --color-input: 214.3 31.8% 91.4%;
 
-  --color-card: 0 0% 100%;
+  --color-card: #231321;
   --color-card-foreground: 222.2 47.4% 11.2%;
 
-  --color-accent: 210 40% 96.1%;
+  --color-accent: #242baf;
   --color-accent-foreground: 222.2 47.4% 11.2%;
 
-  --color-destructive: 0 100% 50%;
+  --color-destructive: red;
   --color-destructive-foreground: 210 40% 98%;
 
   --color-ring: 215 20.2% 65.1%;

@@ -7,7 +7,7 @@ const Layout = () => {
       <aside className="flex-1">
         <SimmerSidebar />
       </aside>
-      <main className="flex flex-3">
+      <main className="flex flex-5">
         <Outlet />
       </main>
     </div>

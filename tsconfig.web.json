@@ -23,9 +23,6 @@
       "@assets/*": [
         "resources/assets/*"
       ],
-      "@config/*": [
-        "src/config/*"
-      ],
       "@shadcn/*": [
         "src/renderer/src/shadcn/components/*"
       ],

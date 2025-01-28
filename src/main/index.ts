@@ -32,21 +32,17 @@ import {
   UpdateCustomer,
   UpdateInvoice
 } from '@shared/constants/types'
-import { ICompanyService } from '@shared/interfaces/icompany.service'
-import { CompanyService } from './services/company/company.service'
-import { IInvoiceService } from '@shared/interfaces/iincoive.service'
-import { InvoiceService } from './services/invoice/invoice.service'
+import { di } from './services'
 import { Communication } from '@shared/constants/communication'
-import { ICardService } from '@shared/interfaces/icard.service'
-import { CardService } from './services/card/card.service'
-import { ICustomerService } from '@shared/interfaces/icustomer.service'
-import { CustomerService } from './services/customer/customer.service'
+import './start'
 
 function createWindow(): void {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 900,
     height: 670,
+    minWidth: 900,
+    minHeight: 670,
     show: false,
     autoHideMenuBar: true,
     ...(process.platform === 'linux' ? { icon } : {}),
@@ -108,12 +104,6 @@ function createWindow(): void {
   // }
 }
 
-// * Services
-const companyService: ICompanyService = new CompanyService()
-const invoiceService: IInvoiceService = new InvoiceService()
-const cardService: ICardService = new CardService()
-const customerService: ICustomerService = new CustomerService()
-
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
@@ -132,128 +122,130 @@ app.whenReady().then(() => {
 
   //  NOTE: Company
   ipcMain.handle(Communication.GET_COMPANIES, async (_, ...args: Parameters<GetCompanies>) =>
-    companyService.getCompanies(...args)
+    di.companyService.getCompanies(...args)
   )
 
   ipcMain.handle(Communication.GET_COMPANY_BY_ID, async (_, ...args: Parameters<GetCompanyById>) =>
-    companyService.getCompanyById(...args)
+    di.companyService.getCompanyById(...args)
   )
 
   ipcMain.handle(Communication.CREATE_COMPANY, async (_, ...args: Parameters<CreateCompany>) =>
-    companyService.createCompany(...args)
+    di.companyService.createCompany(...args)
   )
 
   ipcMain.handle(Communication.UPDATE_COMPANY, async (_, ...args: Parameters<UpdateCompany>) =>
-    companyService.updateCompany(...args)
+    di.companyService.updateCompany(...args)
   )
 
   ipcMain.handle(Communication.DELETE_COMPANY, async (_, ...args: Parameters<DeleteCompany>) =>
-    companyService.deleteCompany(...args)
+    di.companyService.deleteCompany(...args)
   )
 
   // NOTE: Card
   ipcMain.handle(Communication.GET_CARDS, async (_, ...args: Parameters<GetCards>) =>
-    cardService.getCards(...args)
+    di.cardService.getCards(...args)
   )
 
   ipcMain.handle(Communication.GET_CARD_BY_ID, async (_, ...args: Parameters<GetCardById>) =>
-    cardService.getCardById(...args)
+    di.cardService.getCardById(...args)
   )
 
   ipcMain.handle(Communication.CREATE_CARD, async (_, ...args: Parameters<CreateCard>) =>
-    cardService.createCard(...args)
+    di.cardService.createCard(...args)
   )
 
   ipcMain.handle(Communication.UPDATE_CARD, async (_, ...args: Parameters<UpdateCard>) =>
-    cardService.updateCard(...args)
+    di.cardService.updateCard(...args)
   )
 
   ipcMain.handle(Communication.DELETE_CARD, async (_, ...args: Parameters<DeleteCard>) =>
-    cardService.deleteCard(...args)
+    di.cardService.deleteCard(...args)
   )
 
   ipcMain.handle(
     Communication.GET_CARDS_BY_CUSTOMER_ID,
     async (_, ...args: Parameters<GetCardsByCustomerId>) =>
-      cardService.getCardsByCustomerId(...args)
+      di.cardService.getCardsByCustomerId(...args)
   )
 
   ipcMain.handle(
     Communication.GET_CARDS_BY_COMPANY_ID,
-    async (_, ...args: Parameters<GetCardsByCompanyId>) => cardService.getCardsByCompanyId(...args)
+    async (_, ...args: Parameters<GetCardsByCompanyId>) =>
+      di.cardService.getCardsByCompanyId(...args)
   )
 
   // NOTE: Customer
   ipcMain.handle(Communication.GET_CUSTOMERS, async (_, ...args: Parameters<GetCustomers>) =>
-    customerService.getCustomers(...args)
+    di.customerService.getCustomers(...args)
   )
 
   ipcMain.handle(
     Communication.GET_CUSTOMER_BY_ID,
-    async (_, ...args: Parameters<GetCustomerById>) => customerService.getCustomerById(...args)
+    async (_, ...args: Parameters<GetCustomerById>) => di.customerService.getCustomerById(...args)
   )
 
   ipcMain.handle(Communication.CREATE_CUSTOMER, async (_, ...args: Parameters<CreateCustomer>) =>
-    customerService.createCustomer(...args)
+    di.customerService.createCustomer(...args)
   )
 
   ipcMain.handle(Communication.UPDATE_CUSTOMER, async (_, ...args: Parameters<UpdateCustomer>) =>
-    customerService.updateCustomer(...args)
+    di.customerService.updateCustomer(...args)
   )
 
   ipcMain.handle(Communication.DELETE_CUSTOMER, async (_, ...args: Parameters<DeleteCustomer>) =>
-    customerService.deleteCustomer(...args)
+    di.customerService.deleteCustomer(...args)
   )
 
   ipcMain.handle(Communication.TRANSFER_CARD, async (_, ...args: Parameters<TransferCard>) =>
-    customerService.transferCard(...args)
+    di.customerService.transferCard(...args)
   )
 
   // NOTE: Invoice
   ipcMain.handle(Communication.GET_INVOICES, async (_, ...args: Parameters<GetInvoices>) =>
-    invoiceService.getInvoices(...args)
+    di.invoiceService.getInvoices(...args)
   )
 
   ipcMain.handle(Communication.GET_INVOICE_BY_ID, async (_, ...args: Parameters<GetInvoiceById>) =>
-    invoiceService.getInvoiceById(...args)
+    di.invoiceService.getInvoiceById(...args)
   )
 
   ipcMain.handle(
     Communication.GET_INVOICES_BY_CARD_ID,
     async (_, ...args: Parameters<GetInvoicesByCardId>) =>
-      invoiceService.getInvoiceByCardId(...args)
+      di.invoiceService.getInvoiceByCardId(...args)
   )
 
   ipcMain.handle(
     Communication.GET_INVOICES_BY_CUSTOMER_ID,
     async (_, ...args: Parameters<GetInvoicesByCustomerId>) =>
-      invoiceService.getInvoicesByCustomerId(...args)
+      di.invoiceService.getInvoicesByCustomerId(...args)
   )
 
   ipcMain.handle(Communication.CREATE_INVOICE, async (_, ...args: Parameters<CreateInvoice>) =>
-    invoiceService.createInvoice(...args)
+    di.invoiceService.createInvoice(...args)
   )
 
   ipcMain.handle(Communication.UPDATE_INVOICE, async (_, ...args: Parameters<UpdateInvoice>) =>
-    invoiceService.updateInvoice(...args)
+    di.invoiceService.updateInvoice(...args)
   )
 
   ipcMain.handle(Communication.DELETE_INVOICE, async (_, ...args: Parameters<DeleteInvoice>) =>
-    invoiceService.deleteInvoice(...args)
+    di.invoiceService.deleteInvoice(...args)
   )
 
   ipcMain.handle(
     Communication.GENERATE_INVOICES,
-    async (_, ...args: Parameters<GenerateInvoices>) => invoiceService.generateInvoices(...args)
+    async (_, ...args: Parameters<GenerateInvoices>) => di.invoiceService.generateInvoices(...args)
   )
 
   ipcMain.handle(Communication.PAY_INVOICE, async (_, ...args: Parameters<PayInvoice>) =>
-    invoiceService.payInvoice(...args)
+    di.invoiceService.payInvoice(...args)
   )
 
   ipcMain.handle(
     Communication.PAY_PARTIAL_INVOICE,
-    async (_, ...args: Parameters<PayPartialInvoice>) => invoiceService.payPartialInvoice(...args)
+    async (_, ...args: Parameters<PayPartialInvoice>) =>
+      di.invoiceService.payPartialInvoice(...args)
   )
 
   // TODO: File
