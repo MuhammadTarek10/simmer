@@ -1,5 +1,6 @@
 import { di } from '@/services'
 import cron from 'node-cron'
+import { LoggerService } from '@shared/services/logger'
 
 export const startInvoiceCronJob = () => {
   cron.schedule('0 0 * * *', async () => {
@@ -10,5 +11,5 @@ export const startInvoiceCronJob = () => {
       console.error('Error generating invoices:', error)
     }
   })
-  console.log('Invoice generation cron job scheduled.')
+  LoggerService.info('Invoice generation cron job scheduled.')
 }
