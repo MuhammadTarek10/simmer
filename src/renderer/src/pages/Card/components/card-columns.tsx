@@ -1,4 +1,4 @@
-import { DataTableColumnHeader } from '@components/columns'
+import { DataTableColumnHeader } from '@components/column-header'
 
 export const card_columns = [
   {

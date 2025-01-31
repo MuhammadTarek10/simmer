@@ -1,4 +1,5 @@
-import { DataTableColumnHeader } from '@components/columns'
+import { ColumnAction } from '@components/column-action'
+import { DataTableColumnHeader } from '@components/column-header'
 
 export const company_columns = [
   {
@@ -33,5 +34,23 @@ export const company_columns = [
     accessorKey: 'comment',
     header: ({ column }) => <DataTableColumnHeader column={column} title="ملاحظات" sort={false} />,
     cell: ({ row }) => row.original.comment ?? 'لا يوجد'
+  },
+  {
+    id: 'actions',
+    cell: ({ row }) => (
+      <ColumnAction
+        element={row.original}
+        actions={[
+          {
+            callback: (company) => console.log('edit', company),
+            label: 'تعديل'
+          },
+          {
+            callback: () => console.log('delete'),
+            label: 'حذف'
+          }
+        ]}
+      />
+    )
   }
 ]
