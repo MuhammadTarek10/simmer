@@ -30,4 +30,10 @@
 
   --color-ring: 215 20.2% 65.1%;
   --radius: 0.5rem;
+
+  --color-sidebar: red;
+  --color-sidebar-foreground: #fff;
+
+  --color-card: #231321;
+  --color-card-foreground: #000000;
 }

@@ -14,4 +14,8 @@
   .table-content {
     @apply text-[15px];
   }
+
+  .sidebar {
+    @apply flex flex-col gap-2 sticky top-0 bg-sidebar p-4;
+  }
 }

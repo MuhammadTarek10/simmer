@@ -1,12 +1,12 @@
 import { CardDto } from '@shared/dtos/card.dto'
 
 export class CardController {
-  public static async getCardsByCustomerId(customerId: string): Promise<CardDto[]> {
-    return await window.context.getCardsByCustomerId(customerId)
+  public static async getCardsByCustomerId(customer_id: string): Promise<CardDto[]> {
+    return await window.context.getCardsByCustomerId(customer_id)
   }
 
-  public static async getCardsByCompanyId(companyId: string): Promise<CardDto[]> {
-    return await window.context.getCardsByCompanyId(companyId)
+  public static async getCardsByCompanyId(company_id: string): Promise<CardDto[]> {
+    return await window.context.getCardsByCompanyId(company_id)
   }
 
   public static async getCards(): Promise<CardDto[]> {

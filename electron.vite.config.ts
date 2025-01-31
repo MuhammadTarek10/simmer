@@ -32,7 +32,8 @@ export default defineConfig({
         '@shared': resolve('src/shared'),
         '@lib': resolve('src/renderer/shadcn/lib'),
         '@components': resolve('src/renderer/src/components'),
-        '@controllers': resolve('src/renderer/src/controllers'),
+        '@/controllers': resolve('src/renderer/src/controllers'),
+        '@/pages': resolve('src/renderer/src/pages'),
         '@shadcn': resolve('src/renderer/shadcn/components'),
         '@mock': resolve('src/mock')
       }

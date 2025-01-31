@@ -7,7 +7,8 @@ import { CompanyMapper } from '@/mappers/company.mapper'
 export class CompanyService implements ICompanyService {
   async getCompanies(): Promise<CompanyDto[]> {
     const companies = await context.company.findMany({
-      orderBy: { name: 'asc' }
+      orderBy: { name: 'asc' },
+      include: { cards: true }
     })
 
     return CompanyMapper.toDtos(companies)
@@ -15,13 +16,13 @@ export class CompanyService implements ICompanyService {
 
   async getCompanyById(id: string): Promise<CompanyDto> {
     const company = await context.company.findUnique({
-      include: { cards: true },
-      where: { id: id }
+      where: { id: id },
+      include: { cards: true }
     })
 
     if (company === null) throw new Error(`Company with id ${id} not found`)
 
-    return CompanyMapper.toDto(company, true)
+    return CompanyMapper.toDto(company)
   }
 
   async createCompany(dto: CompanyDto): Promise<CompanyDto> {

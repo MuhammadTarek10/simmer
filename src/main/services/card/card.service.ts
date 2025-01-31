@@ -8,7 +8,8 @@ export class CardService implements ICardService {
   async getCards(): Promise<CardDto[]> {
     const cards = await context.card.findMany({
       include: {
-        customer: true
+        customer: true,
+        company: true
       }
     })
 
@@ -17,9 +18,8 @@ export class CardService implements ICardService {
 
   async getCardsByCustomerId(customer_id: string): Promise<CardDto[]> {
     const cards = await context.card.findMany({
-      where: {
-        customer_id: customer_id
-      }
+      where: { customer_id },
+      include: { company: true }
     })
 
     return CardMapper.toDtos(cards)
@@ -27,9 +27,8 @@ export class CardService implements ICardService {
 
   async getCardsByCompanyId(company_id: string): Promise<CardDto[]> {
     const cards = await context.card.findMany({
-      where: {
-        company_id: company_id
-      }
+      where: { company_id },
+      include: { customer: true }
     })
 
     return CardMapper.toDtos(cards)
@@ -37,8 +36,10 @@ export class CardService implements ICardService {
 
   async getCardById(id: string): Promise<CardDto> {
     const card = await context.card.findUnique({
-      where: {
-        id: id
+      where: { id },
+      include: {
+        customer: true,
+        company: true
       }
     })
 

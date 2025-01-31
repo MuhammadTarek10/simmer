@@ -11,14 +11,14 @@ export class CompanyMapper {
     return companies.map((company: Company) => CompanyMapper.toDto(company))
   }
 
-  public static toDto(company: Company | CompanyWithRelations, includeCards = false): CompanyDto {
+  public static toDto(company: Company | CompanyWithRelations): CompanyDto {
     return {
       id: company.id,
       name: company.name,
       invoice_date: company.invoice_date,
       phone: company.phone ?? '',
       comment: company.comment ?? '',
-      cards: includeCards && 'cards' in company ? CardMapper.toDtos(company.cards) : []
+      cards: 'cards' in company ? CardMapper.toDtos(company.cards) : []
     }
   }
 

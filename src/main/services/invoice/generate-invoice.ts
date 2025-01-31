@@ -51,17 +51,14 @@ export class InvoiceGenerationService {
         }
       }
 
-      results.map((result) => {
-        if (result.success) {
-          logger.info(
-            `Generated ${result.invoices_generated} invoices for company ${result.company_id}`
-          )
-        } else {
-          logger.error(
-            `Failed to generate invoices for company ${result.company_id}: ${result.error}`
-          )
-        }
-      })
+      const summary = {
+        totalCompanies: results.length,
+        successfulCompanies: results.filter((r) => r.success).length,
+        totalInvoices: results.reduce((sum, r) => sum + r.invoices_generated, 0),
+        failures: results.filter((r) => !r.success)
+      }
+
+      logger.info('Invoice generation completed', JSON.stringify(summary))
     } catch (error) {
       logger.error('Invoice generation failed', error)
       throw new Error('Failed to generate invoices')

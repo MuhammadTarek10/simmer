@@ -6,15 +6,21 @@ import { Prisma } from '@prisma/client'
 
 export class CustomerService implements ICustomerService {
   async getCustomers(): Promise<CustomerDto[]> {
-    const customers = await context.customer.findMany()
+    const customers = await context.customer.findMany({
+      include: {
+        cards: true
+      }
+    })
 
     return CustomerMapper.toDtos(customers)
   }
 
   async getCustomerById(id: string): Promise<CustomerDto> {
     const customer = await context.customer.findUnique({
-      where: {
-        id
+      where: { id },
+      include: {
+        cards: true,
+        invoices: true
       }
     })
 
