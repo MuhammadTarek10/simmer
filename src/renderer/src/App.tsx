@@ -11,6 +11,7 @@ import CardListPage from './pages/Card/CardListPage'
 import CardDetailsPage from './pages/Card/CardDetailsPage'
 import CustomerListPage from './pages/Customer/CustomerListPage'
 import CustomerDetailsPage from './pages/Customer/CustomerDetailsPage'
+import { Loading } from './pages/Global/Loading'
 
 function App(): JSX.Element {
   const router = createHashRouter(
@@ -27,7 +28,7 @@ function App(): JSX.Element {
         </Route>
         <Route path="/customers">
           <Route index Component={CustomerListPage} />
-          <Route path=":id" Component={CustomerDetailsPage} />
+          <Route path=":id" Component={CompanyDetailsPage} />
         </Route>
       </Route>
     )
@@ -35,6 +36,7 @@ function App(): JSX.Element {
 
   return (
     <Provider store={store}>
+      <Loading />
       <RouterProvider router={router} />
     </Provider>
   )

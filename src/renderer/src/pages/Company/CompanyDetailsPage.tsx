@@ -6,7 +6,7 @@ const CompanyDetailsPage = () => {
   const { id } = useParams()
   const { company, error } = useCompany(id!)
 
-  if (error || !company) {
+  if (error) {
     return (
       <div>
         <p>Error: {error}</p>
@@ -15,7 +15,7 @@ const CompanyDetailsPage = () => {
     )
   }
 
-  return <CompanyDetails company={company} />
+  return company ? <CompanyDetails company={company} /> : <></>
 }
 
 export default CompanyDetailsPage

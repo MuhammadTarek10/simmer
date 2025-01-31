@@ -1,10 +1,10 @@
 import { AppDispatch, RootState } from '@/pages/store'
 import { useDispatch, useSelector } from 'react-redux'
-import { clearCurrentCompany, fetchCompanyById } from './company_slice'
+import { clearCurrentCompany, fetchCompanyById } from './company-slice'
 import { useEffect, useMemo } from 'react'
 import { CompanyDto } from '@shared/dtos/company.dto'
 import { useDebounce } from 'use-debounce'
-import { setLoading, setError, clearError } from '../../Global/state/global-slice' // Import global state actions
+import { setLoading, setError, clearError } from '@/pages/Global/state/global-slice' // Import global state actions
 
 interface UseCompanyResult {
   company: CompanyDto | null

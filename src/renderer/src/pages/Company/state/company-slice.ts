@@ -15,20 +15,17 @@ const initialState: CompanyState = {
   }
 }
 
-export const fetchCompanies = createAsyncThunk(
-  'company/fetchAll',
-  async (_, { rejectWithValue }) => {
-    try {
-      const response = await CompanyController.getCompanies()
-      return response
-    } catch (error) {
-      return rejectWithValue(error instanceof Error ? error.message : 'Failed to fetch companies')
-    }
+export const fetchCompanies = createAsyncThunk('companies', async (_, { rejectWithValue }) => {
+  try {
+    const response = await CompanyController.getCompanies()
+    return response
+  } catch (error) {
+    return rejectWithValue(error instanceof Error ? error.message : 'Failed to fetch companies')
   }
-)
+})
 
 export const fetchCompanyById = createAsyncThunk(
-  'company/fetchById',
+  'companies/id',
   async (id: string, { rejectWithValue }) => {
     try {
       const response = await CompanyController.getCompany(id)

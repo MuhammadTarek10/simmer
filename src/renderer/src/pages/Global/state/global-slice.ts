@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-interface AppState {
+interface GlobalState {
   isLoading: boolean
   error: string | null
 }
 
-const initialState: AppState = {
+const initialState: GlobalState = {
   isLoading: false,
   error: null
 }
