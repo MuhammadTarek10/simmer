@@ -14,8 +14,8 @@
     "utils": "@config/shadcn/lib/utils",
     "lib": "@config/shadcn/lib",
     "hooks": "src/renderer/src/shadcn/components/hooks",
-    "components": "src/renderer/src/shadcn/components",
-    "ui": "src/renderer/src/shadcn/components/ui"
+    "components": "src/renderer/shadcn/components",
+    "ui": "src/renderer/shadcn/components/ui"
   },
   "iconLibrary": "lucide"
 }

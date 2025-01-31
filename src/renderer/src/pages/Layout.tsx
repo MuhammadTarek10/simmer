@@ -1,4 +1,4 @@
-import SimmerSidebar from '@components/SimmerSidebar'
+import SimmerSidebar from './SimmerSidebar'
 import { Outlet } from 'react-router-dom'
 
 const Layout = () => {
