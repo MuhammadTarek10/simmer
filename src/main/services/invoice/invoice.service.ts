@@ -5,6 +5,7 @@ import { context } from '@shared/database/db-context'
 import { InvoiceMapper } from '@/mappers/invoice.mapper'
 import { InvoiceStatus, Prisma } from '@prisma/client'
 import { DateService } from '../date/date.service'
+import { InvoiceGenerationService } from './generate-invoice'
 
 export class InvoiceService implements IInvoiceService {
   async getInvoices(): Promise<InvoiceDto[]> {
@@ -102,40 +103,9 @@ export class InvoiceService implements IInvoiceService {
   }
 
   async generateInvoices(): Promise<void> {
-    const date = await DateService.getCurrentDate()
-    const today = new Date(date.getFullYear(), date.getMonth(), date.getDate())
+    const inner_service = new InvoiceGenerationService()
 
-    const companies = await context.company.findMany({
-      include: {
-        cards: {
-          where: { customer_id: { not: null } },
-          include: { customer: true }
-        }
-      }
-    })
-
-    for (const company of companies) {
-      if (company.invoice_date.getDate() !== today.getDate()) continue
-
-      const invoicesToCreate = company.cards.map((card) => ({
-        customer_id: card.customer_id,
-        card_id: card.id,
-        amount: card.price_after_vat,
-        invoice_date: today,
-        status: InvoiceStatus.PENDING
-      }))
-
-      if (invoicesToCreate.length > 0) {
-        await context.invoice.createMany({
-          data: invoicesToCreate
-        })
-      }
-
-      await context.company.update({
-        where: { id: company.id },
-        data: { last_invoice_date: today }
-      })
-    }
+    await inner_service.generateInvoices()
   }
 
   async payInvoice(id: string): Promise<InvoiceDto> {

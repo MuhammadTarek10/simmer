@@ -27,6 +27,7 @@ model Card {
   number           String   @unique
   price_before_vat Decimal  @default(0)
   price_after_vat  Decimal  @default(0)
+  start_date       DateTime
   created_at       DateTime @default(now())
   updated_at       DateTime @updatedAt
   comment          String?

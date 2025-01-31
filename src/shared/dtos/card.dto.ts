@@ -6,6 +6,7 @@ export interface CardDto {
   number: string
   price_before_vat: number
   price_after_vat: number
+  start_date: Date
   comment: string | null
   company: CompanyDto | null
   customer: CustomerDto | null

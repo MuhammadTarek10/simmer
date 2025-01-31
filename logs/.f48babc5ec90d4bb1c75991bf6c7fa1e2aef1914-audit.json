@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "logs/.f48babc5ec90d4bb1c75991bf6c7fa1e2aef1914-audit.json",
+    "files": [
+        {
+            "date": 1738294576237,
+            "name": "logs/simmer-2025-01-31.log",
+            "hash": "351ca1a63e6e86688c3ba0168f2580e738c9a0368ca39786ac5123f688da1dad"
+        }
+    ],
+    "hashType": "sha256"
+}

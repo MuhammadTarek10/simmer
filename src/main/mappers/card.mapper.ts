@@ -20,6 +20,7 @@ export class CardMapper {
       number: card.number,
       price_before_vat: Number(card.price_before_vat),
       price_after_vat: Number(card.price_after_vat),
+      start_date: card.start_date,
       comment: card.comment,
       company: 'company' in card ? CompanyMapper.toDto(card.company) : null,
       customer: 'customer' in card ? CustomerMapper.toDto(card.customer) : null
@@ -30,6 +31,7 @@ export class CardMapper {
     return {
       id: card.id,
       number: card.number,
+      start_date: card.start_date,
       price_before_vat: new Decimal(card.price_before_vat ?? 0),
       price_after_vat: new Decimal(card.price_after_vat ?? 0),
       comment: card.comment,

@@ -10,8 +10,7 @@ export default defineConfig({
       alias: {
         '@': resolve('src/main'),
         '@assets': resolve('resources/assets'),
-        '@shared': resolve('src/shared'),
-        '@config': resolve('src/config')
+        '@shared': resolve('src/shared')
       }
     }
   },
@@ -19,8 +18,7 @@ export default defineConfig({
     plugins: [externalizeDepsPlugin()],
     resolve: {
       alias: {
-        '@shared': resolve('src/shared'),
-        '@config': resolve('src/config')
+        '@shared': resolve('src/shared')
       }
     }
   },
@@ -33,6 +31,7 @@ export default defineConfig({
         '@shared': resolve('src/shared'),
         '@lib': resolve('src/renderer/shadcn/lib'),
         '@components': resolve('src/renderer/src/components'),
+        '@controllers': resolve('src/renderer/src/controllers'),
         '@shadcn': resolve('src/renderer/shadcn/components'),
         '@mock': resolve('src/mock')
       }

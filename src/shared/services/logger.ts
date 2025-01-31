@@ -1,36 +1,62 @@
 import { createLogger, format, transports } from 'winston'
-import * as dotenv from 'dotenv'
+import 'winston-daily-rotate-file'
 
-dotenv.config()
+const isDev = process.env.NODE_ENV === 'development'
 
 const logger = createLogger({
-  level: process.env.NODE_ENV === 'development' ? 'debug' : 'info',
+  level: isDev ? 'debug' : 'info',
   format: format.combine(
     format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
-    format.printf(
-      ({ level, message, timestamp }) => `[${timestamp}] ${level.toUpperCase()}: ${message}`
+    format.errors({ stack: true }),
+    format.printf(({ level, message, timestamp, stack }) =>
+      stack
+        ? `[${timestamp}] ${level.toUpperCase()}: ${stack}`
+        : `[${timestamp}] ${level.toUpperCase()}: ${message}`
     )
   ),
   transports: [
-    new transports.Console(), // Log to the console
-    new transports.File({ filename: 'logs/simmer.log' }) // Log to a file
+    new transports.Console({
+      format: format.combine(
+        // format.colorize(),
+        format.printf(({ level, message, timestamp, stack }) =>
+          stack
+            ? `[${timestamp}] ${level.toUpperCase()}: ${stack}`
+            : `[${timestamp}] ${level.toUpperCase()}: ${message}`
+        )
+      )
+    }),
+    ...(isDev
+      ? []
+      : [
+          new transports.DailyRotateFile({
+            filename: 'logs/simmer-%DATE%.log',
+            datePattern: 'YYYY-MM-DD',
+            maxSize: '10m',
+            maxFiles: '14d',
+            zippedArchive: true
+          })
+        ])
   ]
 })
 
 export class LoggerService {
-  static info(message: string): void {
-    logger.info(message)
+  static info(message: string, meta?: any): void {
+    logger.info(message, meta)
   }
 
-  static error(message: string): void {
-    logger.error(message)
+  static error(error: Error | string, meta?: any): void {
+    if (error instanceof Error) {
+      logger.error(error.message, { stack: error.stack, ...meta })
+    } else {
+      logger.error(error, meta)
+    }
   }
 
-  static warn(message: string): void {
-    logger.warn(message)
+  static warn(message: string, meta?: any): void {
+    logger.warn(message, meta)
   }
 
-  static debug(message: string): void {
-    logger.debug(message)
+  static debug(message: string, meta?: any): void {
+    logger.debug(message, meta)
   }
 }

@@ -36,6 +36,9 @@
       "@lib/*": [
         "src/renderer/shadcn/lib/*"
       ],
+      "@controllers/*": [
+        "src/renderer/controllers/*"
+      ],
       "@mocks/*": [
         "src/mocks/*"
       ]
