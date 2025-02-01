@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import type { CompanyState } from './types'
 import { CompanyController } from '@/controllers/company.controller'
+import { promisify } from 'util'
 
 const initialState: CompanyState = {
   companies: {
@@ -28,6 +29,7 @@ export const fetchCompanyById = createAsyncThunk(
   'companies/id',
   async (id: string, { rejectWithValue }) => {
     try {
+      await new Promise((resolve) => setTimeout(resolve, 2000)) // Delay first
       const response = await CompanyController.getCompany(id)
       return response
     } catch (error) {

@@ -3,6 +3,25 @@
 @import './theme.css';
 @import './components.css';
 
+html {
+  direction: rtl;
+}
+
 body {
   @apply bg-background text-foreground;
+}
+
+html,
+body {
+  overflow: hidden;
+}
+
+.scrollbar-hidden {
+  overflow-y: auto;
+  -ms-overflow-style: none; /* Hide scrollbar in IE/Edge */
+  scrollbar-width: none; /* Hide scrollbar in Firefox */
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none; /* Hide scrollbar in Chromium/Electron */
 }

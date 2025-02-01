@@ -6,44 +6,42 @@ import { CompanyDto } from '@shared/dtos/company.dto'
 import { useDebounce } from 'use-debounce'
 import { setLoading, setError, clearError } from '@/pages/Global/state/global-slice' // Import global state actions
 
-interface UseCompanyResult {
-  company: CompanyDto | null
-  isLoading: boolean
-  error: string | null
-}
-
-export const useCompany = (id: string): UseCompanyResult => {
+export const useCompany = (id: string): CompanyDto | null => {
   const dispatch = useDispatch<AppDispatch>()
-  const [debounced_id] = useDebounce(id, 500) // Debounce the ID to avoid excessive API calls
+  const [debouncedId] = useDebounce(id, 500) // Debounce the ID to avoid excessive API calls
 
   // Select company data and global state from the Redux store
   const { data: company } = useSelector((state: RootState) => state.company.currentCompany)
-  const { isLoading, error } = useSelector((state: RootState) => state.global)
+  const error = useSelector((state: RootState) => state.global.error)
 
   useEffect(() => {
-    if (!debounced_id) return
+    if (!debouncedId) return
 
     const fetchCompany = async () => {
-      dispatch(setLoading(true)) // Set global loading state
-      dispatch(clearError()) // Clear any previous errors
+      dispatch(setLoading(true))
+      dispatch(clearError())
 
       try {
-        await dispatch(fetchCompanyById(debounced_id)).unwrap()
+        await dispatch(fetchCompanyById(debouncedId)).unwrap()
       } catch (error: any) {
-        dispatch(setError(error.message || 'Failed to fetch company data')) // Set global error state
+        dispatch(setError(error.message || 'Failed to fetch company data'))
       } finally {
-        dispatch(setLoading(false)) // Clear global loading state
+        dispatch(setLoading(false))
       }
     }
 
     fetchCompany()
 
     return () => {
-      dispatch(clearCurrentCompany()) // Clear company data on unmount
-      dispatch(clearError()) // Clear any errors on unmount
+      dispatch(clearCurrentCompany())
+      dispatch(clearError())
     }
-  }, [debounced_id, dispatch])
+  }, [debouncedId, dispatch])
+
+  if (error) {
+    throw new Error(error)
+  }
 
   // Memoize the result to prevent unnecessary re-renders
-  return useMemo(() => ({ company, isLoading, error }), [company, isLoading, error])
+  return useMemo(() => company || null, [company])
 }

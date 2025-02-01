@@ -4,18 +4,9 @@ import { CompanyDetails } from './components/CompanyDetails'
 
 const CompanyDetailsPage = () => {
   const { id } = useParams()
-  const { company, error } = useCompany(id!)
+  const company = useCompany(id!)
 
-  if (error) {
-    return (
-      <div>
-        <p>Error: {error}</p>
-        <button onClick={() => window.location.reload()}>Retry</button>
-      </div>
-    )
-  }
-
-  return company ? <CompanyDetails company={company} /> : <></>
+  return company && <CompanyDetails company={company} />
 }
 
 export default CompanyDetailsPage
