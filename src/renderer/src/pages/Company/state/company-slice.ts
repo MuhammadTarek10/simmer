@@ -18,6 +18,7 @@ const initialState: CompanyState = {
 
 export const fetchCompanies = createAsyncThunk('companies', async (_, { rejectWithValue }) => {
   try {
+    await new Promise((resolve) => setTimeout(resolve, 2000)) // Delay first
     const response = await CompanyController.getCompanies()
     return response
   } catch (error) {

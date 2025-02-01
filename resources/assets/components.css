@@ -4,7 +4,7 @@
   }
 
   .center {
-    @apply flex flex-col items-center justify-center;
+    @apply flex items-center justify-center;
   }
 
   .table-header {

@@ -34,15 +34,22 @@ const HomePage = () => {
 
   return (
     <div className="container">
-      <div className="center">
+      <div className="flex-col center gap-2">
         <h1>Home Page</h1>
-        <div className="flex gap-16">
-          <Button onClick={getCompanies}>Companies</Button>
-          <Button onClick={getCustomers}>Customers</Button>
-          <Button onClick={getCards}>Cards</Button>
-          <Link to={'/companies/9fc94eb8-2366-40b8-b47a-dc3ef7ea9f32'}>
-            <Button>Navigate to company</Button>
-          </Link>
+        <div className="flex flex-col gap-8">
+          <div className="flex gap-4 center">
+            <Button onClick={getCompanies}>Companies</Button>
+            <Button onClick={getCustomers}>Customers</Button>
+            <Button onClick={getCards}>Cards</Button>
+          </div>
+          <div className="flex gap-4 center">
+            <Link to={'/companies/9fc94eb8-2366-40b8-b47a-dc3ef7ea9f32'}>
+              <Button>Navigate to company</Button>
+            </Link>
+            <Link to={'/companies'}>
+              <Button>Navigate Companies</Button>
+            </Link>
+          </div>
         </div>
       </div>
       <DataTable columns={company_columns} data={companies} filter="name" />

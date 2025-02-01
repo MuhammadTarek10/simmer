@@ -1,25 +1,23 @@
 import { AppDispatch, RootState } from '@/pages/store'
-import { useDispatch, useSelector } from 'react-redux'
-import { clearCurrentCompany, fetchCompanyById } from './company-slice'
 import { useEffect, useMemo } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { clearCurrentCompany, fetchCompanies } from './company-slice'
+import { setLoading, clearError, setError } from '@/pages/Global/state/global-slice'
 import { CompanyDto } from '@shared/dtos/company.dto'
-import { setLoading, setError, clearError } from '@/pages/Global/state/global-slice' // Import global state actions
 
-export const useCompany = (id: string): CompanyDto | null => {
+export const useCompanies = (): CompanyDto[] => {
   const dispatch = useDispatch<AppDispatch>()
 
-  const { data: company } = useSelector((state: RootState) => state.company.currentCompany)
+  const { data: companies } = useSelector((state: RootState) => state.company.companies)
   const error = useSelector((state: RootState) => state.global.error)
 
   useEffect(() => {
-    if (!id) return
-
     const fetchCompany = async () => {
       dispatch(setLoading(true))
       dispatch(clearError())
 
       try {
-        await dispatch(fetchCompanyById(id)).unwrap()
+        await dispatch(fetchCompanies()).unwrap()
       } catch (error: any) {
         dispatch(setError(error.message || 'Failed to fetch company data'))
       } finally {
@@ -33,11 +31,11 @@ export const useCompany = (id: string): CompanyDto | null => {
       dispatch(clearCurrentCompany())
       dispatch(clearError())
     }
-  }, [id, dispatch])
+  }, [dispatch])
 
   if (error) {
     throw new Error(error)
   }
 
-  return useMemo(() => company || null, [company])
+  return useMemo(() => companies || null, [companies])
 }
