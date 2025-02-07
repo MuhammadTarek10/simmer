@@ -14,7 +14,7 @@ export const useCompany = (id: string): CompanyDto | null => {
   useEffect(() => {
     if (!id) return
 
-    const fetchCompany = async () => {
+    const fetch = async () => {
       dispatch(setLoading(true))
       dispatch(clearError())
 
@@ -27,7 +27,7 @@ export const useCompany = (id: string): CompanyDto | null => {
       }
     }
 
-    fetchCompany()
+    fetch()
 
     return () => {
       dispatch(clearCurrentCompany())

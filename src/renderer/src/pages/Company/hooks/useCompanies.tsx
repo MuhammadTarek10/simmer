@@ -5,14 +5,14 @@ import { clearCurrentCompany, fetchCompanies } from './company-slice'
 import { setLoading, clearError, setError } from '@/pages/Global/state/global-slice'
 import { CompanyDto } from '@shared/dtos/company.dto'
 
-export const useCompanies = (): CompanyDto[] => {
+export const useCompanies = (): CompanyDto[] | null => {
   const dispatch = useDispatch<AppDispatch>()
 
   const { data: companies } = useSelector((state: RootState) => state.company.companies)
   const error = useSelector((state: RootState) => state.global.error)
 
   useEffect(() => {
-    const fetchCompany = async () => {
+    const fetch = async () => {
       dispatch(setLoading(true))
       dispatch(clearError())
 
@@ -25,7 +25,7 @@ export const useCompanies = (): CompanyDto[] => {
       }
     }
 
-    fetchCompany()
+    fetch()
 
     return () => {
       dispatch(clearCurrentCompany())
@@ -37,5 +37,5 @@ export const useCompanies = (): CompanyDto[] => {
     throw new Error(error)
   }
 
-  return useMemo(() => companies || null, [companies])
+  return useMemo(() => companies, [companies])
 }

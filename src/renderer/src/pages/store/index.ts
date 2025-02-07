@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
-import companyReducer from '../Company/state/company-slice'
+import companyReducer from '../Company/hooks/company-slice'
+import cardReducer from '../Card/hooks/card-slice'
 import globalReducer from '../Global/state/global-slice'
 
 export const store = configureStore({
   reducer: {
     global: globalReducer,
-    company: companyReducer
+    company: companyReducer,
+    card: cardReducer
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false })
 })

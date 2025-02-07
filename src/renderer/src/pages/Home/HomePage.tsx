@@ -46,8 +46,8 @@ const HomePage = () => {
             <Link to={'/companies/9fc94eb8-2366-40b8-b47a-dc3ef7ea9f32'}>
               <Button>Navigate to company</Button>
             </Link>
-            <Link to={'/companies'}>
-              <Button>Navigate Companies</Button>
+            <Link to={'/cards'}>
+              <Button>Navigate Cards</Button>
             </Link>
           </div>
         </div>

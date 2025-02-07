@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom'
-import { useCompany } from './state/useCompany'
+import { useCompany } from './hooks/useCompany'
 import { CompanyDetails } from './components/CompanyDetails'
 
 const CompanyDetailsPage = () => {
